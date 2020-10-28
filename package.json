@@ -1,0 +1,25 @@
+{
+    "name": "gzdoom-zscript",
+    "displayName": "GZDoom ZScript",
+    "description": "GZDoom's ZScript scripting language support for VSCode",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.50.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "zscript",
+            "aliases": ["ZScript", "zscript"],
+            "extensions": [".zs",".zcs"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "zscript",
+            "scopeName": "source.zscript",
+            "path": "./syntaxes/zscript.tmLanguage.json"
+        }]
+    }
+}

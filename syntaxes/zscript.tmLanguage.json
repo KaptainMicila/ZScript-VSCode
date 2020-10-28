@@ -1,0 +1,77 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "ZScript",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#punctuation"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.zscript",
+					"begin": "//",
+					"end": "\n"
+				},
+				{
+					"name": "comment.block.zscript",
+					"begin": "/\\*",
+					"end": "\\*/"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.zscript",
+					"match": "\\b(if|else|for|return|do|while|switch|continue|break|case)\\b"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.zscript",
+					"begin": "\"",
+					"end": "\""
+				},
+				{
+					"name": "string.quoted.single.zscript",
+					"begin": "'",
+					"end": "'"
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"name": "punctuation.terminator.statement.zscript",
+					"match": ";"
+				},
+				{
+					"name": "punctuation.brackets.round.zscript",
+					"match": "[()]"
+				},
+				{
+					"name": "punctuation.brackets.square.zscript",
+					"match": "[\\[\\]]"
+				},
+				{
+					"name": "punctuation.brackets.curly.zscript",
+					"match": "[{}]"
+				}
+			]	
+		}
+	},
+	"scopeName": "source.zscript"
+}
