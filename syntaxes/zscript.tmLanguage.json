@@ -3,16 +3,25 @@
 	"name": "ZScript",
 	"patterns": [
 		{
-			"include": "#keywords"
+			"include": "#comments"
 		},
 		{
 			"include": "#strings"
 		},
 		{
-			"include": "#comments"
+			"include": "#punctuation"
 		},
 		{
-			"include": "#punctuation"
+			"include": "#types"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#directives"
+		},
+		{
+			"include": "#functions"
 		}
 	],
 	"repository": {
@@ -21,12 +30,14 @@
 				{
 					"name": "comment.line.double-slash.zscript",
 					"begin": "//",
-					"end": "\n"
+					"end": "\n",
+					"contentName": "comment.line.double-slash.zscript"
 				},
 				{
 					"name": "comment.block.zscript",
 					"begin": "/\\*",
-					"end": "\\*/"
+					"end": "\\*/",
+					"contentName": "comment.block.text.zscript"
 				}
 			]
 		},
@@ -34,7 +45,19 @@
 			"patterns": [
 				{
 					"name": "keyword.control.zscript",
-					"match": "\\b(if|else|for|return|do|while|switch|continue|break|case)\\b"
+					"match": "\\b(?i)(if|else|for|return|do|while|switch|continue|break|case)\\b"
+				},
+				{
+					"name": "keyword.operator.zscript",
+					"match": "(?:\\.|\\#|\\-|\\!|\\+\\+|\\~|\\-\\-|\\+|\\*|/|\\%|\\*\\*|\\<\\<|\\>\\>|\\>\\>\\>|\\.\\.|\\<|\\>|\\<\\=|\\>\\=|\\=\\=|\\!\\=|\\~\\=\\=|\\&\\&|\\|\\||\\<\\>\\=|\\&|\\^|\\||\\:\\:|\\=|\\+\\=|\\-\\=|\\*\\=|\\/\\=|\\%\\=|\\<\\<\\=|\\>\\>\\=|\\>\\>\\>\\=|\\|\\=|\\&\\=|\\^\\=|\\?|\\:)|\\b(?i)(?:alignof|sizeof|cross|dot|is)\\b"
+				},
+				{
+					"name": "keyword.other.zscript",
+					"match": "\\b(?i)(?:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend)\\b"
+				},
+				{
+					"name": "storage.type.zscript",
+					"match": "\\b(?i)(?:let|const)\\b"
 				}
 			]
 		},
@@ -69,8 +92,44 @@
 				{
 					"name": "punctuation.brackets.curly.zscript",
 					"match": "[{}]"
+				},
+				{
+					"name": "punctuation.brackets.angle.zscript",
+					"match": "[<>]"
+				},
+				{
+					"name": "constant.numeric.decimal.point.zscript",
+					"match": "(?<=[\\d\\W])\\.(?=[\\d\\W])"
 				}
-			]	
+			]
+		},
+		"types": {
+			"patterns": [
+				{
+					"name": "constant.numeric.zscript",
+					"match": "\\d+?\\b"
+				},
+				{
+					"name": "storage.type.zscript",
+					"match": "(?i)\\b(?:int|uint|int8|uint8|int16|uint16|byte|sbyte|short|ushort|float|float32|float64|double|string|name|color|vector2|vector3|array|map|actor|bool|sound|spriteid|state|statelabel|textureid|void|voidptr|meta|internal|latent|transient|class|struct|enum|self)\\b"
+				}
+			]
+		},
+		"directives": {
+			"patterns": [
+				{
+					"name": "keyword.control.import.zscript",
+					"match": "\\w+(?<=#\\w+)"
+				},
+				{
+					"name": "keyword.control.directive.zscript",
+					"match": "\\b(?i)(?:version|default|states)\\b"
+				}
+			]
+		},
+		"functions": {
+			"name": "entity.name.function.zscript",
+			"match": "\\w+?(?=\\s*?\\()"
 		}
 	},
 	"scopeName": "source.zscript"
