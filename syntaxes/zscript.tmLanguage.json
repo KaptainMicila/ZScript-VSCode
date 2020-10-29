@@ -6,6 +6,9 @@
 			"include": "#comments"
 		},
 		{
+			"include": "#blocks"
+		},
+		{
 			"include": "#strings"
 		},
 		{
@@ -22,6 +25,9 @@
 		},
 		{
 			"include": "#functions"
+		},
+		{
+			"include": "#variable"
 		}
 	],
 	"repository": {
@@ -31,7 +37,7 @@
 					"name": "comment.line.double-slash.zscript",
 					"begin": "//",
 					"end": "\n",
-					"contentName": "comment.line.double-slash.zscript"
+					"contentName": "comment.line.double-slash.text.zscript"
 				},
 				{
 					"name": "comment.block.zscript",
@@ -49,7 +55,7 @@
 				},
 				{
 					"name": "keyword.operator.zscript",
-					"match": "(?:\\.|\\#|\\-|\\!|\\+\\+|\\~|\\-\\-|\\+|\\*|/|\\%|\\*\\*|\\<\\<|\\>\\>|\\>\\>\\>|\\.\\.|\\<|\\>|\\<\\=|\\>\\=|\\=\\=|\\!\\=|\\~\\=\\=|\\&\\&|\\|\\||\\<\\>\\=|\\&|\\^|\\||\\:\\:|\\=|\\+\\=|\\-\\=|\\*\\=|\\/\\=|\\%\\=|\\<\\<\\=|\\>\\>\\=|\\>\\>\\>\\=|\\|\\=|\\&\\=|\\^\\=|\\?|\\:)|\\b(?i)(?:alignof|sizeof|cross|dot|is)\\b"
+					"match": "(?:\\.|\\#|\\-|\\!|\\+\\+|\\~|\\-\\-|\\+|\\*|/|\\%|\\*\\*|\\<\\<|\\>\\>|\\>\\>\\>|\\.\\.|[<>]|\\<\\=|\\>\\=|\\=\\=|\\!\\=|\\~\\=\\=|\\&\\&|\\|\\||\\<\\>\\=|\\&|\\^|\\||\\:\\:|\\=|\\+\\=|\\-\\=|\\*\\=|\\/\\=|\\%\\=|\\<\\<\\=|\\>\\>\\=|\\>\\>\\>\\=|\\|\\=|\\&\\=|\\^\\=|\\?|\\:)|\\b(?i)(?:alignof|sizeof|cross|dot|is)\\b"
 				},
 				{
 					"name": "keyword.other.zscript",
@@ -94,10 +100,6 @@
 					"match": "[{}]"
 				},
 				{
-					"name": "punctuation.brackets.angle.zscript",
-					"match": "[<>]"
-				},
-				{
 					"name": "constant.numeric.decimal.point.zscript",
 					"match": "(?<=[\\d\\W])\\.(?=[\\d\\W])"
 				}
@@ -130,6 +132,49 @@
 		"functions": {
 			"name": "entity.name.function.zscript",
 			"match": "\\w+?(?=\\s*?\\()"
+		},
+		"statesstuff": {
+			"patterns": [
+				{
+					"name": "keyword.operator",
+					"match": "spawn|idle|see|melee|missile|pain|death|death.sky|death.extreme|xdeath|death.fire|burn|death.ice|ice|death.disintegrate|disintegrate|raise|heal|crash|crash.extreme|crush|wound|greetings|yes|no|active|inactive|bounce"
+				}
+			]
+		},
+		"blocks": {
+			"patterns": [
+				{
+					"name": "entity.name.class.zscript",
+					"match": "(?<=class\\s+)\\w+|(?<=(?i)class[<]\\s*)\\w+(?=\\s*[>])"
+				},
+				{
+					"name": "entity.name.class.dynamic.array.zscript",
+					"begin": "(?<=(?i)array[<]\\s*)",
+					"end": "(?=\\s+[>])",
+					"patterns": [
+						{
+							"name": "storage.type.zscript",
+							"match": "(?i)\\bclass\\b"
+						},
+						{
+							"name": "keyword.operator.zscript",
+							"match": "[<>]"
+						}
+					]
+				}
+			]
+		},
+		"variable": {
+			"patterns": [
+				{
+					"name": "variable.parameter.zscript",
+					"match": "(?<=\\w+[.])\\w+"
+				},
+				{
+					"name": "variable.name.zscript",
+					"match": "\\b\\w+\\b"
+				}
+			]
 		}
 	},
 	"scopeName": "source.zscript"
