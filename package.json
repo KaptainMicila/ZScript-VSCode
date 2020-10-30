@@ -2,7 +2,11 @@
     "name": "gzdoom-zscript",
     "displayName": "GZDoom ZScript",
     "description": "GZDoom's ZScript scripting language support for VSCode",
-    "version": "0.0.1",
+    "publisher": "kaptainmicila",
+    "version": "0.9.0",
+    "repository": {
+        "url": "https://github.com/KaptainMicila/ZScript-VSCode-Highlighter"
+    },
     "engines": {
         "vscode": "^1.50.0"
     },
