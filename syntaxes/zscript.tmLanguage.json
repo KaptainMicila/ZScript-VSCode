@@ -225,8 +225,20 @@
 						{
 							"name": "keyword.control.states.zscript",
 							"match": "(?i)\\b(?:loop|stop|wait|fail|goto)\\b"
+						},
+						{
+							"name": "entity.name.function.anonymous.zscript",
+							"match": "A_\\w+"
+						},
+						{
+							"name": "variable.other.zscript",
+							"match": "\\b\\w+\\b"
 						}
 					]
+				},
+				{
+					"name": "variable.other.zscript",
+					"match": "\\b\\w+\\b"
 				}
 			]
 		}
