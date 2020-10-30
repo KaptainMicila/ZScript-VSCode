@@ -189,7 +189,7 @@
 						},
 						{
 							"name": "entity.name.class.attribute.zscript",
-							"match": "(?<=\\+)\\w+"
+							"match": "(?<=\\+)\\w+[.]{0,1}\\w*"
 						},
 						{
 							"name": "variable.name.zscript",
