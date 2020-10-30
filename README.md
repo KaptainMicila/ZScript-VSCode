@@ -1,6 +1,5 @@
 # ZScript-VSCode
 ## GZDoom's ZScript language support for VSCode.
-For now, it just highlights stuff.
 
 Made with the help from: marrub--'s ZScript documentation, and my other highlighter for Kate (the text editor from KDE).
 
