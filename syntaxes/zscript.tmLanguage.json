@@ -171,8 +171,62 @@
 					"match": "(?<=\\w+[.])\\w+"
 				},
 				{
-					"name": "variable.name.zscript",
-					"match": "\\b\\w+\\b"
+					"name": "entity.other.decorate.block.zscript",
+					"begin": "(?i)(?<=default\\n+\\s*)",
+					"end": "}",
+					"patterns": [
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"name": "entity.name.class.attribute.zscript",
+							"match": "(?<=\\+)\\w+"
+						},
+						{
+							"name": "variable.name.zscript",
+							"match": "\\b\\w+\\b"
+						}
+					]
+				},
+				{
+					"name": "entity.other.states.block.zscript",
+					"begin": "(?i)(?<=states\\n+\\s*)",
+					"end": "}",
+					"patterns": [
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"name": "entity.name.class.state.zscript",
+							"match": "(?i)\\b(?:spawn|idle|see|melee|missile|pain|death|death\\.sky|death\\.extreme|xdeath|death\\.fire|burn|death\\.ice|ice|death\\.disintegrate|disintegrate|raise|heal|crash|crash\\.extreme|crush|wound|greetings|yes|no|active|inactive|bounce)\\b"
+						},
+						{
+							"name": "keyword.states.zscript",
+							"match": "(?i)\\b(?:bright|canraise|fast|light|nodelay|offset|slow)\\b"
+						},
+						{
+							"name": "keyword.control.states.zscript",
+							"match": "(?i)\\b(?:loop|stop|wait|fail|goto)\\b"
+						}
+					]
 				}
 			]
 		}
