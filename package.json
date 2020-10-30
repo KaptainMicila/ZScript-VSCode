@@ -5,7 +5,8 @@
     "publisher": "kaptainmicila",
     "version": "0.9.0",
     "repository": {
-        "url": "https://github.com/KaptainMicila/ZScript-VSCode-Highlighter"
+        "type": "github",
+        "url": "https://github.com/KaptainMicila/ZScript-VSCode"
     },
     "engines": {
         "vscode": "^1.50.0"
