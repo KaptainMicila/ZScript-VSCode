@@ -3,6 +3,14 @@
 
 Made with the help from: [marrub--'s ZScript documentation](https://github.com/marrub--/zdoom-doc), and my [other highlighter](https://github.com/KaptainMicila/Kate-ZScript-Highlighting) for [Kate](https://kate-editor.org/) (the text editor from [KDE](https://kde.org/)).
 
+## FEATURES
+- Version 0.9.0:
+  - Syntax Highlighting
+
+## IMAGES
+archvile.zs
+![archvile.zs](https://i.imgur.com/YroabmQ.png)
+
 ## HOW DO I USE IT?
 ### PREREQUISITES
 - [Visual Studio Code](https://code.visualstudio.com/Download)
