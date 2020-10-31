@@ -1,56 +1,60 @@
 {
-	"name": "gzdoom-zscript",
-	"displayName": "GZDoom ZScript",
-	"description": "GZDoom's ZScript scripting language support for VSCode",
-	"publisher": "kaptainmicila",
-	"version": "0.9.1",
-	"repository": {
-		"type": "github",
-		"url": "https://github.com/KaptainMicila/ZScript-VSCode"
-	},
-	"engines": {
-		"vscode": "^1.50.0"
-	},
-	"categories": [
-		"Programming Languages"
-	],
-	"contributes": {
-		"languages": [
-			{
-				"id": "zscript",
-				"aliases": [
-					"ZScript",
-					"zscript"
-				],
-				"extensions": [
-					".zs",
-					".zcs"
-				],
-				"configuration": "./language-configuration.json"
-			}
-		],
-		"grammars": [
-			{
-				"language": "zscript",
-				"scopeName": "source.zscript",
-				"path": "./syntaxes/zscript.tmLanguage.json"
-			}
-		]
-	},
-	"author": {
-		"name": "Micila \"Kaptain\" Micillotto",
-		"email": "micillotto+support@gmail.com",
-		"url": "https://kaptainmicila.itch.io/"
-	},
-	"bugs": {
-		"url": "https://github.com/KaptainMicila/ZScript-VSCode/issues",
-		"email": "micillotto+support@gmail.com"
-	},
-	"homepage": "https://github.com/KaptainMicila/ZScript-VSCode",
-	"license": "MIT",
-	"keywords": [
-		"zscript",
-		"zdoom",
-		"gzdoom"
-	]
+    "name": "gzdoom-zscript",
+    "displayName": "GZDoom ZScript",
+    "description": "GZDoom's ZScript scripting language support for VSCode",
+    "publisher": "kaptainmicila",
+    "version": "0.9.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/KaptainMicila/ZScript-VSCode.git"
+    },
+    "engines": {
+        "vscode": "^1.50.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "zscript",
+                "aliases": [
+                    "ZScript",
+                    "zscript"
+                ],
+                "extensions": [
+                    ".zs",
+                    ".zcs"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "zscript",
+                "scopeName": "source.zscript",
+                "path": "./syntaxes/zscript.tmLanguage.json"
+            }
+        ]
+    },
+    "author": {
+        "name": "Micila \"Kaptain\" Micillotto",
+        "email": "micillotto+support@gmail.com",
+        "url": "https://kaptainmicila.itch.io/"
+    },
+    "bugs": {
+        "url": "https://github.com/KaptainMicila/ZScript-VSCode/issues",
+        "email": "micillotto+support@gmail.com"
+    },
+    "homepage": "https://github.com/KaptainMicila/ZScript-VSCode",
+    "license": "MIT",
+    "keywords": [
+        "zscript",
+        "zdoom",
+        "gzdoom"
+    ],
+    "activationEvents": [
+        "onLanguage:zscript"
+    ],
+    "main": "./src/formatter"
 }
