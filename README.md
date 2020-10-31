@@ -21,7 +21,7 @@ archvile.zs
 - Press "Ctrl + Shift + p"
 - Type "Extension: install from VSIX"
 
-### FOR VERSIONS 1.0.0
+### FOR VERSIONS >=1.0.0
 Just do the same thing for earlier versions
 OR:
 Get it from [Visual Studio's Marketplace](https://marketplace.visualstudio.com/vscode)
