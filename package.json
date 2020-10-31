@@ -36,5 +36,10 @@
 				"path": "./syntaxes/zscript.tmLanguage.json"
 			}
 		]
-	}
+    },
+    "author": {
+        "name": "Micila \"Kaptain\" Micillotto",
+        "email": "micillotto+support@gmail.com",
+        "url": "https://kaptainmicila.itch.io/"
+    }
 }
