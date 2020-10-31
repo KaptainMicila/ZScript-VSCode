@@ -172,7 +172,7 @@
 				},
 				{
 					"name": "entity.other.decorate.block.zscript",
-					"begin": "(?i)(?<=default\\n+\\s*)",
+					"begin": "(?i)(?<=default\\s*)",
 					"end": "}",
 					"patterns": [
 						{
@@ -199,7 +199,7 @@
 				},
 				{
 					"name": "entity.other.states.block.zscript",
-					"begin": "(?i)(?<=states\\n+\\s*)",
+					"begin": "(?i)(?<=states\\s*)",
 					"end": "}",
 					"patterns": [
 						{
