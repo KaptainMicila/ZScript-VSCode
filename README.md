@@ -15,7 +15,7 @@ archvile.zs
 ### PREREQUISITES
 - [Visual Studio Code](https://code.visualstudio.com/Download)
 
-### FOR VERSIONS <= 0.9.0
+### FOR VERSIONS >= 0.9.0
 - Get the .vsix from the ["Releases" page](https://github.com/KaptainMicila/ZScript-VSCode/releases)
 - Open VSCode
 - Press "Ctrl + Shift + p"
