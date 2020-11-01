@@ -1,247 +1,247 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "ZScript",
-	"patterns": [
-		{
-			"include": "#comments"
-		},
-		{
-			"include": "#blocks"
-		},
-		{
-			"include": "#strings"
-		},
-		{
-			"include": "#punctuation"
-		},
-		{
-			"include": "#types"
-		},
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#directives"
-		},
-		{
-			"include": "#functions"
-		},
-		{
-			"include": "#variable"
-		}
-	],
-	"repository": {
-		"comments": {
-			"patterns": [
-				{
-					"name": "comment.line.double-slash.zscript",
-					"begin": "//",
-					"end": "\n",
-					"contentName": "comment.line.double-slash.text.zscript"
-				},
-				{
-					"name": "comment.block.zscript",
-					"begin": "/\\*",
-					"end": "\\*/",
-					"contentName": "comment.block.text.zscript"
-				}
-			]
-		},
-		"keywords": {
-			"patterns": [
-				{
-					"name": "keyword.control.zscript",
-					"match": "\\b(?i)(if|else|for|return|do|while|switch|continue|break|case)\\b"
-				},
-				{
-					"name": "keyword.operator.zscript",
-					"match": "(?:\\.|\\#|\\-|\\!|\\+\\+|\\~|\\-\\-|\\+|\\*|/|\\%|\\*\\*|\\<\\<|\\>\\>|\\>\\>\\>|\\.\\.|[<>]|\\<\\=|\\>\\=|\\=\\=|\\!\\=|\\~\\=\\=|\\&\\&|\\|\\||\\<\\>\\=|\\&|\\^|\\||\\:\\:|\\=|\\+\\=|\\-\\=|\\*\\=|\\/\\=|\\%\\=|\\<\\<\\=|\\>\\>\\=|\\>\\>\\>\\=|\\|\\=|\\&\\=|\\^\\=|\\?|\\:)|\\b(?i)(?:alignof|sizeof|cross|dot|is)\\b"
-				},
-				{
-					"name": "keyword.other.zscript",
-					"match": "\\b(?i)(?:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend)\\b"
-				},
-				{
-					"name": "storage.type.zscript",
-					"match": "\\b(?i)(?:let|const)\\b"
-				}
-			]
-		},
-		"strings": {
-			"patterns": [
-				{
-					"name": "string.quoted.double.zscript",
-					"begin": "\"",
-					"end": "\""
-				},
-				{
-					"name": "string.quoted.single.zscript",
-					"begin": "'",
-					"end": "'"
-				}
-			]
-		},
-		"punctuation": {
-			"patterns": [
-				{
-					"name": "punctuation.terminator.statement.zscript",
-					"match": ";"
-				},
-				{
-					"name": "punctuation.brackets.round.zscript",
-					"match": "[()]"
-				},
-				{
-					"name": "punctuation.brackets.square.zscript",
-					"match": "[\\[\\]]"
-				},
-				{
-					"name": "punctuation.brackets.curly.zscript",
-					"match": "[{}]"
-				},
-				{
-					"name": "constant.numeric.decimal.point.zscript",
-					"match": "(?<=[\\d\\W])\\.(?=[\\d\\W])"
-				}
-			]
-		},
-		"types": {
-			"patterns": [
-				{
-					"name": "constant.numeric.zscript",
-					"match": "\\d+?\\b"
-				},
-				{
-					"name": "storage.type.zscript",
-					"match": "(?i)\\b(?:int|uint|int8|uint8|int16|uint16|byte|sbyte|short|ushort|float|float32|float64|double|string|name|color|vector2|vector3|array|map|actor|bool|sound|spriteid|state|statelabel|textureid|void|voidptr|meta|internal|latent|transient|class|struct|enum|self)\\b"
-				}
-			]
-		},
-		"directives": {
-			"patterns": [
-				{
-					"name": "keyword.control.import.zscript",
-					"match": "\\w+(?<=#\\w+)"
-				},
-				{
-					"name": "keyword.control.directive.zscript",
-					"match": "\\b(?i)(?:version|default|states)\\b"
-				}
-			]
-		},
-		"functions": {
-			"name": "entity.name.function.zscript",
-			"match": "\\w+?(?=\\s*?\\()"
-		},
-		"statesstuff": {
-			"patterns": [
-				{
-					"name": "keyword.operator",
-					"match": "spawn|idle|see|melee|missile|pain|death|death.sky|death.extreme|xdeath|death.fire|burn|death.ice|ice|death.disintegrate|disintegrate|raise|heal|crash|crash.extreme|crush|wound|greetings|yes|no|active|inactive|bounce"
-				}
-			]
-		},
-		"blocks": {
-			"patterns": [
-				{
-					"name": "entity.name.class.zscript",
-					"match": "(?<=class\\s+)\\w+|(?<=(?i)class[<]\\s*)\\w+(?=\\s*[>])"
-				},
-				{
-					"name": "entity.name.class.dynamic.array.zscript",
-					"begin": "(?<=(?i)array[<]\\s*)",
-					"end": "(?=\\s+[>])",
-					"patterns": [
-						{
-							"name": "storage.type.zscript",
-							"match": "(?i)\\bclass\\b"
-						},
-						{
-							"name": "keyword.operator.zscript",
-							"match": "[<>]"
-						}
-					]
-				}
-			]
-		},
-		"variable": {
-			"patterns": [
-				{
-					"name": "variable.parameter.zscript",
-					"match": "(?<=\\w+[.])\\w+"
-				},
-				{
-					"name": "entity.other.decorate.block.zscript",
-					"begin": "(?i)(?<=default\\s*)",
-					"end": "}",
-					"patterns": [
-						{
-							"include": "#types"
-						},
-						{
-							"include": "#strings"
-						},
-						{
-							"include": "#punctuation"
-						},
-						{
-							"include": "#keywords"
-						},
-						{
-							"name": "entity.name.class.attribute.zscript",
-							"match": "(?<=\\+)\\w+[.]{0,1}\\w*"
-						},
-						{
-							"name": "variable.name.zscript",
-							"match": "\\b\\w+\\b"
-						}
-					]
-				},
-				{
-					"name": "entity.other.states.block.zscript",
-					"begin": "(?i)(?<=states\\s*)",
-					"end": "}",
-					"patterns": [
-						{
-							"include": "#punctuation"
-						},
-						{
-							"include": "#strings"
-						},
-						{
-							"include": "#keywords"
-						},
-						{
-							"include": "#types"
-						},
-						{
-							"name": "entity.name.class.state.zscript",
-							"match": "(?i)\\b(?:spawn|idle|see|melee|missile|pain|death|death\\.sky|death\\.extreme|xdeath|death\\.fire|burn|death\\.ice|ice|death\\.disintegrate|disintegrate|raise|heal|crash|crash\\.extreme|crush|wound|greetings|yes|no|active|inactive|bounce)\\b"
-						},
-						{
-							"name": "keyword.states.zscript",
-							"match": "(?i)\\b(?:bright|canraise|fast|light|nodelay|offset|slow)\\b"
-						},
-						{
-							"name": "keyword.control.states.zscript",
-							"match": "(?i)\\b(?:loop|stop|wait|fail|goto)\\b"
-						},
-						{
-							"name": "entity.name.function.anonymous.zscript",
-							"match": "A_\\w+"
-						},
-						{
-							"name": "variable.other.zscript",
-							"match": "\\b\\w+\\b"
-						}
-					]
-				},
-				{
-					"name": "variable.other.zscript",
-					"match": "\\b\\w+\\b"
-				}
-			]
-		}
-	},
-	"scopeName": "source.zscript"
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "ZScript",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#blocks"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#punctuation"
+        },
+        {
+            "include": "#types"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#directives"
+        },
+        {
+            "include": "#functions"
+        },
+        {
+            "include": "#variable"
+        }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash.zscript",
+                    "begin": "//",
+                    "end": "\n",
+                    "contentName": "comment.line.double-slash.text.zscript"
+                },
+                {
+                    "name": "comment.block.zscript",
+                    "begin": "/\\*",
+                    "end": "\\*/",
+                    "contentName": "comment.block.text.zscript"
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.zscript",
+                    "match": "\\b(?i)(if|else|for|return|do|while|switch|continue|break|case)\\b"
+                },
+                {
+                    "name": "keyword.operator.zscript",
+                    "match": "(?:\\.|\\#|\\-|\\!|\\+\\+|\\~|\\-\\-|\\+|\\*|/|\\%|\\*\\*|\\<\\<|\\>\\>|\\>\\>\\>|\\.\\.|[<>]|\\<\\=|\\>\\=|\\=\\=|\\!\\=|\\~\\=\\=|\\&\\&|\\|\\||\\<\\>\\=|\\&|\\^|\\||\\:\\:|\\=|\\+\\=|\\-\\=|\\*\\=|\\/\\=|\\%\\=|\\<\\<\\=|\\>\\>\\=|\\>\\>\\>\\=|\\|\\=|\\&\\=|\\^\\=|\\?|\\:)|\\b(?i)(?:alignof|sizeof|cross|dot|is)\\b"
+                },
+                {
+                    "name": "keyword.other.zscript",
+                    "match": "\\b(?i)(?:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend)\\b"
+                },
+                {
+                    "name": "storage.type.zscript",
+                    "match": "\\b(?i)(?:let|const)\\b"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.zscript",
+                    "begin": "\"",
+                    "end": "\""
+                },
+                {
+                    "name": "string.quoted.single.zscript",
+                    "begin": "'",
+                    "end": "'"
+                }
+            ]
+        },
+        "punctuation": {
+            "patterns": [
+                {
+                    "name": "punctuation.terminator.statement.zscript",
+                    "match": ";"
+                },
+                {
+                    "name": "punctuation.brackets.round.zscript",
+                    "match": "[()]"
+                },
+                {
+                    "name": "punctuation.brackets.square.zscript",
+                    "match": "[\\[\\]]"
+                },
+                {
+                    "name": "punctuation.brackets.curly.zscript",
+                    "match": "[{}]"
+                },
+                {
+                    "name": "constant.numeric.decimal.point.zscript",
+                    "match": "(?<=[\\d\\W])\\.(?=[\\d\\W])"
+                }
+            ]
+        },
+        "types": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.zscript",
+                    "match": "\\d+?\\b"
+                },
+                {
+                    "name": "storage.type.zscript",
+                    "match": "(?i)\\b(?:int|uint|int8|uint8|int16|uint16|byte|sbyte|short|ushort|float|float32|float64|double|string|name|color|vector2|vector3|array|map|actor|bool|sound|spriteid|state|statelabel|textureid|void|voidptr|meta|internal|latent|transient|class|struct|enum|self)\\b"
+                }
+            ]
+        },
+        "directives": {
+            "patterns": [
+                {
+                    "name": "keyword.control.import.zscript",
+                    "match": "\\w+(?<=#\\w+)"
+                },
+                {
+                    "name": "keyword.control.directive.zscript",
+                    "match": "\\b(?i)(?:version|default|states)\\b"
+                }
+            ]
+        },
+        "functions": {
+            "name": "entity.name.function.zscript",
+            "match": "\\w+?(?=\\s*?\\()"
+        },
+        "statesstuff": {
+            "patterns": [
+                {
+                    "name": "keyword.operator",
+                    "match": "spawn|idle|see|melee|missile|pain|death|death.sky|death.extreme|xdeath|death.fire|burn|death.ice|ice|death.disintegrate|disintegrate|raise|heal|crash|crash.extreme|crush|wound|greetings|yes|no|active|inactive|bounce"
+                }
+            ]
+        },
+        "blocks": {
+            "patterns": [
+                {
+                    "name": "entity.name.class.zscript",
+                    "match": "(?<=class\\s+)\\w+|(?<=(?i)class[<]\\s*)\\w+(?=\\s*[>])"
+                },
+                {
+                    "name": "entity.name.class.dynamic.array.zscript",
+                    "begin": "(?<=(?i)array[<])",
+                    "end": "(?=[>])",
+                    "patterns": [
+                        {
+                            "name": "storage.type.zscript",
+                            "match": "(?i)\\bclass\\b"
+                        },
+                        {
+                            "name": "keyword.operator.zscript",
+                            "match": "[<>]"
+                        }
+                    ]
+                }
+            ]
+        },
+        "variable": {
+            "patterns": [
+                {
+                    "name": "variable.parameter.zscript",
+                    "match": "(?<=\\w+[.])\\w+"
+                },
+                {
+                    "name": "entity.other.decorate.block.zscript",
+                    "begin": "(?i)(?<=default\\s*)",
+                    "end": "}",
+                    "patterns": [
+                        {
+                            "include": "#types"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "name": "entity.name.class.attribute.zscript",
+                            "match": "(?<=\\+)\\w+[.]{0,1}\\w*"
+                        },
+                        {
+                            "name": "variable.name.zscript",
+                            "match": "\\b\\w+\\b"
+                        }
+                    ]
+                },
+                {
+                    "name": "entity.other.states.block.zscript",
+                    "begin": "(?i)(?<=states\\s*)",
+                    "end": "}",
+                    "patterns": [
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#types"
+                        },
+                        {
+                            "name": "entity.name.class.state.zscript",
+                            "match": "(?i)\\b(?:spawn|idle|see|melee|missile|pain|death|death\\.sky|death\\.extreme|xdeath|death\\.fire|burn|death\\.ice|ice|death\\.disintegrate|disintegrate|raise|heal|crash|crash\\.extreme|crush|wound|greetings|yes|no|active|inactive|bounce)\\b"
+                        },
+                        {
+                            "name": "keyword.states.zscript",
+                            "match": "(?i)\\b(?:bright|canraise|fast|light|nodelay|offset|slow)\\b"
+                        },
+                        {
+                            "name": "keyword.control.states.zscript",
+                            "match": "(?i)\\b(?:loop|stop|wait|fail|goto)\\b"
+                        },
+                        {
+                            "name": "entity.name.function.anonymous.zscript",
+                            "match": "A_\\w+"
+                        },
+                        {
+                            "name": "variable.other.zscript",
+                            "match": "\\b\\w+\\b"
+                        }
+                    ]
+                },
+                {
+                    "name": "variable.other.zscript",
+                    "match": "\\b\\w+\\b"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.zscript"
 }
