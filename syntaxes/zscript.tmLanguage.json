@@ -150,7 +150,7 @@
                 {
                     "name": "entity.name.class.dynamic.array.zscript",
                     "begin": "(?<=(?i)array[<])",
-                    "end": "(?=(?<![^<]\\W)[>])",
+                    "end": "(?=(?<![^<]\\W+)[>])",
                     "patterns": [
                         {
                             "name": "storage.type.zscript",
