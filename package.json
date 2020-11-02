@@ -3,6 +3,7 @@
     "displayName": "GZDoom ZScript",
     "description": "GZDoom's ZScript scripting language support for VSCode",
     "publisher": "kaptainmicila",
+    "icon": "icons/GZDoom.png",
     "version": "0.9.3",
     "repository": {
         "type": "git",
