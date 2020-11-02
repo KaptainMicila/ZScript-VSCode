@@ -1,7 +1,7 @@
 # ZScript-VSCode
 ## [GZDoom's](https://zdoom.org/index) [ZScript](https://zdoom.org/wiki/ZScript) language support for [VSCode](https://code.visualstudio.com/).
 
-Made with the help from: [marrub--'s ZScript documentation](https://github.com/marrub--/zdoom-doc), and my [other highlighter](https://github.com/KaptainMicila/Kate-ZScript-Highlighting) for [Kate](https://kate-editor.org/) (the text editor from [KDE](https://kde.org/)).
+Made with the help from: [marrub--'s ZScript documentation](https://github.com/marrub--/zdoom-doc).
 
 ## FEATURES
 - Version 0.9.0:
