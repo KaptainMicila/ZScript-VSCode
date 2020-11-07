@@ -28,6 +28,9 @@
         },
         {
             "include": "#variable"
+        },
+        {
+            "include": "#states"
         }
     ],
     "repository": {
@@ -171,10 +174,21 @@
                     "match": "(?<=\\w+[.])\\w+"
                 },
                 {
+                    "name": "variable.other.zscript",
+                    "match": "\\b\\w+\\b"
+                }
+            ]
+        },
+        "states": {
+            "patterns": [
+                {
                     "name": "entity.other.decorate.block.zscript",
                     "begin": "(?i)(?<=default\\s*)",
                     "end": "}",
                     "patterns": [
+                        {
+                            "include": "#comments"
+                        },
                         {
                             "include": "#types"
                         },
@@ -189,7 +203,7 @@
                         },
                         {
                             "name": "entity.name.class.attribute.zscript",
-                            "match": "(?<=\\+)\\w+[.]{0,1}\\w*"
+                            "match": "(?<=(?:\\+|\\-))\\w+[.]{0,1}\\w*"
                         },
                         {
                             "name": "variable.name.zscript",
@@ -199,9 +213,12 @@
                 },
                 {
                     "name": "entity.other.states.block.zscript",
-                    "begin": "(?i)(?<=states\\s*)",
-                    "end": "}",
+                    "begin": "(?i)(?<=states\\s*)$",
+                    "end": "^\\s}",
                     "patterns": [
+                        {
+                            "include": "#comments"
+                        },
                         {
                             "include": "#punctuation"
                         },
@@ -215,8 +232,11 @@
                             "include": "#types"
                         },
                         {
+                            "include": "#functions"
+                        },
+                        {
                             "name": "entity.name.class.state.zscript",
-                            "match": "(?i)\\b(?:spawn|idle|see|melee|missile|pain|death|death\\.sky|death\\.extreme|xdeath|death\\.fire|burn|death\\.ice|ice|death\\.disintegrate|disintegrate|raise|heal|crash|crash\\.extreme|crush|wound|greetings|yes|no|active|inactive|bounce)\\b"
+                            "match": ".+(?=:$)"
                         },
                         {
                             "name": "keyword.states.zscript",
@@ -227,7 +247,7 @@
                             "match": "(?i)\\b(?:loop|stop|wait|fail|goto)\\b"
                         },
                         {
-                            "name": "entity.name.function.anonymous.zscript",
+                            "name": "entity.name.function.zscript",
                             "match": "A_\\w+"
                         },
                         {
@@ -235,10 +255,6 @@
                             "match": "\\b\\w+\\b"
                         }
                     ]
-                },
-                {
-                    "name": "variable.other.zscript",
-                    "match": "\\b\\w+\\b"
                 }
             ]
         }

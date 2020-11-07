@@ -25,7 +25,8 @@
                 ],
                 "extensions": [
                     ".zs",
-                    ".zcs"
+                    ".zsc",
+                    ".zc"
                 ],
                 "configuration": "./language-configuration.json"
             }
