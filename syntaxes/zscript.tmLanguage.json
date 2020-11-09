@@ -38,14 +38,14 @@
             "patterns": [
                 {
                     "name": "comment.line.double-slash.zscript",
-                    "begin": "//",
-                    "end": "\\n",
+                    "begin": "\\/\\/",
+                    "end": "$",
                     "contentName": "comment.line.double-slash.text.zscript"
                 },
                 {
                     "name": "comment.block.zscript",
-                    "begin": "/\\*",
-                    "end": "\\*/",
+                    "begin": "\\/\\*",
+                    "end": "\\*\\/",
                     "contentName": "comment.block.text.zscript"
                 }
             ]
@@ -58,11 +58,12 @@
                 },
                 {
                     "name": "keyword.operator.zscript",
-                    "match": "(?:\\.|\\#|\\-|\\!|\\+\\+|\\~|\\-\\-|\\+|\\*|/|\\%|\\*\\*|\\<\\<|\\>\\>|\\>\\>\\>|\\.\\.|[<>]|\\<\\=|\\>\\=|\\=\\=|\\!\\=|\\~\\=\\=|\\&\\&|\\|\\||\\<\\>\\=|\\&|\\^|\\||\\:\\:|\\=|\\+\\=|\\-\\=|\\*\\=|\\/\\=|\\%\\=|\\<\\<\\=|\\>\\>\\=|\\>\\>\\>\\=|\\|\\=|\\&\\=|\\^\\=|\\?|\\:)|\\b(?i)(?:alignof|sizeof|cross|dot|is)\\b"
+                    "match": "(?:-[-=]?|!=?|\\+[+=]?|~(?:==)?|\\*[*=]?|\\/=?|%=?|<(?:<|>?=)?|>(?:>(?:>|=)?|=)?|\\.\\.?|==?|&[&=]?|\\|[|=]?|\\^=?|::?)|\\b(?:alignof|sizeof|cross|dot|is)\\b",
+                    "comment": "Who the hell made Regex? I just wanted to help GZDoom modders, not become the regex king... actually, not just a regex king... a REGEX GOD!"
                 },
                 {
                     "name": "keyword.other.zscript",
-                    "match": "\\b(?i:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend)\\b"
+                    "match": "\\b(?i:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend|in|out)\\b"
                 },
                 {
                     "name": "storage.type.zscript",
@@ -104,7 +105,7 @@
                 },
                 {
                     "name": "constant.numeric.decimal.point.zscript",
-                    "match": "(?<=[\\d\\W])\\.(?=[\\d\\W])"
+                    "match": "(?<=[\\d]?)\\.(?=[\\d])"
                 }
             ]
         },
@@ -112,11 +113,11 @@
             "patterns": [
                 {
                     "name": "constant.numeric.zscript",
-                    "match": "\\d+?\\b"
+                    "match": "\\b\\d+?\\b"
                 },
                 {
                     "name": "storage.type.zscript",
-                    "match": "\\b(?i:int|uint|int8|uint8|int16|uint16|byte|sbyte|short|ushort|float|float32|float64|double|string|name|color|vector2|vector3|array|map|actor|bool|sound|spriteid|state|statelabel|textureid|void|voidptr|meta|internal|latent|transient|class|struct|enum|self)\\b"
+                    "match": "\\b(?i:int|uint|int8|uint8|int16|uint16|byte|sbyte|short|ushort|float|float32|float64|double|string|name|color|vector2|vector3|array|map|actor|bool|sound|spriteid|state|statelabel|textureid|void|voidptr|meta|internal|latent|transient|class|struct|enum|self|null|property)\\b"
                 }
             ]
         },
@@ -124,7 +125,7 @@
             "patterns": [
                 {
                     "name": "keyword.control.import.zscript",
-                    "match": "\\w+(?<=#\\w+)"
+                    "match": "(?<=^#)import\\b"
                 },
                 {
                     "name": "keyword.control.directive.zscript",
@@ -149,6 +150,18 @@
                 {
                     "name": "entity.name.class.zscript",
                     "match": "(?i)(?<=class\\s+)\\w+|(?<=(?<=class\\s+)\\w+\\s+\\:\\s+)\\w+|(?<=class[<]\\s*)\\w+(?=\\s*[>])"
+                },
+                {
+                    "name": "entity.name.class.property.zscript",
+                    "match": "(?i)(?<=property\\s+?)\\w+?\\b"
+                },
+                {
+                    "name": "entity.name.class.enum.zscript",
+                    "match": "(?i)(?<=enum\\s+)\\w+"
+                },
+                {
+                    "name": "entity.name.class.enum.zscript",
+                    "match": "(?i)(?<=struct\\s+)\\w+"
                 },
                 {
                     "name": "entity.name.class.dynamic.array.zscript",
@@ -203,7 +216,7 @@
                         },
                         {
                             "name": "entity.name.class.attribute.zscript",
-                            "match": "(?<=(?:\\+|\\-))\\w+[.]?\\w*"
+                            "match": "(?<=\\+|\\-)\\w+|(?<=(?<=\\+|\\-)\\w+\\.?)\\w+"
                         },
                         {
                             "name": "variable.name.zscript",
@@ -236,11 +249,11 @@
                         },
                         {
                             "name": "entity.name.class.state.zscript",
-                            "match": ".+(?=:$)"
+                            "match": "\\b\\w+(?=:$)"
                         },
                         {
                             "name": "entity.name.class.state.zscript",
-                            "match": "(?i)(?<=Goto)\\s+\\w+(?=\\;)"
+                            "match": "(?i)(?<=goto)\\s+\\w+(?=\\;)"
                         },
                         {
                             "name": "keyword.states.zscript",
