@@ -6,7 +6,8 @@
 - Added support for "anonymous functions" (as seen in example 1), this means:
     - Now you can use anonymous functions!
     - Fixed "states" block ending, as they can have "anonymous functions inside" 
-
+- Upgraded performance thanks to some regex magic!
+- Updated class highlighting (example 2)
 Examples:
 
 - Example 1
@@ -46,6 +47,14 @@ States
 		}
 		Stop;
 	}
+```
+- Example 2
+```cs
+class Class1 : Class2 {
+//				↑
+//				This is now recognized as a class!
+	// CODE
+}
 ```
 
 ## [0.9.2] The "dynamic" update

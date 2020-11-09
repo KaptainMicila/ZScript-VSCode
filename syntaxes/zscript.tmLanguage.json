@@ -54,7 +54,7 @@
             "patterns": [
                 {
                     "name": "keyword.control.zscript",
-                    "match": "\\b(?i)(if|else|for|return|do|while|switch|continue|break|case)\\b"
+                    "match": "\\b(?i:if|else|for|return|do|while|switch|continue|break|case)\\b"
                 },
                 {
                     "name": "keyword.operator.zscript",
@@ -62,11 +62,11 @@
                 },
                 {
                     "name": "keyword.other.zscript",
-                    "match": "\\b(?i)(?:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend)\\b"
+                    "match": "\\b(?i:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend)\\b"
                 },
                 {
                     "name": "storage.type.zscript",
-                    "match": "\\b(?i)(?:let|const)\\b"
+                    "match": "\\b(?i:let|const)\\b"
                 }
             ]
         },
@@ -116,7 +116,7 @@
                 },
                 {
                     "name": "storage.type.zscript",
-                    "match": "(?i)\\b(?:int|uint|int8|uint8|int16|uint16|byte|sbyte|short|ushort|float|float32|float64|double|string|name|color|vector2|vector3|array|map|actor|bool|sound|spriteid|state|statelabel|textureid|void|voidptr|meta|internal|latent|transient|class|struct|enum|self)\\b"
+                    "match": "\\b(?i:int|uint|int8|uint8|int16|uint16|byte|sbyte|short|ushort|float|float32|float64|double|string|name|color|vector2|vector3|array|map|actor|bool|sound|spriteid|state|statelabel|textureid|void|voidptr|meta|internal|latent|transient|class|struct|enum|self)\\b"
                 }
             ]
         },
@@ -128,7 +128,7 @@
                 },
                 {
                     "name": "keyword.control.directive.zscript",
-                    "match": "\\b(?i)(?:version|default|states)\\b"
+                    "match": "\\b(?i:version|default|states)\\b"
                 }
             ]
         },
@@ -140,7 +140,7 @@
             "patterns": [
                 {
                     "name": "keyword.operator",
-                    "match": "spawn|idle|see|melee|missile|pain|death|death.sky|death.extreme|xdeath|death.fire|burn|death.ice|ice|death.disintegrate|disintegrate|raise|heal|crash|crash.extreme|crush|wound|greetings|yes|no|active|inactive|bounce"
+                    "match": "\\b(?i:spawn|idle|see|melee|missile|pain|death|death.sky|death.extreme|xdeath|death.fire|burn|death.ice|ice|death.disintegrate|disintegrate|raise|heal|crash|crash.extreme|crush|wound|greetings|yes|no|active|inactive|bounce)\\b"
                 }
             ]
         },
@@ -148,7 +148,7 @@
             "patterns": [
                 {
                     "name": "entity.name.class.zscript",
-                    "match": "(?<=class\\s+)\\w+|(?<=(?i)class[<]\\s*)\\w+(?=\\s*[>])"
+                    "match": "(?i)(?<=class\\s+)\\w+|(?<=(?<=class\\s+)\\w+\\s+\\:\\s+)\\w+|(?<=class[<]\\s*)\\w+(?=\\s*[>])"
                 },
                 {
                     "name": "entity.name.class.dynamic.array.zscript",
@@ -237,6 +237,10 @@
                         {
                             "name": "entity.name.class.state.zscript",
                             "match": ".+(?=:$)"
+                        },
+                        {
+                            "name": "entity.name.class.state.zscript",
+                            "match": "(?i)(?<=Goto)\\s+\\w+(?=\\;)"
                         },
                         {
                             "name": "keyword.states.zscript",
