@@ -8,6 +8,9 @@
     - Fixed "states" block ending, as they can have "anonymous functions inside" 
 - Upgraded performance thanks to some regex magic!
 - Updated class highlighting (example 2)
+- Fixed the `default` and `states` blocks detection, again. (They won't be found in comments anymore)
+- Fixed `default` blocks getting called `decorate` blocks in the token view 
+
 Examples:
 
 - Example 1

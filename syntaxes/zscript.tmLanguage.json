@@ -149,7 +149,7 @@
             "patterns": [
                 {
                     "name": "entity.name.class.zscript",
-                    "match": "(?i)(?<=class\\s+)\\w+|(?<=(?<=class\\s+)\\w+\\s+\\:\\s+)\\w+|(?<=class[<]\\s*)\\w+(?=\\s*[>])"
+                    "match": "(?i)(?<=class\\s+?)\\w+?\\b|(?<=(?<=class\\s+?)\\w+?\\s*?\\:\\s*?)\\w+?\\b|(?<=class[<]\\s*?)\\w+?(?=\\s*?[>])"
                 },
                 {
                     "name": "entity.name.class.property.zscript",
@@ -157,16 +157,17 @@
                 },
                 {
                     "name": "entity.name.class.enum.zscript",
-                    "match": "(?i)(?<=enum\\s+)\\w+"
+                    "match": "(?i)(?<=enum\\s+?)\\w+?\\b"
                 },
                 {
                     "name": "entity.name.class.enum.zscript",
-                    "match": "(?i)(?<=struct\\s+)\\w+"
+                    "match": "(?i)(?<=struct\\s+?)\\w+?\\b"
                 },
                 {
                     "name": "entity.name.class.dynamic.array.zscript",
-                    "begin": "(?<=(?i)array[<])",
-                    "end": "(?=(?<![^<]\\W+)[>])",
+                    "begin": "(?i)(?<=array<)",
+                    "end": "(?=(?<![^<]\\W+?)[>])",
+                    "comment": "This is some regex magic I forgot how the hell I managed to even think.",
                     "patterns": [
                         {
                             "name": "storage.type.zscript",
@@ -184,20 +185,20 @@
             "patterns": [
                 {
                     "name": "variable.parameter.zscript",
-                    "match": "(?<=\\w+[.])\\w+"
+                    "match": "(?<=\\w+?\\.)\\w+?\\b"
                 },
                 {
                     "name": "variable.other.zscript",
-                    "match": "\\b\\w+\\b"
+                    "match": "\\b\\w+?\\b"
                 }
             ]
         },
         "states": {
             "patterns": [
                 {
-                    "name": "entity.other.decorate.block.zscript",
-                    "begin": "(?i)(?<=default\\s*)",
-                    "end": "}",
+                    "name": "entity.other.default.block.zscript",
+                    "begin": "(?i)(?<=^\\s*\\bdefault\\b)",
+                    "end": "(?<=^)\\s}",
                     "patterns": [
                         {
                             "include": "#comments"
@@ -216,18 +217,23 @@
                         },
                         {
                             "name": "entity.name.class.attribute.zscript",
-                            "match": "(?<=\\+|\\-)\\w+|(?<=(?<=\\+|\\-)\\w+\\.?)\\w+"
+                            "match": "(?<=\\+|-)\\w+?\\b|(?<=(?<=\\+|-)\\w+?\\.??)\\w+?\\b",
+                            "comment": "Sometimes, I even impress myself."
+                        },
+                        {
+                            "name": "variable.parameter.zscript",
+                            "match": "(?<=\\w+?\\.)\\w+?\\b"
                         },
                         {
                             "name": "variable.name.zscript",
-                            "match": "\\b\\w+\\b"
+                            "match": "\\b\\w+?\\b"
                         }
                     ]
                 },
                 {
                     "name": "entity.other.states.block.zscript",
-                    "begin": "(?i)(?<=states\\s*)",
-                    "end": "^\\s}",
+                    "begin": "(?i)(?<=^\\s*?\\bstates\\b)",
+                    "end": "(?<=^)}",
                     "patterns": [
                         {
                             "include": "#comments"
@@ -249,11 +255,11 @@
                         },
                         {
                             "name": "entity.name.class.state.zscript",
-                            "match": "\\b\\w+(?=:$)"
+                            "match": "\\b\\w+?(?=:$)"
                         },
                         {
                             "name": "entity.name.class.state.zscript",
-                            "match": "(?i)(?<=goto)\\s+\\w+(?=\\;)"
+                            "match": "(?i)(?<=\\bgoto\\b\\s+?)\\w+?\\b"
                         },
                         {
                             "name": "keyword.states.zscript",
@@ -265,11 +271,11 @@
                         },
                         {
                             "name": "entity.name.function.zscript",
-                            "match": "A_\\w+"
+                            "match": "A_\\w+?\b"
                         },
                         {
                             "name": "variable.other.zscript",
-                            "match": "\\b\\w+\\b"
+                            "match": "\\b\\w+?\\b"
                         }
                     ]
                 }
