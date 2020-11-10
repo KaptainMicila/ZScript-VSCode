@@ -117,7 +117,7 @@
                 },
                 {
                     "name": "storage.type.zscript",
-                    "match": "(?i:null|void|class|array|bool)|\\b\\w+?(?=\\ (?!(?i:alignof|sizeof|cross|dot|is))(?:[a-zA-Z]+?))"
+                    "match": "\\b(?i:null|void|class|array|bool)\\b|\\b(?<!\\.)\\w+?(?=\\ (?!(?i:alignof|sizeof|cross|dot|is|true|false))(?:[a-zA-Z]+?))"
                 },
                 {
                     "name": "entity.name.class.structure.zscript",
