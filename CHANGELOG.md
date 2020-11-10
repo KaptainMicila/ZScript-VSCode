@@ -1,19 +1,24 @@
 # Change Log
 
-## [0.9.3] The "Anonymous" update
-- Noticed this file exists
-- Fixed file type recognition, now is: `.zs`,`.zsc`,`.zc` (this one was used by Nash Muhandes, so I added it)
-- Added support for "anonymous functions" (as seen in example 1), this means:
-    - Now you can use anonymous functions!
-    - Fixed "states" block ending, as they can have "anonymous functions inside" 
-- Upgraded performance thanks to some regex magic!
-- Updated class highlighting (example 2)
-- Fixed the `default` and `states` blocks detection, again. (They won't be found in comments anymore)
-- Fixed `default` blocks getting called `decorate` blocks in the token view 
+## [0.9.3] The "Usable state(?)" update
+
+-   Noticed this file exists
+-   Fixed file type recognition, now is: `.zs`,`.zsc`,`.zc` (this one was used by Nash Muhandes, so I added it)
+-   Added support for "anonymous functions" (as seen in example 1), this means:
+    -   Now you can use anonymous functions!
+    -   Fixed "states" block ending, as they can have "anonymous functions inside"
+-   Upgraded performance thanks to some regex magic!
+-   Updated class highlighting (example 2)
+-   Fixed the `default` and `states` blocks detection, again. (They won't be found in comments anymore)
+-   Fixed `default` blocks getting called `decorate` blocks in the token view
+-   Removed a lot of hardcoded stuff
+-   Changed highlighting type from `class` to `tag` for `Default` blocks' attributes
+- 	Added enum support (example 3, but was it really required?)
 
 Examples:
 
-- Example 1
+-   Example 1
+
 ```cs
 States
 	{
@@ -51,7 +56,9 @@ States
 		Stop;
 	}
 ```
-- Example 2
+
+-   Example 2
+
 ```cs
 class Class1 : Class2 {
 //				↑
@@ -60,11 +67,23 @@ class Class1 : Class2 {
 }
 ```
 
+- Example 3
+```cs
+enum Example {
+	VALUE_1,
+	value_2,
+	value_n
+}
+```
+
 ## [0.9.2] The "dynamic" update
-- Fixed some issues with the `Array<>` detection
+
+-   Fixed some issues with the `Array<>` detection
 
 ## [0.9.1] The "blocky" update
-- Fixed some issues with the `Default` and `States` blocks detection
+
+-   Fixed some issues with the `Default` and `States` blocks detection
 
 ## [0.9.0]
-- Initial release
+
+-   Initial release

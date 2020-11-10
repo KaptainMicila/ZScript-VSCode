@@ -15,9 +15,6 @@
             "include": "#punctuation"
         },
         {
-            "include": "#types"
-        },
-        {
             "include": "#keywords"
         },
         {
@@ -25,6 +22,9 @@
         },
         {
             "include": "#functions"
+        },
+        {
+            "include": "#types"
         },
         {
             "include": "#variable"
@@ -64,10 +64,6 @@
                 {
                     "name": "keyword.other.zscript",
                     "match": "\\b(?i:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend|in|out)\\b"
-                },
-                {
-                    "name": "storage.type.zscript",
-                    "match": "\\b(?i:let|const)\\b"
                 }
             ]
         },
@@ -116,8 +112,20 @@
                     "match": "\\b\\d+?\\b"
                 },
                 {
+                    "name": "constant.zscript",
+                    "match": "\\b[A-Z_0-9]+?\\b"
+                },
+                {
                     "name": "storage.type.zscript",
-                    "match": "\\b(?i:int|uint|int8|uint8|int16|uint16|byte|sbyte|short|ushort|float|float32|float64|double|string|name|color|vector2|vector3|array|map|actor|bool|sound|spriteid|state|statelabel|textureid|void|voidptr|meta|internal|latent|transient|class|struct|enum|self|null|property)\\b"
+                    "match": "(?i:null|void|class|array|bool)|\\b\\w+?(?=\\ (?!(?i:alignof|sizeof|cross|dot|is))(?:[a-zA-Z]+?))"
+                },
+                {
+                    "name": "entity.name.class.structure.zscript",
+                    "match": "\\b\\w+?(?=\\[)\\b|\\b\\w+?(?=(?:\\[\\w+?\\])??\\.\\w+)"
+                },
+                {
+                    "name": "keyword.operator.boolean.zscript",
+                    "match": "\\b(?i:true|false)\\b"
                 }
             ]
         },
@@ -137,14 +145,6 @@
             "name": "entity.name.function.zscript",
             "match": "\\w+?(?=\\s*?\\()"
         },
-        "statesstuff": {
-            "patterns": [
-                {
-                    "name": "keyword.operator",
-                    "match": "\\b(?i:spawn|idle|see|melee|missile|pain|death|death.sky|death.extreme|xdeath|death.fire|burn|death.ice|ice|death.disintegrate|disintegrate|raise|heal|crash|crash.extreme|crush|wound|greetings|yes|no|active|inactive|bounce)\\b"
-                }
-            ]
-        },
         "blocks": {
             "patterns": [
                 {
@@ -160,7 +160,7 @@
                     "match": "(?i)(?<=enum\\s+?)\\w+?\\b"
                 },
                 {
-                    "name": "entity.name.class.enum.zscript",
+                    "name": "entity.name.class.struct.zscript",
                     "match": "(?i)(?<=struct\\s+?)\\w+?\\b"
                 },
                 {
@@ -170,11 +170,11 @@
                     "comment": "This is some regex magic I forgot how the hell I managed to even think.",
                     "patterns": [
                         {
-                            "name": "storage.type.zscript",
+                            "name": "storage.type.class.zscript",
                             "match": "(?i)\\bclass\\b"
                         },
                         {
-                            "name": "keyword.operator.zscript",
+                            "name": "keyword.operator.angle.brackets.zscript",
                             "match": "[<>]"
                         }
                     ]
@@ -185,7 +185,7 @@
             "patterns": [
                 {
                     "name": "variable.parameter.zscript",
-                    "match": "(?<=\\w+?\\.)\\w+?\\b"
+                    "match": "(?<=\\w+?[\\[\\]]??\\.)\\w+?\\b"
                 },
                 {
                     "name": "variable.other.zscript",
@@ -204,6 +204,11 @@
                             "include": "#comments"
                         },
                         {
+                            "name": "entity.name.tag.attribute.zscript",
+                            "match": "(?<=\\+|-)\\w+?\\b|(?<=(?<=\\+|-)\\w+?\\.??)\\w+?\\b",
+                            "comment": "Sometimes, I even impress myself."
+                        },
+                        {
                             "include": "#types"
                         },
                         {
@@ -214,11 +219,6 @@
                         },
                         {
                             "include": "#keywords"
-                        },
-                        {
-                            "name": "entity.name.class.attribute.zscript",
-                            "match": "(?<=\\+|-)\\w+?\\b|(?<=(?<=\\+|-)\\w+?\\.??)\\w+?\\b",
-                            "comment": "Sometimes, I even impress myself."
                         },
                         {
                             "name": "variable.parameter.zscript",
@@ -248,9 +248,6 @@
                             "include": "#keywords"
                         },
                         {
-                            "include": "#types"
-                        },
-                        {
                             "include": "#functions"
                         },
                         {
@@ -274,7 +271,21 @@
                             "match": "A_\\w+?\b"
                         },
                         {
+                            "include": "#types"
+                        },
+                        {
                             "name": "variable.other.zscript",
+                            "match": "\\b\\w+?\\b"
+                        }
+                    ]
+                },
+                {
+                    "name": "entity.other.enum.zscript",
+                    "begin": "(?<=enum\\s\\w+?\\s$)",
+                    "end": "}",
+                    "patterns": [
+                        {
+                            "name": "constant.enum.value.zscript",
                             "match": "\\b\\w+?\\b"
                         }
                     ]
