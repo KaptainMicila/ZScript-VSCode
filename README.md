@@ -9,7 +9,7 @@ Made with the help from: [marrub--'s ZScript documentation](https://github.com/m
 
 ## IMAGES
 archvile.zs
-![archvile.zs](https://i.imgur.com/YroabmQ.png)
+![archvile.zs](https://i.imgur.com/MmJGoUl.png)
 
 ## HOW DO I USE IT?
 ### PREREQUISITES
