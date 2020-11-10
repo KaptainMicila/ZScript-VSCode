@@ -197,7 +197,7 @@
             "patterns": [
                 {
                     "name": "entity.other.default.block.zscript",
-                    "begin": "(?i)(?<=^\\s*\\bdefault\\b)",
+                    "begin": "(?i)(?<=^\\s*?\\bdefault\\b)",
                     "end": "(?<=^)\\s}",
                     "patterns": [
                         {
