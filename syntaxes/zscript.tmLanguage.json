@@ -63,7 +63,7 @@
                 },
                 {
                     "name": "keyword.other.zscript",
-                    "match": "\\b(?i:action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend|in|out)\\b"
+                    "match": "\\b(?i:abstract|action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend|in|out)\\b"
                 }
             ]
         },
@@ -149,7 +149,7 @@
             "patterns": [
                 {
                     "name": "entity.name.class.zscript",
-                    "match": "(?i)(?<=class\\s+?)\\w+?\\b|(?<=(?<=class\\s+?)\\w+?\\s*?\\:\\s*?)\\w+?\\b|(?<=class[<]\\s*?)\\w+?(?=\\s*?[>])"
+                    "match": "(?i)(?<=\\bclass\\b\\s+?)\\w+?\\b|(?<=(?<=\\bclass\\b\\s+?)\\w+?\\s*?\\:\\s*?)\\w+?\\b|(?<=\\bclass[<]\\s*?)\\w+?(?=\\s*?[>])"
                 },
                 {
                     "name": "entity.name.class.property.zscript",

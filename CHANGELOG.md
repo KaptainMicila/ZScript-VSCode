@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.9.4] The "Abstact" update
+- Added support for the `abstract` keyword
+- Fixed `class` word broken detection
+
 ## [0.9.3] The "Usable state(?)" update
 
 -   Noticed this file exists
