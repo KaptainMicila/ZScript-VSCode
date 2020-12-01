@@ -21,55 +21,85 @@
         [
             "(",
             ")"
+        ],
+        [
+            "<",
+            ">"
         ]
     ],
     // symbols that are auto closed when typing
     "autoClosingPairs": [
-        [
-            "{",
-            "}"
-        ],
-        [
-            "[",
-            "]"
-        ],
-        [
-            "(",
-            ")"
-        ],
-        [
-            "\"",
-            "\""
-        ],
-        [
-            "'",
-            "'"
-        ]
+        {
+            "open": "{",
+            "close": "}",
+            "notIn": [
+                "comment",
+                "string"
+            ]
+        },
+        {
+            "open": "[",
+            "close": "]",
+            "notIn": [
+                "comment",
+                "string"
+            ]
+        },
+        {
+            "open": "(",
+            "close": ")",
+            "notIn": [
+                "comment",
+                "string"
+            ]
+        },
+        {
+            "open": "\"",
+            "close": "\"",
+            "notIn": [
+                "comment",
+                "string"
+            ]
+        },
+        {
+            "open": "'",
+            "close": "'",
+            "notIn": [
+                "comment",
+                "string"
+            ]
+        }
     ],
     // symbols that can be used to surround a selection
     "surroundingPairs": [
-        [
-            "{",
-            "}"
-        ],
-        [
-            "[",
-            "]"
-        ],
-        [
-            "(",
-            ")"
-        ],
-        [
-            "\"",
-            "\""
-        ],
-        [
-            "'",
-            "'"
-        ]
+        {
+            "open": "{",
+            "close": "}"
+        },
+        {
+            "open": "[",
+            "close": "]"
+        },
+        {
+            "open": "(",
+            "close": ")"
+        },
+        {
+            "open": "\"",
+            "close": "\""
+        },
+        {
+            "open": "'",
+            "close": "'"
+        }
     ],
     "indentationRules": {
-        "increaseIndentPattern": "[{}]"
+        "increaseIndentPattern": "[{}]",
+    },
+    "folding": {
+        "markers": {
+            "start": "{",
+            "end": "}"
+        },
     }
 }
