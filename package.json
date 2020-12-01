@@ -37,6 +37,12 @@
                 "scopeName": "source.zscript",
                 "path": "./syntaxes/zscript.tmLanguage.json"
             }
+        ],
+        "commands": [
+            {
+                "command": "extension.helloWorld",
+                "title": "Hello World"
+            }
         ]
     },
     "author": {
@@ -54,5 +60,13 @@
         "zscript",
         "zdoom",
         "gzdoom"
-    ]
+    ],
+    "activationEvents": [
+        "onCommand:extension.helloWorld"
+    ],
+    "main": "./src/extension.js",
+    "scripts": {},
+    "devDependencies": {
+        "@types/vscode": "^1.32.0"
+    }
 }

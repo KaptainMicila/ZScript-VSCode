@@ -1,8 +1,14 @@
 # Change Log
 
+## [0.9.5] The "~~Screw Off Typescript~~" update
+
+-   Enhanced code folding support
+-   Enhanced brackets detection (now with angle brackets!)
+
 ## [0.9.4] The "Abstact" update
-- Added support for the `abstract` keyword
-- Fixed `class` word broken detection
+
+-   Added support for the `abstract` keyword
+-   Fixed `class` word broken detection
 
 ## [0.9.3] The "Usable state(?)" update
 
@@ -17,7 +23,7 @@
 -   Fixed `default` blocks getting called `decorate` blocks in the token view
 -   Removed a lot of hardcoded stuff
 -   Changed highlighting type from `class` to `tag` for `Default` blocks' attributes
-- 	Added enum support (example 3, but was it really required?)
+-   Added enum support (example 3, but was it really required?)
 
 Examples:
 
@@ -71,7 +77,8 @@ class Class1 : Class2 {
 }
 ```
 
-- Example 3
+-   Example 3
+
 ```cs
 enum Example {
 	VALUE_1,
