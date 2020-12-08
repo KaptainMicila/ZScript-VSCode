@@ -124,7 +124,7 @@
                     "match": "\\b\\w+?(?=\\[)\\b|\\b\\w+?(?=(?:\\[\\w+?\\])??\\.\\w+)"
                 },
                 {
-                    "name": "keyword.operator.boolean.zscript",
+                    "name": "constant.language.boolean.zscript",
                     "match": "\\b(?i:true|false)\\b"
                 }
             ]

@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.9.6] The "booleans are constants now" update
+
+-   `true` and `false` are now language constants (different colors)
+
 ## [0.9.5] The "~~Screw Off Typescript~~" update
 
 -   Enhanced code folding support
