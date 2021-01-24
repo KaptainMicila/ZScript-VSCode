@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.0] The "release" update
+
+-   Minor fixes
+-   Removed comments (less pace wasted)
+
 ## [0.9.6] The "booleans are constants now" update
 
 -   `true` and `false` are now language constants (different colors)

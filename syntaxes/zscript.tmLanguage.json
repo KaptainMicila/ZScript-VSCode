@@ -58,8 +58,7 @@
                 },
                 {
                     "name": "keyword.operator.zscript",
-                    "match": "(?:-[-=]?|!=?|\\+[+=]?|~(?:==)?|\\*[*=]?|\\/=?|%=?|<(?:<|>?=)?|>(?:>(?:>|=)?|=)?|\\.\\.?|==?|&[&=]?|\\|[|=]?|\\^=?|::?)|\\b(?:alignof|sizeof|cross|dot|is)\\b",
-                    "comment": "Who the hell made Regex? I just wanted to help GZDoom modders, not become the regex king... actually, not just a regex king... a REGEX GOD!"
+                    "match": "(?:-[-=]?|!=?|\\+[+=]?|~(?:==)?|\\*[*=]?|\\/=?|%=?|<(?:<|>?=)?|>(?:>(?:>|=)?|=)?|\\.\\.?|==?|&[&=]?|\\|[|=]?|\\^=?|::?)|\\b(?:alignof|sizeof|cross|dot|is)\\b"
                 },
                 {
                     "name": "keyword.other.zscript",
@@ -167,7 +166,6 @@
                     "name": "entity.name.class.dynamic.array.zscript",
                     "begin": "(?i)(?<=array<)",
                     "end": "(?=(?<![^<]\\W+?)[>])",
-                    "comment": "This is some regex magic I forgot how the hell I managed to even think.",
                     "patterns": [
                         {
                             "name": "storage.type.class.zscript",
@@ -205,8 +203,7 @@
                         },
                         {
                             "name": "entity.name.tag.attribute.zscript",
-                            "match": "(?<=\\+|-)\\w+?\\b|(?<=(?<=\\+|-)\\w+?\\.??)\\w+?\\b",
-                            "comment": "Sometimes, I even impress myself."
+                            "match": "(?<=\\+|-)\\w+?\\b|(?<=(?<=\\+|-)\\w+?\\.??)\\w+?\\b"
                         },
                         {
                             "include": "#types"
