@@ -3,3 +3,5 @@ vsc-extension-quickstart.md
 *.vsix
 *.7z
 *.zip
+node_modules
+package-lock.json
