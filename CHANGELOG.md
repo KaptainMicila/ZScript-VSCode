@@ -1,6 +1,6 @@
 # Change Log
 
-## [1.1.0] The "I don't like TypeScript, but at least there's a entry point for you" update
+## [1.2.0] The "I don't like TypeScript, but at least there's a entry point for you" update
 -	Created entry point for typescript. (So you can extend whatever this extension is.)
 
 ## [1.0.0] The "release" update
