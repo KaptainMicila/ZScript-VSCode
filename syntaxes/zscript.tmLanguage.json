@@ -131,8 +131,8 @@
         "directives": {
             "patterns": [
                 {
-                    "name": "keyword.control.import.zscript",
-                    "match": "(?<=^#)import\\b"
+                    "name": "keyword.control.include.zscript",
+                    "match": "^\\#include\\b"
                 },
                 {
                     "name": "keyword.control.directive.zscript",

@@ -9,6 +9,9 @@ Made with the help from: [marrub--'s ZScript documentation](https://github.com/m
 -   Version 0.9.0:
     -   Syntax Highlighting
 
+-   Version 1.3.0
+    -   ACS Syntax Highlighting   
+
 _More to come, soon™._
 
 ## IMAGES

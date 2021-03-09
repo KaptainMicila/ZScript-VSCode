@@ -1,0 +1,143 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "ACS",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#punctuation"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#types"
+        },
+        {
+            "include": "#functions"
+        },
+        {
+            "include": "#directives"
+        },
+        {
+            "include": "#variable"
+        }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash.acs",
+                    "begin": "\\/\\/",
+                    "end": "$",
+                    "contentName": "comment.line.double-slash.text.acs"
+                },
+                {
+                    "name": "comment.block.acs",
+                    "begin": "\\/\\*",
+                    "end": "\\*\\/",
+                    "contentName": "comment.block.text.acs"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.acs",
+                    "begin": "\"",
+                    "end": "\""
+                },
+                {
+                    "name": "string.quoted.single.acs",
+                    "begin": "'",
+                    "end": "'"
+                }
+            ]
+        },
+        "punctuation": {
+            "patterns": [
+                {
+                    "name": "punctuation.terminator.statement.acs",
+                    "match": ";"
+                },
+                {
+                    "name": "punctuation.brackets.round.acs",
+                    "match": "[()]"
+                },
+                {
+                    "name": "punctuation.brackets.square.acs",
+                    "match": "[\\[\\]]"
+                },
+                {
+                    "name": "punctuation.brackets.curly.acs",
+                    "match": "[{}]"
+                },
+                {
+                    "name": "constant.numeric.decimal.point.acs",
+                    "match": "(?<=[\\d]?)\\.(?=[\\d])"
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.acs",
+                    "match": "\\b(?i:if|else|for|do|while)\\b"
+                },
+                {
+                    "name": "keyword.operator.acs",
+                    "match": "(?:\\+\\+?|--?|\\*|\\/|%|<=?|>=?|&&|\\|\\|)"
+                }
+            ]
+        },
+        "types": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.acs",
+                    "match": "\\b\\d+?\\b"
+                },
+                {
+                    "name": "constant.acs",
+                    "match": "\\b[A-Z_0-9]+?\\b"
+                },
+                {
+                    "name": "storage.type.acs",
+                    "match": "\\b(?i:null|void|array|bool|script)\\b|\\b(?<!\\.)\\w+?(?=\\ (?!(?i:true|false))(?:[a-zA-Z]+?))"
+                },
+                {
+                    "name": "constant.language.boolean.acs",
+                    "match": "\\b(?i:true|false)\\b"
+                }
+            ]
+        },
+        "functions": {
+            "name": "entity.name.function.acs",
+            "match": "\\w+?(?=\\s*?\\()"
+        },
+        "directives": {
+            "patterns": [
+                {
+                    "name": "keyword.control.include.acs",
+                    "match": "^\\#include\\b"
+                }
+            ]
+        },
+        "variable": {
+            "patterns": [
+                {
+                    "name": "variable.parameter.zscript",
+                    "match": "(?<=\\w+?[\\[\\]]??\\.)\\w+?\\b"
+                },
+                {
+                    "name": "variable.other.zscript",
+                    "match": "\\b\\w+?\\b"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.acs"
+}

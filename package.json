@@ -4,13 +4,13 @@
     "description": "GZDoom's ZScript scripting language support for VSCode",
     "publisher": "kaptainmicila",
     "icon": "icons/GZDoom.png",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/KaptainMicila/ZScript-VSCode.git"
     },
     "engines": {
-        "vscode": "^1.50.0"
+        "vscode": "^1.52.0"
     },
     "categories": [
         "Programming Languages"
@@ -28,7 +28,18 @@
                     ".zsc",
                     ".zc"
                 ],
-                "configuration": "./language-configuration.json"
+                "configuration": "./configurations/ZScriptConfiguration.json"
+            },
+            {
+                "id": "acs",
+                "aliases": [
+                    "ACS",
+                    "acs"
+                ],
+                "extensions": [
+                    ".acs"
+                ],
+                "configuration": "./configurations/ACSConfiguration.json"
             }
         ],
         "grammars": [
@@ -36,6 +47,11 @@
                 "language": "zscript",
                 "scopeName": "source.zscript",
                 "path": "./syntaxes/zscript.tmLanguage.json"
+            },
+            {
+                "language": "acs",
+                "scopeName": "source.acs",
+                "path": "./syntaxes/acs.tmLanguage.json"
             }
         ]
     },
@@ -52,11 +68,13 @@
     "license": "MIT",
     "keywords": [
         "zscript",
+        "acs",
         "zdoom",
         "gzdoom"
     ],
     "activationEvents": [
-        "onLanguage:zscript"
+        "onLanguage:zscript",
+        "onLanguage:acs"
     ],
     "main": "./out/extension.js",
     "scripts": {
