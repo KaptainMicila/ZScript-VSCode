@@ -32,14 +32,14 @@
             "patterns": [
                 {
                     "name": "comment.line.double-slash.acs",
-                    "begin": "\\/\\/",
+                    "begin": "//",
                     "end": "$",
                     "contentName": "comment.line.double-slash.text.acs"
                 },
                 {
                     "name": "comment.block.acs",
-                    "begin": "\\/\\*",
-                    "end": "\\*\\/",
+                    "begin": "/\\*",
+                    "end": "\\*/",
                     "contentName": "comment.block.text.acs"
                 }
             ]
@@ -48,13 +48,13 @@
             "patterns": [
                 {
                     "name": "string.quoted.double.acs",
-                    "begin": "\"",
-                    "end": "\""
+                    "begin": "(?<!\\\\)\"",
+                    "end": "(?<!\\\\)\""
                 },
                 {
                     "name": "string.quoted.single.acs",
-                    "begin": "'",
-                    "end": "'"
+                    "begin": "(?<!\\\\)'",
+                    "end": "(?<!\\\\)'"
                 }
             ]
         },
@@ -90,7 +90,7 @@
                 },
                 {
                     "name": "keyword.operator.acs",
-                    "match": "(?:\\+\\+?|--?|\\*|\\/|%|<=?|>=?|&&|\\|\\|)"
+                    "match": "(?:[*\\/%|=^~]=?|[+\\-<>&!]{1,2}=?|:)"
                 }
             ]
         },
@@ -98,7 +98,11 @@
             "patterns": [
                 {
                     "name": "constant.numeric.acs",
-                    "match": "\\b\\d+?\\b"
+                    "match": "\\d+"
+                },
+                {
+                    "name": "constant.hexadecimal.acs",
+                    "match": "\\s0[xX][0-9a-fA-F]+"
                 },
                 {
                     "name": "constant.acs",
@@ -115,26 +119,34 @@
             ]
         },
         "functions": {
-            "name": "entity.name.function.acs",
-            "match": "\\w+?(?=\\s*?\\()"
+            "patterns": [
+                {
+                    "name": "entity.name.function.acs",
+                    "match": "\\w+(?=\\s*\\()"
+                },
+                {
+                    "name": "variable.parameter",
+                    "match": "\\w:"
+                }
+            ]
         },
         "directives": {
             "patterns": [
                 {
-                    "name": "keyword.control.include.acs",
-                    "match": "^\\#include\\b"
+                    "name": "keyword.control.directive.acs",
+                    "match": "^\\#(?:include|define|library)\\b"
                 }
             ]
         },
         "variable": {
             "patterns": [
                 {
-                    "name": "variable.parameter.zscript",
-                    "match": "(?<=\\w+?[\\[\\]]??\\.)\\w+?\\b"
+                    "name": "variable.parameter.acs",
+                    "match": "(?<=\\w+[\\[\\]]?\\.)\\w+\\b"
                 },
                 {
-                    "name": "variable.other.zscript",
-                    "match": "\\b\\w+?\\b"
+                    "name": "variable.other.acs",
+                    "match": "\\b\\w+\\b"
                 }
             ]
         }

@@ -70,13 +70,13 @@
             "patterns": [
                 {
                     "name": "string.quoted.double.zscript",
-                    "begin": "\"",
-                    "end": "\""
+                    "begin": "(?<!\\\\)\"",
+                    "end": "(?<!\\\\)\""
                 },
                 {
                     "name": "string.quoted.single.zscript",
-                    "begin": "'",
-                    "end": "'"
+                    "begin": "(?<!\\\\)'",
+                    "end": "(?<!\\\\)'"
                 }
             ]
         },
@@ -109,6 +109,10 @@
                 {
                     "name": "constant.numeric.zscript",
                     "match": "\\b\\d+?\\b"
+                },
+                {
+                    "name": "constant.hexadecimal.zscript",
+                    "match": "\\s0[xX][0-9a-fA-F]+"
                 },
                 {
                     "name": "constant.zscript",
