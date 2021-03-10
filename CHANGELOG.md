@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.4.0] The "The ACS End (?)" update
+-	ACS support seems done
+-	String escaping is now supported
+-   Hexadecimal numbers are now supported (octal numbers were already supported, but they're still considered "numbers")
+-   Small fixes
+
 ## [1.3.0] The "ACS" update
 
 -	Added experimental ACS support
