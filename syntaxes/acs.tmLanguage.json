@@ -101,6 +101,10 @@
                     "match": "\\d+"
                 },
                 {
+                    "name": "storage.type.script.acs",
+                    "match": "(?i)(?<=^script\\s+.+?\\s+)\\w+"
+                },
+                {
                     "name": "constant.hexadecimal.acs",
                     "match": "\\s0[xX][0-9a-fA-F]+"
                 },
@@ -114,7 +118,7 @@
                 },
                 {
                     "name": "constant.language.boolean.acs",
-                    "match": "\\b(?i:true|false)\\b"
+                    "match": "\\b(TRUE|FALSE)\\b"
                 }
             ]
         },

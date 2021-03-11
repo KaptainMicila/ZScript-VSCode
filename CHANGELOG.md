@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.5.0] The "Script Types" update
+-	Fixed inconsistencies with ACS
+-	Added script types support
+```acs
+script "Whatever" ENTER //<-- this one
+{
+	// BLAH BLAH
+}
+```
+
 ## [1.4.0] The "The ACS End (?)" update
 -	ACS support seems done
 -	String escaping is now supported
