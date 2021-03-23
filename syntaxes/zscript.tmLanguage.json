@@ -288,6 +288,21 @@
                         {
                             "name": "constant.enum.value.zscript",
                             "match": "\\b\\w+?\\b"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#types"
                         }
                     ]
                 }
