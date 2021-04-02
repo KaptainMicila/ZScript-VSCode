@@ -22,8 +22,13 @@ _More to come, soon™._
 
 ## IMAGES
 
-archvile.zs
-![archvile.zs](https://i.imgur.com/sGoMJYX.png)
+archvile.zs (from gzdoom.pk3)
+
+![archvile.zs](https://i.imgur.com/oJqAd89.png)
+
+Error Checking
+
+![error_checking](https://i.imgur.com/jr4pDP3.png)
 
 ## HOW DO I USE IT?
 
