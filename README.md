@@ -24,11 +24,11 @@ _More to come, soon™._
 
 archvile.zs (from gzdoom.pk3)
 
-![archvile.zs](https://i.imgur.com/oJqAd89.png)
+![archvile.zs](https://raw.githubusercontent.com/KaptainMicila/ZScript-VSCode/master/icons/CodeScreenshot.png)
 
 Error Checking
 
-![error_checking](https://i.imgur.com/jr4pDP3.png)
+![error_checking](https://raw.githubusercontent.com/KaptainMicila/ZScript-VSCode/master/icons/ErrorChecking.png)
 
 ## HOW DO I USE IT?
 
