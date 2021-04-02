@@ -90,11 +90,5 @@
     ],
     "indentationRules": {
         "increaseIndentPattern": "[{}]"
-    },
-    "folding": {
-        "markers": {
-            "start": "{",
-            "end": "}"
-        }
     }
 }

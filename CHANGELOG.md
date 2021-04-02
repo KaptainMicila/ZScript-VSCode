@@ -1,8 +1,16 @@
 # Change Log
 
+## [1.6.0] The "Kaptain can't program" update
+
+-   Small fixes about folding in both ZScript and ACS
+-   Really broken "open and closed curly brackets" checking, for your class/enum/structs making pleasure.
+-   Soon™ to come.
+
 ## [1.5.0] The "Script Types" update
--	Fixed inconsistencies with ACS
--	Added script types support
+
+-   Fixed inconsistencies with ACS
+-   Added script types support
+
 ```acs
 script "Whatever" ENTER //<-- this one
 {
@@ -11,19 +19,20 @@ script "Whatever" ENTER //<-- this one
 ```
 
 ## [1.4.0] The "The ACS End (?)" update
--	ACS support seems done
--	String escaping is now supported
+
+-   ACS support seems done
+-   String escaping is now supported
 -   Hexadecimal numbers are now supported (octal numbers were already supported, but they're still considered "numbers")
 -   Small fixes
 
 ## [1.3.0] The "ACS" update
 
--	Added experimental ACS support
--	Fixed "folding" error caused by me deleting the zscript language configuration.
+-   Added experimental ACS support
+-   Fixed "folding" error caused by me deleting the zscript language configuration.
 
 ## [1.2.0] The "I don't like TypeScript, but at least there's a entry point for you" update
 
--	Created entry point for typescript. (So you can extend whatever this extension is.)
+-   Created entry point for typescript. (So you can extend whatever this extension is.)
 
 ## [1.0.0] The "release" update
 

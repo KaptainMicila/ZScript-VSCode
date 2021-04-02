@@ -7,10 +7,16 @@ Made with the help from: [marrub--'s ZScript documentation](https://github.com/m
 ## FEATURES
 
 -   Version 0.9.0:
+
     -   Syntax Highlighting
 
 -   Version 1.3.0
-    -   ACS Syntax Highlighting   
+
+    -   ACS Syntax Highlighting
+
+-   Version 1.6.0
+
+    -   ZScript Programmatic Language Features
 
 _More to come, soon™._
 
