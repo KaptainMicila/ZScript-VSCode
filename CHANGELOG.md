@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.6.1] The "Comments have value" update
+
+-   Added comments support for file parsing (I'm gonna need it for context support)
+-   Added types for contextes (is it a class? An enum? A struct? ...)
+-   Microfixes around the place
+-   A little peek to what to do next (maybe)
+
 ## [1.6.0] The "Kaptain can't program" update
 
 -   Small fixes about folding in both ZScript and ACS
