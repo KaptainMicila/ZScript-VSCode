@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ZScriptContextType = void 0;
 var ZScriptContextType;
 (function (ZScriptContextType) {
     ZScriptContextType[ZScriptContextType["Unknown"] = 0] = "Unknown";
@@ -13,5 +12,6 @@ var ZScriptContextType;
     ZScriptContextType[ZScriptContextType["ConditionParameters"] = 7] = "ConditionParameters";
     ZScriptContextType[ZScriptContextType["Function"] = 8] = "Function";
     ZScriptContextType[ZScriptContextType["FunctionParameters"] = 9] = "FunctionParameters";
-})(ZScriptContextType = exports.ZScriptContextType || (exports.ZScriptContextType = {}));
+})(ZScriptContextType || (ZScriptContextType = {}));
+exports.default = ZScriptContextType;
 //# sourceMappingURL=ZScriptContextType.js.map

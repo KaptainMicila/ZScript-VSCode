@@ -14,6 +14,8 @@ const vscode = require("vscode");
 const ZScriptContext_1 = require("./classes/ZScriptContext");
 const ZScriptError_1 = require("./classes/ZScriptError");
 const ZScriptContextType_1 = require("./enums/ZScriptContextType");
+const ZScriptCompletionItem_1 = require("./classes/ZScriptCompletionItem");
+const builtInCompletions = require("./builtIn/completions");
 let majorContextes = [];
 let errorRanges = [];
 let documentLineCount = 0;
@@ -24,12 +26,27 @@ function activate(context) {
             return;
         }
         const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
+        const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
+            provideCompletionItems(_document, position, _token, _context) {
+                let callContext = null;
+                for (const context of majorContextes) {
+                    if (context.contains(position)) {
+                        callContext = context;
+                        break;
+                    }
+                }
+                if (callContext === ZScriptCompletionItem_1.default.GLOBAL_SCOPE) {
+                    return builtInCompletions.globalScopeValues;
+                }
+                return builtInCompletions.contextCompletitions;
+            },
+        });
         updateTextContextes(activeTextEditor.document);
         updateDiagnostics(activeTextEditor.document, contextErrorsCollection);
         context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => __awaiter(this, void 0, void 0, function* () {
             updateTextContextes(event.document);
             updateDiagnostics(event.document, contextErrorsCollection);
-        })));
+        })), completitionProvider, contextErrorsCollection);
     });
 }
 exports.activate = activate;
@@ -44,7 +61,7 @@ function updateDiagnostics(document, diagnosticsCollection) {
                     message: (_a = range.description) !== null && _a !== void 0 ? _a : "",
                     range: range,
                     severity: vscode.DiagnosticSeverity.Error,
-                    source: "",
+                    source: "zscript",
                 });
             }
             diagnosticsCollection.set(document.uri, diagnosticsArray);
@@ -121,10 +138,10 @@ function updateTextContextes(document) {
                     contextChanges.push(newContextChange);
                     try {
                         if (!lineText.includes("{") && lineText.indexOf("{") < lineText.indexOf("}")) {
-                            tempContextes.push(new ZScriptContext_1.default(contextChanges.splice(contextChanges.length - 2, 1)[0], contextChanges.splice(contextChanges.length - 1, 1)[0], ZScriptContextType_1.ZScriptContextType.Unknown));
+                            tempContextes.push(new ZScriptContext_1.default(contextChanges.splice(contextChanges.length - 2, 1)[0], contextChanges.splice(contextChanges.length - 1, 1)[0], ZScriptContextType_1.default.Unknown));
                         }
                         else {
-                            tempContextes.push(new ZScriptContext_1.default(contextChanges.splice(contextChanges.length - 1, 1)[0], contextChanges.splice(contextChanges.length - 2, 1)[0], ZScriptContextType_1.ZScriptContextType.Unknown));
+                            tempContextes.push(new ZScriptContext_1.default(contextChanges.splice(contextChanges.length - 1, 1)[0], contextChanges.splice(contextChanges.length - 2, 1)[0], ZScriptContextType_1.default.Unknown));
                         }
                     }
                     catch (error) {

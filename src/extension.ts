@@ -2,7 +2,9 @@
 import * as vscode from "vscode";
 import ZScriptContext from "./classes/ZScriptContext";
 import ZScriptError from "./classes/ZScriptError";
-import { ZScriptContextType } from "./enums/ZScriptContextType";
+import ZScriptContextType from "./enums/ZScriptContextType";
+import ZScriptCompletionItem from "./classes/ZScriptCompletionItem";
+import * as builtInCompletions from "./builtIn/completions";
 
 let majorContextes: Array<ZScriptContext> = [];
 let errorRanges: Array<ZScriptError> = [];
@@ -16,6 +18,30 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
+    const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
+        provideCompletionItems(
+            _document: vscode.TextDocument,
+            position: vscode.Position,
+            _token: vscode.CancellationToken,
+            _context: vscode.CompletionContext
+        ) {
+            let callContext: ZScriptContext | null = null;
+
+            for (const context of majorContextes) {
+                if (context.contains(position)) {
+                    callContext = context;
+                    
+                    break;
+                }
+            }
+
+            if (callContext === ZScriptCompletionItem.GLOBAL_SCOPE) {
+                return builtInCompletions.globalScopeValues;
+            }
+
+            return builtInCompletions.contextCompletitions;
+        },
+    });
 
     updateTextContextes(activeTextEditor.document);
     updateDiagnostics(activeTextEditor.document, contextErrorsCollection);
@@ -24,7 +50,9 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.workspace.onDidChangeTextDocument(async (event) => {
             updateTextContextes(event.document);
             updateDiagnostics(event.document, contextErrorsCollection);
-        })
+        }),
+        completitionProvider,
+        contextErrorsCollection
     );
 }
 
@@ -38,7 +66,7 @@ async function updateDiagnostics(document: vscode.TextDocument, diagnosticsColle
                 message: range.description ?? "",
                 range: range,
                 severity: vscode.DiagnosticSeverity.Error,
-                source: "",
+                source: "zscript",
             });
         }
 

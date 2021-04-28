@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.6.2] The "Autocomplete begins" update
+
+-   Added initial autocomplete capability. More to come.
+
 ## [1.6.1] The "Comments have value" update
 
 -   Added comments support for file parsing (I'm gonna need it for context support)
@@ -41,12 +45,12 @@ script "Whatever" ENTER //<-- this one
 
 -   Created entry point for typescript. (So you can extend whatever this extension is.)
 
-## [1.0.0] The "release" update
+## [1.0.0] The "Release" update
 
 -   Minor fixes
 -   Removed comments (less pace wasted)
 
-## [0.9.6] The "booleans are constants now" update
+## [0.9.6] The "Booleans are constants now" update
 
 -   `true` and `false` are now language constants (different colors)
 
@@ -137,14 +141,14 @@ enum Example {
 }
 ```
 
-## [0.9.2] The "dynamic" update
+## [0.9.2] The "Dynamic" update
 
 -   Fixed some issues with the `Array<>` detection
 
-## [0.9.1] The "blocky" update
+## [0.9.1] The "Blocky" update
 
 -   Fixed some issues with the `Default` and `States` blocks detection
 
-## [0.9.0]
+## [0.9.0] The "Legend begins" update
 
 -   Initial release

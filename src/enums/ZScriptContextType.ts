@@ -1,4 +1,4 @@
-export enum ZScriptContextType {
+enum ZScriptContextType {
     Unknown,
     Class,
     Struct,
@@ -10,3 +10,5 @@ export enum ZScriptContextType {
     Function,
     FunctionParameters,
 }
+
+export default ZScriptContextType;
