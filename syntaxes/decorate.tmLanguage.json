@@ -1,0 +1,166 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "DECORATE",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "name": "entity.name.tag.attribute.decorate",
+            "match": "(?<=\\+|-)\\w+?\\b|(?<=(?<=\\+|-)\\w+?\\.??)\\w+?\\b"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#punctuation"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#types"
+        },
+        {
+            "name": "variable.parameter.decorate",
+            "match": "(?<=\\w+?\\.)\\w+?\\b"
+        },
+        {
+            "name": "entity.name.class.state.decorate",
+            "match": "\\b\\w+?(?=:$)"
+        },
+        {
+            "name": "entity.name.class.state.decorate",
+            "match": "(?i)(?<=\\bgoto\\b\\s+?)\\w+?\\b"
+        },
+        {
+            "name": "keyword.states.decorate",
+            "match": "(?i)\\b(?:bright|canraise|fast|light|nodelay|offset|slow)\\b"
+        },
+        {
+            "name": "keyword.control.states.decorate",
+            "match": "(?i)\\b(?:loop|stop|wait|fail|goto)\\b"
+        },
+        {
+            "name": "entity.name.function.decorate",
+            "match": "A_\\w+?\b"
+        },
+        {
+            "name": "entity.name.function.decorate",
+            "match": "\\w+(?=\\s*\\()"
+        },
+        {
+            "name": "variable.parameter",
+            "match": "\\w:"
+        },
+        {
+            "name": "keyword.control.directive.decorate",
+            "match": "^\\#(?:include|library|define)\\b"
+        },
+        {
+            "name": "variable.other.decorate",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash.decorate",
+                    "begin": "\\/\\/",
+                    "end": "$",
+                    "contentName": "comment.line.double-slash.text.decorate"
+                },
+                {
+                    "name": "comment.block.decorate",
+                    "begin": "\\/\\*",
+                    "end": "\\*\\/",
+                    "contentName": "comment.block.text.decorate"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.decorate",
+                    "begin": "(?<!\\\\)\"",
+                    "end": "(?<!\\\\)\""
+                },
+                {
+                    "name": "string.quoted.single.decorate",
+                    "begin": "(?<!\\\\)'",
+                    "end": "(?<!\\\\)'"
+                }
+            ]
+        },
+        "punctuation": {
+            "patterns": [
+                {
+                    "name": "punctuation.terminator.statement.decorate",
+                    "match": ";"
+                },
+                {
+                    "name": "punctuation.brackets.round.decorate",
+                    "match": "[()]"
+                },
+                {
+                    "name": "punctuation.brackets.square.decorate",
+                    "match": "[\\[\\]]"
+                },
+                {
+                    "name": "punctuation.brackets.curly.decorate",
+                    "match": "[{}]"
+                },
+                {
+                    "name": "constant.numeric.decimal.point.decorate",
+                    "match": "(?<=[\\d]?)\\.(?=[\\d])"
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.decorate",
+                    "match": "\\b(?i:if|else|for|return|do|while|switch|continue|break|case)\\b"
+                },
+                {
+                    "name": "keyword.operator.decorate",
+                    "match": "(?:-[-=]?|!=?|\\+[+=]?|~(?:==)?|\\*[*=]?|\\/=?|%=?|<(?:<|>?=)?|>(?:>(?:>|=)?|=)?|\\.\\.?|==?|&[&=]?|\\|[|=]?|\\^=?|::?)|\\b(?:alignof|sizeof|cross|dot|is)\\b"
+                },
+                {
+                    "name": "keyword.other.decorate",
+                    "match": "\\b(?i:Script|abstract|action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend|in|out)\\b"
+                }
+            ]
+        },
+        "types": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.decorate",
+                    "match": "\\b\\d+?\\b"
+                },
+                {
+                    "name": "storage.type.script.decorate",
+                    "match": "(?i)(?<=^script.+?)\\w+?$"
+                },
+                {
+                    "name": "storage.type.decorate",
+                    "match": "\\b(?i:null|void|array|bool|script|ON|OFF)\\b|\\b(?<!\\.)\\w+?(?=\\ (?!(?i:TRUE|FALSE))(?:[a-zA-Z]+?))"
+                },
+                {
+                    "name": "constant.decorate",
+                    "match": "\\b[A-Z_0-9]+?\\b"
+                },
+                {
+                    "name": "entity.name.class.structure.decorate",
+                    "match": "\\b\\w+?(?=\\[)\\b|\\b\\w+?(?=(?:\\[\\w+?\\])??\\.\\w+)"
+                },
+                {
+                    "name": "constant.language.boolean.decorate",
+                    "match": "\\b(?i:true|false)\\b"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.decorate"
+}

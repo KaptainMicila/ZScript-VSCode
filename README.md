@@ -18,6 +18,10 @@ Made with the help from: [marrub--'s ZScript documentation](https://github.com/m
 
     -   ZScript Programmatic Language Features
 
+-   Version 1.7.0
+
+    -   DECORATE Syntax Highlighting
+
 _More to come, soon™._
 
 ## IMAGES

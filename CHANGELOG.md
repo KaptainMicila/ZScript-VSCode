@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.7.0] The "Absolute Decorate Man" update
+
+-   Added support for DECORATE
+-   Fixed some stuff for ACS
+
 ## [1.6.2] The "Autocomplete begins" update
 
 -   Added initial autocomplete capability. More to come.

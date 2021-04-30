@@ -1,10 +1,10 @@
 {
     "name": "gzdoom-zscript",
     "displayName": "GZDoom ZScript",
-    "description": "GZDoom's ZScript scripting language support for VSCode",
+    "description": "GZDoom's multiple scripting languages support (with a focus on ZScript) for VSCode (and compatible editors)",
     "publisher": "kaptainmicila",
     "icon": "icons/GZDoom.png",
-    "version": "1.6.2",
+    "version": "1.7.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/KaptainMicila/ZScript-VSCode.git"
@@ -21,6 +21,8 @@
                 "id": "zscript",
                 "aliases": [
                     "ZScript",
+                    "ZDoom Script",
+                    "DoomScript",
                     "zscript"
                 ],
                 "extensions": [
@@ -34,12 +36,30 @@
                 "id": "acs",
                 "aliases": [
                     "ACS",
+                    "Action Code Script",
                     "acs"
                 ],
                 "extensions": [
                     ".acs"
                 ],
                 "configuration": "./configurations/ACSConfiguration.json"
+            },
+            {
+                "id": "decorate",
+                "aliases": [
+                    "DECORATE",
+                    "decorate",
+                    "zdoomDecorate",
+                    "gzdoomDecorate"
+                ],
+                "extensions": [
+                    ".dec"
+                ],
+                "filenames": [
+                    "DECORATE",
+                    "decorate"
+                ],
+                "configuration": "./configurations/DecorateConfiguration.json"
             }
         ],
         "grammars": [
@@ -52,6 +72,11 @@
                 "language": "acs",
                 "scopeName": "source.acs",
                 "path": "./syntaxes/acs.tmLanguage.json"
+            },
+            {
+                "language": "decorate",
+                "scopeName": "source.decorate",
+                "path": "./syntaxes/decorate.tmLanguage.json"
             }
         ]
     },
@@ -74,7 +99,8 @@
     ],
     "activationEvents": [
         "onLanguage:zscript",
-        "onLanguage:acs"
+        "onLanguage:acs",
+        "onLanguage:decorate"
     ],
     "main": "./out/extension.js",
     "scripts": {
