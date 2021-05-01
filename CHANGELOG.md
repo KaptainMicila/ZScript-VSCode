@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.7.1] The "Cleanup" update
+
+-	Removed junk around the code
+-	Fixed some inaccuracies
+-	Fixed a bug that wouldn't update the context while writing code
+
 ## [1.7.0] The "Absolute Decorate Man" update
 
 -   Added support for DECORATE

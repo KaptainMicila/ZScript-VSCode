@@ -19,6 +19,7 @@ const builtInCompletions = require("./builtIn/completions");
 let majorContextes = [];
 let errorRanges = [];
 let documentLineCount = 0;
+const commentRanges = new Set();
 function activate(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { activeTextEditor } = vscode.window;
@@ -28,6 +29,16 @@ function activate(context) {
         const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
         const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
             provideCompletionItems(_document, position, _token, _context) {
+                let commented = false;
+                for (const commentRange of commentRanges) {
+                    if (commentRange.contains(position)) {
+                        commented = true;
+                        break;
+                    }
+                }
+                if (commented) {
+                    return [];
+                }
                 let callContext = null;
                 for (const context of majorContextes) {
                     if (context.contains(position)) {
@@ -35,6 +46,7 @@ function activate(context) {
                         break;
                     }
                 }
+                console.log(callContext);
                 if (callContext === ZScriptCompletionItem_1.default.GLOBAL_SCOPE) {
                     return builtInCompletions.globalScopeValues;
                 }
@@ -74,9 +86,8 @@ function updateDiagnostics(document, diagnosticsCollection) {
 function updateTextContextes(document) {
     return __awaiter(this, void 0, void 0, function* () {
         const contextChanges = [];
-        const commentChanges = [];
         const tempContextes = [];
-        const commentRanges = new Set();
+        const commentChanges = [];
         errorRanges = [];
         /**
          * Checks if the context given has been commented
@@ -161,10 +172,8 @@ function updateTextContextes(document) {
                 }
             }
         }
-        if (document.lineCount !== documentLineCount || tempContextes !== majorContextes) {
-            documentLineCount = document.lineCount;
-            majorContextes = tempContextes.filter((contextWithOutherContext) => !contextWithOutherContext.outherContext);
-        }
+        documentLineCount = document.lineCount;
+        majorContextes = tempContextes.filter((contextWithOutherContext) => !contextWithOutherContext.outherContext);
         if (contextChanges.length > 0) {
             for (const change of contextChanges) {
                 errorRanges.push(new ZScriptError_1.default(new vscode.Position(change.line, change.character), new vscode.Position(change.line, change.character), '"}" expected somewhere!'));

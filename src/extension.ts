@@ -8,7 +8,7 @@ import * as builtInCompletions from "./builtIn/completions";
 
 let majorContextes: Array<ZScriptContext> = [];
 let errorRanges: Array<ZScriptError> = [];
-let documentLineCount: number = 0;
+const commentRanges: Set<vscode.Range> = new Set();
 
 export async function activate(context: vscode.ExtensionContext) {
     const { activeTextEditor } = vscode.window;
@@ -25,6 +25,19 @@ export async function activate(context: vscode.ExtensionContext) {
             _token: vscode.CancellationToken,
             _context: vscode.CompletionContext
         ) {
+            let commented: boolean = false;
+
+            for (const commentRange of commentRanges) {
+                if (commentRange.contains(position)) {
+                    commented = true;
+                    break;
+                }
+            }
+
+            if (commented) {
+                return [];
+            }
+
             let callContext: ZScriptContext | null = null;
 
             for (const context of majorContextes) {
@@ -78,9 +91,8 @@ async function updateDiagnostics(document: vscode.TextDocument, diagnosticsColle
 
 async function updateTextContextes(document: vscode.TextDocument) {
     const contextChanges: Array<vscode.Position> = [];
-    const commentChanges: Array<vscode.Position> = [];
     const tempContextes: Array<ZScriptContext> = [];
-    const commentRanges: Set<vscode.Range> = new Set();
+    const commentChanges: Array<vscode.Position> = [];
     errorRanges = [];
 
     /**
@@ -218,10 +230,7 @@ async function updateTextContextes(document: vscode.TextDocument) {
         }
     }
 
-    if (document.lineCount !== documentLineCount || tempContextes !== majorContextes) {
-        documentLineCount = document.lineCount;
-        majorContextes = tempContextes.filter((contextWithOutherContext) => !contextWithOutherContext.outherContext);
-    }
+    majorContextes = tempContextes.filter((contextWithOutherContext) => !contextWithOutherContext.outherContext);
 
     if (contextChanges.length > 0) {
         for (const change of contextChanges) {

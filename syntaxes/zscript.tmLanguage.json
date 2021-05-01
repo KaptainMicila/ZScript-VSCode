@@ -120,11 +120,11 @@
                 },
                 {
                     "name": "storage.type.zscript",
-                    "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)\\w+?(?=\\ (?!(?i:alignof|sizeof|cross|dot|is|true|false))(?:[a-zA-Z]+?))"
+                    "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)[a-z]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))(?:[a-z]+?))|\\b[a-z]\\w*?(?=\\s+?\\w+?\\()\\b"
                 },
                 {
                     "name": "entity.name.class.structure.zscript",
-                    "match": "\\b\\w+?(?=\\[)\\b|\\b\\w+?(?=(?:\\[\\w+?\\])??\\.\\w+)"
+                    "match": "\\b\\w+?(?=(?:\\[.*?\\])??\\.)\\b"
                 },
                 {
                     "name": "constant.language.boolean.zscript",
@@ -190,8 +190,12 @@
                     "match": "(?<=\\w+?[\\[\\]]??\\.)\\w+?\\b"
                 },
                 {
+                    "name": "entity.name.class.object.zscript",
+                    "match": "\\b[A-Z]\\w*?\\b"
+                },
+                {
                     "name": "variable.other.zscript",
-                    "match": "\\b\\w+?\\b"
+                    "match": "\\b[a-z]\\w*?(?:\\[.*?\\])??\\b"
                 }
             ]
         },

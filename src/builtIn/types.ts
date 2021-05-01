@@ -79,9 +79,9 @@ export const integers: Integer[] = [
     },
 ];
 
-export interface Floats extends ZScriptType {}
+export interface Float extends ZScriptType {}
 
-export const floats: Floats[] = [
+export const floats: Float[] = [
     {
         label: "double",
         description: new MarkdownString("64-bit floating-point number."),

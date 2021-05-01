@@ -4,7 +4,8 @@ import * as completionTypes from "../builtIn/types";
 
 interface CompletitionOptions {
     defaultDescription?: vscode.MarkdownString;
-    completitionIcon?: vscode.CompletionItemKind;
+    customIcon?: vscode.CompletionItemKind;
+    customDetail?: string;
 }
 
 // Helper functions
@@ -16,7 +17,7 @@ function addTypeToContext(
     for (const typeName of typeFamily) {
         const newCompletition = new ZScriptCompletionItem(
             typeName.label,
-            options?.completitionIcon ?? vscode.CompletionItemKind.Keyword
+            options?.customIcon ?? vscode.CompletionItemKind.Keyword
         );
 
         let typeDescription = null;
@@ -29,16 +30,22 @@ function addTypeToContext(
             newCompletition.documentation = typeDescription;
         }
 
+        if (options && options.customDetail) {
+            newCompletition.detail = options.customDetail;
+        }
+
         contextArray.push(newCompletition);
 
         if (typeName.aliases) {
             for (const aliasName of typeName.aliases) {
                 const newCompletitionAlias = new ZScriptCompletionItem(
                     aliasName,
-                    options?.completitionIcon ?? vscode.CompletionItemKind.Keyword
+                    options?.customIcon ?? vscode.CompletionItemKind.Keyword
                 );
 
-                newCompletitionAlias.detail = typeName.label;
+                if (options && !options.customDetail) {
+                    newCompletitionAlias.detail = typeName.label;
+                }
 
                 if (typeDescription) {
                     newCompletitionAlias.documentation = new vscode.MarkdownString(
@@ -81,8 +88,8 @@ export const globalScopeValues: ZScriptCompletionItem[] = [...defaultCompletions
 
 export const contextCompletitions: ZScriptCompletionItem[] = [...defaultCompletions];
 
-addTypeToContext(completionTypes.integers, contextCompletitions);
-addTypeToContext(completionTypes.floats, contextCompletitions);
+addTypeToContext(completionTypes.integers, contextCompletitions, { customDetail: "builtin type" });
+addTypeToContext(completionTypes.floats, contextCompletitions, { customDetail: "builtin type" });
 
 for (const completionText of [
     "string",

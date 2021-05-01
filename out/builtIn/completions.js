@@ -8,7 +8,7 @@ const completionTypes = require("../builtIn/types");
 function addTypeToContext(typeFamily, contextArray, options) {
     var _a, _b;
     for (const typeName of typeFamily) {
-        const newCompletition = new ZScriptCompletionItem_1.default(typeName.label, (_a = options === null || options === void 0 ? void 0 : options.completitionIcon) !== null && _a !== void 0 ? _a : vscode.CompletionItemKind.Keyword);
+        const newCompletition = new ZScriptCompletionItem_1.default(typeName.label, (_a = options === null || options === void 0 ? void 0 : options.customIcon) !== null && _a !== void 0 ? _a : vscode.CompletionItemKind.Keyword);
         let typeDescription = null;
         if (typeName.description) {
             typeDescription = typeName.description;
@@ -18,11 +18,16 @@ function addTypeToContext(typeFamily, contextArray, options) {
             typeDescription = options.defaultDescription;
             newCompletition.documentation = typeDescription;
         }
+        if (options && options.customDetail) {
+            newCompletition.detail = options.customDetail;
+        }
         contextArray.push(newCompletition);
         if (typeName.aliases) {
             for (const aliasName of typeName.aliases) {
-                const newCompletitionAlias = new ZScriptCompletionItem_1.default(aliasName, (_b = options === null || options === void 0 ? void 0 : options.completitionIcon) !== null && _b !== void 0 ? _b : vscode.CompletionItemKind.Keyword);
-                newCompletitionAlias.detail = typeName.label;
+                const newCompletitionAlias = new ZScriptCompletionItem_1.default(aliasName, (_b = options === null || options === void 0 ? void 0 : options.customIcon) !== null && _b !== void 0 ? _b : vscode.CompletionItemKind.Keyword);
+                if (options && !options.customDetail) {
+                    newCompletitionAlias.detail = typeName.label;
+                }
                 if (typeDescription) {
                     newCompletitionAlias.documentation = new vscode.MarkdownString(typeDescription.value + `\n\nAlias of \`${typeName.label}\``);
                 }
@@ -48,8 +53,8 @@ exports.globalScopeValues = [...exports.defaultCompletions, version, include];
 // SCOPED CONTEXT COMPLETITIONS
 // When you're inside a context that's not the global one.
 exports.contextCompletitions = [...exports.defaultCompletions];
-addTypeToContext(completionTypes.integers, exports.contextCompletitions);
-addTypeToContext(completionTypes.floats, exports.contextCompletitions);
+addTypeToContext(completionTypes.integers, exports.contextCompletitions, { customDetail: "builtin type" });
+addTypeToContext(completionTypes.floats, exports.contextCompletitions, { customDetail: "builtin type" });
 for (const completionText of [
     "string",
     "name",
