@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.7.2] The "One less `continue` to rule them all" update
+-	Removed one single `continue`, that's it.
+
 ## [1.7.2] The "Cleanup, but stronger" update
 
 -   Extreme optimization (hope it does not break more stuff)

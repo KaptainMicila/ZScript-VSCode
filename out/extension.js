@@ -82,7 +82,6 @@ function updateTextContextes(document) {
             const lineText = line.text;
             if (singleLineCommented) {
                 singleLineCommented = false;
-                continue;
             }
             for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
                 const character = lineText.charAt(characterIndex);

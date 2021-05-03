@@ -83,8 +83,6 @@ async function updateTextContextes(document: vscode.TextDocument) {
 
         if (singleLineCommented) {
             singleLineCommented = false;
-
-            continue;
         }
 
         for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
