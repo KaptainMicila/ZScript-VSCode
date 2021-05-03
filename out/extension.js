@@ -18,8 +18,6 @@ const ZScriptCompletionItem_1 = require("./classes/ZScriptCompletionItem");
 const builtInCompletions = require("./builtIn/completions");
 let majorContextes = [];
 let errorRanges = [];
-let documentLineCount = 0;
-const commentRanges = new Set();
 function activate(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { activeTextEditor } = vscode.window;
@@ -28,25 +26,14 @@ function activate(context) {
         }
         const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
         const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
-            provideCompletionItems(_document, position, _token, _context) {
-                let commented = false;
-                for (const commentRange of commentRanges) {
-                    if (commentRange.contains(position)) {
-                        commented = true;
-                        break;
-                    }
-                }
-                if (commented) {
-                    return [];
-                }
+            provideCompletionItems(_document, position) {
                 let callContext = null;
-                for (const context of majorContextes) {
-                    if (context.contains(position)) {
-                        callContext = context;
+                for (const majorContext of majorContextes) {
+                    if (majorContext.contains(position)) {
+                        callContext = majorContext;
                         break;
                     }
                 }
-                console.log(callContext);
                 if (callContext === ZScriptCompletionItem_1.default.GLOBAL_SCOPE) {
                     return builtInCompletions.globalScopeValues;
                 }
@@ -87,76 +74,48 @@ function updateTextContextes(document) {
     return __awaiter(this, void 0, void 0, function* () {
         const contextChanges = [];
         const tempContextes = [];
-        const commentChanges = [];
         errorRanges = [];
-        /**
-         * Checks if the context given has been commented
-         * @param positionToCheck  The context to check
-         * @returns {boolean}
-         */
-        function hasBeenCommented(positionToCheck, commentChangesCheck = true) {
-            if (commentChangesCheck && commentChanges.length > 0) {
-                return true;
-            }
-            if (commentRanges.size > 0) {
-                for (const commentRange of commentRanges) {
-                    if (commentRange.contains(positionToCheck)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        for (let i = 0; i < document.lineCount; i++) {
-            const line = document.lineAt(i);
-            const lineNumber = line.lineNumber;
+        let commented = false;
+        let singleLineCommented = false;
+        for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
+            const line = document.lineAt(lineIndex);
             const lineText = line.text;
-            if (lineText.includes("//")) {
-                commentRanges.add(new vscode.Range(new vscode.Position(lineNumber, lineText.indexOf("//") + 1), new vscode.Position(lineNumber, line.range.end.character)));
+            if (singleLineCommented) {
+                singleLineCommented = false;
+                continue;
             }
-            if (lineText.includes("/*")) {
-                const newCommentChange = new vscode.Position(lineNumber, lineText.indexOf("/*") + 1);
-                if (!hasBeenCommented(newCommentChange)) {
-                    commentChanges.push(newCommentChange);
+            for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
+                const character = lineText.charAt(characterIndex);
+                if (singleLineCommented) {
+                    continue;
                 }
-            }
-            if (lineText.includes("*/")) {
-                const newCommentChange = new vscode.Position(lineNumber, lineText.indexOf("*/"));
-                if (!hasBeenCommented(newCommentChange, false)) {
-                    commentChanges.push(newCommentChange);
-                    try {
-                        if (!lineText.includes("/*") && lineText.indexOf("/*") < lineText.indexOf("*/")) {
-                            commentRanges.add(new vscode.Range(commentChanges.splice(commentChanges.length - 2, 1)[0], commentChanges.splice(commentChanges.length - 1, 1)[0]));
-                        }
-                        else {
-                            commentRanges.add(new vscode.Range(commentChanges.splice(commentChanges.length - 1, 1)[0], commentChanges.splice(commentChanges.length - 2, 1)[0]));
-                        }
-                    }
-                    catch (error) {
-                        errorRanges.push(new ZScriptError_1.default(new vscode.Position(newCommentChange.line, newCommentChange.character), new vscode.Position(newCommentChange.line, newCommentChange.character), '"/*" expected somewhere!'));
-                    }
+                if (commented) {
+                    commented = character !== "*" || lineText.charAt(characterIndex + 1) !== "/";
                 }
-            }
-            if (lineText.includes("{")) {
-                const newContextChange = new vscode.Position(lineNumber, lineText.indexOf("{") + 1);
-                if (!hasBeenCommented(newContextChange)) {
-                    contextChanges.push(newContextChange);
-                }
-            }
-            if (lineText.includes("}")) {
-                const newContextChange = new vscode.Position(lineNumber, lineText.indexOf("}"));
-                if (!hasBeenCommented(newContextChange)) {
-                    contextChanges.push(newContextChange);
-                    try {
-                        if (!lineText.includes("{") && lineText.indexOf("{") < lineText.indexOf("}")) {
-                            tempContextes.push(new ZScriptContext_1.default(contextChanges.splice(contextChanges.length - 2, 1)[0], contextChanges.splice(contextChanges.length - 1, 1)[0], ZScriptContextType_1.default.Unknown));
-                        }
-                        else {
-                            tempContextes.push(new ZScriptContext_1.default(contextChanges.splice(contextChanges.length - 1, 1)[0], contextChanges.splice(contextChanges.length - 2, 1)[0], ZScriptContextType_1.default.Unknown));
-                        }
-                    }
-                    catch (error) {
-                        errorRanges.push(new ZScriptError_1.default(new vscode.Position(newContextChange.line, newContextChange.character), new vscode.Position(newContextChange.line, newContextChange.character), '"{" expected somewhere!'));
+                else {
+                    switch (character) {
+                        case "{":
+                            contextChanges.push(new vscode.Position(lineIndex, characterIndex + 1));
+                            break;
+                        case "}":
+                            contextChanges.push(new vscode.Position(lineIndex, characterIndex));
+                            try {
+                                tempContextes.push(new ZScriptContext_1.default(contextChanges.splice(contextChanges.length - 2, 1)[0], contextChanges.splice(contextChanges.length - 1, 1)[0], ZScriptContextType_1.default.Unknown));
+                            }
+                            catch (error) {
+                                errorRanges.push(new ZScriptError_1.default(new vscode.Position(lineIndex, characterIndex), new vscode.Position(lineIndex, characterIndex), '"{" expected somewhere!'));
+                            }
+                            break;
+                        case "/":
+                            switch (lineText.charAt(characterIndex + 1)) {
+                                case "*":
+                                    commented = true;
+                                    break;
+                                case "/":
+                                    singleLineCommented = true;
+                                    break;
+                            }
+                            break;
                     }
                 }
             }
@@ -172,11 +131,11 @@ function updateTextContextes(document) {
                 }
             }
         }
-        documentLineCount = document.lineCount;
         majorContextes = tempContextes.filter((contextWithOutherContext) => !contextWithOutherContext.outherContext);
         if (contextChanges.length > 0) {
             for (const change of contextChanges) {
-                errorRanges.push(new ZScriptError_1.default(new vscode.Position(change.line, change.character), new vscode.Position(change.line, change.character), '"}" expected somewhere!'));
+                const changePosition = new vscode.Position(change.line, change.character);
+                errorRanges.push(new ZScriptError_1.default(changePosition, changePosition, '"}" expected somewhere!'));
             }
         }
     });

@@ -1,10 +1,15 @@
 # Change Log
 
+## [1.7.2] The "Cleanup, but stronger" update
+
+-   Extreme optimization (hope it does not break more stuff)
+-   Fixed a work breaking bug
+
 ## [1.7.1] The "Cleanup" update
 
--	Removed junk around the code
--	Fixed some inaccuracies
--	Fixed a bug that wouldn't update the context while writing code
+-   Removed junk around the code
+-   Fixed some inaccuracies
+-   Fixed a bug that wouldn't update the context while writing code
 
 ## [1.7.0] The "Absolute Decorate Man" update
 

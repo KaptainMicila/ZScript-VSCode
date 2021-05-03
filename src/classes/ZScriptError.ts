@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 export default class ZScriptError extends vscode.Range {
-    readonly #description: string | null = null;
+    private readonly _description: string | null = null;
 
     /**
      * It's just a normal vscode Range with an added description, for extra laziness.
@@ -15,10 +15,10 @@ export default class ZScriptError extends vscode.Range {
      */
     constructor(start: vscode.Position, end: vscode.Position, description: string | null) {
         super(start, end);
-        this.#description = description;
+        this._description = description;
     }
 
     public get description() {
-        return this.#description;
+        return this._description;
     }
 }

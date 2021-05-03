@@ -8,7 +8,6 @@ import * as builtInCompletions from "./builtIn/completions";
 
 let majorContextes: Array<ZScriptContext> = [];
 let errorRanges: Array<ZScriptError> = [];
-const commentRanges: Set<vscode.Range> = new Set();
 
 export async function activate(context: vscode.ExtensionContext) {
     const { activeTextEditor } = vscode.window;
@@ -19,31 +18,13 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
     const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
-        provideCompletionItems(
-            _document: vscode.TextDocument,
-            position: vscode.Position,
-            _token: vscode.CancellationToken,
-            _context: vscode.CompletionContext
-        ) {
-            let commented: boolean = false;
-
-            for (const commentRange of commentRanges) {
-                if (commentRange.contains(position)) {
-                    commented = true;
-                    break;
-                }
-            }
-
-            if (commented) {
-                return [];
-            }
-
+        provideCompletionItems(_document: vscode.TextDocument, position: vscode.Position) {
             let callContext: ZScriptContext | null = null;
 
-            for (const context of majorContextes) {
-                if (context.contains(position)) {
-                    callContext = context;
-                    
+            for (const majorContext of majorContextes) {
+                if (majorContext.contains(position)) {
+                    callContext = majorContext;
+
                     break;
                 }
             }
@@ -92,126 +73,70 @@ async function updateDiagnostics(document: vscode.TextDocument, diagnosticsColle
 async function updateTextContextes(document: vscode.TextDocument) {
     const contextChanges: Array<vscode.Position> = [];
     const tempContextes: Array<ZScriptContext> = [];
-    const commentChanges: Array<vscode.Position> = [];
     errorRanges = [];
+    let commented = false;
+    let singleLineCommented = false;
 
-    /**
-     * Checks if the context given has been commented
-     * @param positionToCheck  The context to check
-     * @returns {boolean}
-     */
-    function hasBeenCommented(positionToCheck: vscode.Position, commentChangesCheck: boolean = true): boolean {
-        if (commentChangesCheck && commentChanges.length > 0) {
-            return true;
-        }
-
-        if (commentRanges.size > 0) {
-            for (const commentRange of commentRanges) {
-                if (commentRange.contains(positionToCheck)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    for (let i = 0; i < document.lineCount; i++) {
-        const line: vscode.TextLine = document.lineAt(i);
-        const lineNumber: number = line.lineNumber;
+    for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
+        const line: vscode.TextLine = document.lineAt(lineIndex);
         const lineText: string = line.text;
 
-        if (lineText.includes("//")) {
-            commentRanges.add(
-                new vscode.Range(
-                    new vscode.Position(lineNumber, lineText.indexOf("//") + 1),
-                    new vscode.Position(lineNumber, line.range.end.character)
-                )
-            );
+        if (singleLineCommented) {
+            singleLineCommented = false;
+
+            continue;
         }
 
-        if (lineText.includes("/*")) {
-            const newCommentChange: vscode.Position = new vscode.Position(lineNumber, lineText.indexOf("/*") + 1);
+        for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
+            const character = lineText.charAt(characterIndex);
 
-            if (!hasBeenCommented(newCommentChange)) {
-                commentChanges.push(newCommentChange);
+            if (singleLineCommented) {
+                continue;
             }
-        }
 
-        if (lineText.includes("*/")) {
-            const newCommentChange: vscode.Position = new vscode.Position(lineNumber, lineText.indexOf("*/"));
+            if (commented) {
+                commented = character !== "*" || lineText.charAt(characterIndex + 1) !== "/";
+            } else {
+                switch (character) {
+                    case "{":
+                        contextChanges.push(new vscode.Position(lineIndex, characterIndex + 1));
 
-            if (!hasBeenCommented(newCommentChange, false)) {
-                commentChanges.push(newCommentChange);
+                        break;
+                    case "}":
+                        contextChanges.push(new vscode.Position(lineIndex, characterIndex));
 
-                try {
-                    if (!lineText.includes("/*") && lineText.indexOf("/*") < lineText.indexOf("*/")) {
-                        commentRanges.add(
-                            new vscode.Range(
-                                commentChanges.splice(commentChanges.length - 2, 1)[0],
-                                commentChanges.splice(commentChanges.length - 1, 1)[0]
-                            )
-                        );
-                    } else {
-                        commentRanges.add(
-                            new vscode.Range(
-                                commentChanges.splice(commentChanges.length - 1, 1)[0],
-                                commentChanges.splice(commentChanges.length - 2, 1)[0]
-                            )
-                        );
-                    }
-                } catch (error) {
-                    errorRanges.push(
-                        new ZScriptError(
-                            new vscode.Position(newCommentChange.line, newCommentChange.character),
-                            new vscode.Position(newCommentChange.line, newCommentChange.character),
-                            '"/*" expected somewhere!'
-                        )
-                    );
-                }
-            }
-        }
+                        try {
+                            tempContextes.push(
+                                new ZScriptContext(
+                                    contextChanges.splice(contextChanges.length - 2, 1)[0],
+                                    contextChanges.splice(contextChanges.length - 1, 1)[0],
+                                    ZScriptContextType.Unknown
+                                )
+                            );
+                        } catch (error) {
+                            errorRanges.push(
+                                new ZScriptError(
+                                    new vscode.Position(lineIndex, characterIndex),
+                                    new vscode.Position(lineIndex, characterIndex),
+                                    '"{" expected somewhere!'
+                                )
+                            );
+                        }
 
-        if (lineText.includes("{")) {
-            const newContextChange: vscode.Position = new vscode.Position(lineNumber, lineText.indexOf("{") + 1);
+                        break;
+                    case "/":
+                        switch (lineText.charAt(characterIndex + 1)) {
+                            case "*":
+                                commented = true;
 
-            if (!hasBeenCommented(newContextChange)) {
-                contextChanges.push(newContextChange);
-            }
-        }
+                                break;
+                            case "/":
+                                singleLineCommented = true;
 
-        if (lineText.includes("}")) {
-            const newContextChange: vscode.Position = new vscode.Position(lineNumber, lineText.indexOf("}"));
+                                break;
+                        }
 
-            if (!hasBeenCommented(newContextChange)) {
-                contextChanges.push(newContextChange);
-
-                try {
-                    if (!lineText.includes("{") && lineText.indexOf("{") < lineText.indexOf("}")) {
-                        tempContextes.push(
-                            new ZScriptContext(
-                                contextChanges.splice(contextChanges.length - 2, 1)[0],
-                                contextChanges.splice(contextChanges.length - 1, 1)[0],
-                                ZScriptContextType.Unknown
-                            )
-                        );
-                    } else {
-                        tempContextes.push(
-                            new ZScriptContext(
-                                contextChanges.splice(contextChanges.length - 1, 1)[0],
-                                contextChanges.splice(contextChanges.length - 2, 1)[0],
-                                ZScriptContextType.Unknown
-                            )
-                        );
-                    }
-                } catch (error) {
-                    errorRanges.push(
-                        new ZScriptError(
-                            new vscode.Position(newContextChange.line, newContextChange.character),
-                            new vscode.Position(newContextChange.line, newContextChange.character),
-                            '"{" expected somewhere!'
-                        )
-                    );
+                        break;
                 }
             }
         }
@@ -234,13 +159,9 @@ async function updateTextContextes(document: vscode.TextDocument) {
 
     if (contextChanges.length > 0) {
         for (const change of contextChanges) {
-            errorRanges.push(
-                new ZScriptError(
-                    new vscode.Position(change.line, change.character),
-                    new vscode.Position(change.line, change.character),
-                    '"}" expected somewhere!'
-                )
-            );
+            const changePosition = new vscode.Position(change.line, change.character);
+
+            errorRanges.push(new ZScriptError(changePosition, changePosition, '"}" expected somewhere!'));
         }
     }
 }

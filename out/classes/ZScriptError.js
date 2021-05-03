@@ -1,18 +1,4 @@
 "use strict";
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to set private field on non-instance");
-    }
-    privateMap.set(receiver, value);
-    return value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
-};
-var _description;
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 class ZScriptError extends vscode.Range {
@@ -28,13 +14,12 @@ class ZScriptError extends vscode.Range {
      */
     constructor(start, end, description) {
         super(start, end);
-        _description.set(this, null);
-        __classPrivateFieldSet(this, _description, description);
+        this._description = null;
+        this._description = description;
     }
     get description() {
-        return __classPrivateFieldGet(this, _description);
+        return this._description;
     }
 }
 exports.default = ZScriptError;
-_description = new WeakMap();
 //# sourceMappingURL=ZScriptError.js.map
