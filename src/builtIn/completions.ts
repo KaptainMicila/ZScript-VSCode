@@ -88,8 +88,16 @@ export const globalScopeValues: ZScriptCompletionItem[] = [...defaultCompletions
 
 export const contextCompletitions: ZScriptCompletionItem[] = [...defaultCompletions];
 
-addTypeToContext(completionTypes.integers, contextCompletitions, { customDetail: "builtin type" });
-addTypeToContext(completionTypes.floats, contextCompletitions, { customDetail: "builtin type" });
+addTypeToContext(completionTypes.integers, contextCompletitions, { customDetail: "built-in type" });
+addTypeToContext(completionTypes.floats, contextCompletitions, { customDetail: "built-in type" });
+addTypeToContext(completionTypes.classes, contextCompletitions, {
+    customDetail: "built-in class",
+    customIcon: vscode.CompletionItemKind.Class,
+});
+addTypeToContext(completionTypes.structs, contextCompletitions, {
+    customDetail: "built-in struct",
+    customIcon: vscode.CompletionItemKind.Struct,
+});
 
 for (const completionText of [
     "string",

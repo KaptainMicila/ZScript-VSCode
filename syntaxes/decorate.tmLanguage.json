@@ -43,7 +43,7 @@
         },
         {
             "name": "entity.name.function.decorate",
-            "match": "A_\\w+?\b"
+            "match": "A_\\w+?\\b"
         },
         {
             "name": "entity.name.function.decorate",

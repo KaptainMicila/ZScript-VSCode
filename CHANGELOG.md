@@ -1,6 +1,11 @@
 # Change Log
 
-## [1.7.2] The "One less `continue` to rule them all" update
+## [1.7.4] The "Classes4Everyone" update
+-	Added 1471 names of built-in classes and 76 of built-in structs to the autocompletion
+-	Added small documentation to 1% of these names (I'm ***NOT*** gonna continue that)
+-	Added `A_*` functions highlighting (previously broken, for some reason)
+
+## [1.7.3] The "One less `continue` to rule them all" update
 -	Removed one single `continue`, that's it.
 
 ## [1.7.2] The "Cleanup, but stronger" update

@@ -53,8 +53,16 @@ exports.globalScopeValues = [...exports.defaultCompletions, version, include];
 // SCOPED CONTEXT COMPLETITIONS
 // When you're inside a context that's not the global one.
 exports.contextCompletitions = [...exports.defaultCompletions];
-addTypeToContext(completionTypes.integers, exports.contextCompletitions, { customDetail: "builtin type" });
-addTypeToContext(completionTypes.floats, exports.contextCompletitions, { customDetail: "builtin type" });
+addTypeToContext(completionTypes.integers, exports.contextCompletitions, { customDetail: "built-in type" });
+addTypeToContext(completionTypes.floats, exports.contextCompletitions, { customDetail: "built-in type" });
+addTypeToContext(completionTypes.classes, exports.contextCompletitions, {
+    customDetail: "built-in class",
+    customIcon: vscode.CompletionItemKind.Class,
+});
+addTypeToContext(completionTypes.structs, exports.contextCompletitions, {
+    customDetail: "built-in struct",
+    customIcon: vscode.CompletionItemKind.Struct,
+});
 for (const completionText of [
     "string",
     "name",

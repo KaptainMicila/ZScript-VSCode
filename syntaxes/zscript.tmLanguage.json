@@ -120,7 +120,7 @@
                 },
                 {
                     "name": "storage.type.zscript",
-                    "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)[a-z]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))(?:[a-z]+?))|\\b[a-z]\\w*?(?=\\s+?\\w+?\\()\\b"
+                    "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)[a-z]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))(?:\\w+?))|\\b[a-z]\\w*?(?=\\s+?\\w+?\\()\\b"
                 },
                 {
                     "name": "entity.name.class.structure.zscript",
@@ -273,7 +273,7 @@
                         },
                         {
                             "name": "entity.name.function.zscript",
-                            "match": "A_\\w+?\b"
+                            "match": "A_\\w+?\\b"
                         },
                         {
                             "include": "#types"
