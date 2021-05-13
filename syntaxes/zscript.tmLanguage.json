@@ -120,11 +120,7 @@
                 },
                 {
                     "name": "storage.type.zscript",
-                    "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)[a-z]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))(?:\\w+?))|\\b[a-z]\\w*?(?=\\s+?\\w+?\\()\\b"
-                },
-                {
-                    "name": "entity.name.class.structure.zscript",
-                    "match": "\\b\\w+?(?=(?:\\[.*?\\])??\\.)\\b"
+                    "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)[a-z0-9]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))(?:\\w+?))|\\b[a-z0-9]\\w*?(?=\\s+?\\w+?\\()\\b"
                 },
                 {
                     "name": "constant.language.boolean.zscript",
@@ -186,16 +182,16 @@
         "variable": {
             "patterns": [
                 {
-                    "name": "variable.parameter.zscript",
+                    "name": "variable.property.zscript",
                     "match": "(?<=\\w+?[\\[\\]]??\\.)\\w+?\\b"
                 },
                 {
                     "name": "entity.name.class.object.zscript",
-                    "match": "\\b[A-Z]\\w*?\\b"
+                    "match": "\\b[A-Z0-9]\\w*?\\b"
                 },
                 {
-                    "name": "variable.other.zscript",
-                    "match": "\\b[a-z]\\w*?(?:\\[.*?\\])??\\b"
+                    "name": "variable.other.readwrite.zscript",
+                    "match": "\\b[a-z0-9]\\w*?(?:\\[.*?\\])??\\b"
                 }
             ]
         },
@@ -226,7 +222,7 @@
                             "include": "#keywords"
                         },
                         {
-                            "name": "variable.parameter.zscript",
+                            "name": "variable.property.zscript",
                             "match": "(?<=\\w+?\\.)\\w+?\\b"
                         },
                         {

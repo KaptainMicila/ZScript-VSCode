@@ -1,5 +1,4 @@
 import * as vscode from "vscode";
-import ZScriptCompletionItem from "../classes/ZScriptCompletionItem";
 import * as completionTypes from "../builtIn/types";
 
 interface CompletitionOptions {
@@ -11,11 +10,11 @@ interface CompletitionOptions {
 // Helper functions
 function addTypeToContext(
     typeFamily: completionTypes.ZScriptType[],
-    contextArray: ZScriptCompletionItem[],
+    contextArray: vscode.CompletionItem[],
     options?: CompletitionOptions
 ) {
     for (const typeName of typeFamily) {
-        const newCompletition = new ZScriptCompletionItem(
+        const newCompletition = new vscode.CompletionItem(
             typeName.label,
             options?.customIcon ?? vscode.CompletionItemKind.Keyword
         );
@@ -38,7 +37,7 @@ function addTypeToContext(
 
         if (typeName.aliases) {
             for (const aliasName of typeName.aliases) {
-                const newCompletitionAlias = new ZScriptCompletionItem(
+                const newCompletitionAlias = new vscode.CompletionItem(
                     aliasName,
                     options?.customIcon ?? vscode.CompletionItemKind.Keyword
                 );
@@ -62,10 +61,10 @@ function addTypeToContext(
 // DEFAULT COMPLETIONS
 // Always avaible
 
-export const defaultCompletions: ZScriptCompletionItem[] = [];
+export const defaultCompletions: vscode.CompletionItem[] = [];
 
 for (const completionText of ["class", "enum", "struct", "const", "mixin", "null", "void", "voidptr"]) {
-    const completitionType = new ZScriptCompletionItem(completionText, vscode.CompletionItemKind.Keyword);
+    const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.Keyword);
 
     defaultCompletions.push(completitionType);
 }
@@ -73,28 +72,31 @@ for (const completionText of ["class", "enum", "struct", "const", "mixin", "null
 // GLOBAL SCOPE COMPLETIONS
 // Avaible only in global scope
 
-const version = new ZScriptCompletionItem("version", vscode.CompletionItemKind.Keyword);
+const version = new vscode.CompletionItem("version", vscode.CompletionItemKind.Keyword);
 
 version.insertText = new vscode.SnippetString('version "${1}";');
 
-const include = new ZScriptCompletionItem("include", vscode.CompletionItemKind.Keyword);
+const include = new vscode.CompletionItem("include", vscode.CompletionItemKind.Keyword);
 
 include.insertText = new vscode.SnippetString('#include "${1}";');
 
-export const globalScopeValues: ZScriptCompletionItem[] = [...defaultCompletions, version, include];
+export const globalScopeValues: vscode.CompletionItem[] = [...defaultCompletions, version, include];
 
-// SCOPED CONTEXT COMPLETITIONS
-// When you're inside a context that's not the global one.
+// SCOPED (CURLY) CONTEXT COMPLETITIONS
+// When you're inside a context that's not the global one, inside curly brackets.
 
-export const contextCompletitions: ZScriptCompletionItem[] = [...defaultCompletions];
+export const contextAwareCompletitions: vscode.CompletionItem[] = [...defaultCompletions];
 
-addTypeToContext(completionTypes.integers, contextCompletitions, { customDetail: "built-in type" });
-addTypeToContext(completionTypes.floats, contextCompletitions, { customDetail: "built-in type" });
-addTypeToContext(completionTypes.classes, contextCompletitions, {
+addTypeToContext([...completionTypes.integers, ...completionTypes.floats], contextAwareCompletitions, {
+    customDetail: "built-in type",
+});
+
+addTypeToContext(completionTypes.classes, contextAwareCompletitions, {
     customDetail: "built-in class",
     customIcon: vscode.CompletionItemKind.Class,
 });
-addTypeToContext(completionTypes.structs, contextCompletitions, {
+
+addTypeToContext(completionTypes.structs, contextAwareCompletitions, {
     customDetail: "built-in struct",
     customIcon: vscode.CompletionItemKind.Struct,
 });
@@ -111,7 +113,7 @@ for (const completionText of [
     "statelabel",
     "textureid",
 ]) {
-    const completitionType = new ZScriptCompletionItem(completionText, vscode.CompletionItemKind.Keyword);
+    const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.Keyword);
 
-    contextCompletitions.push(completitionType);
+    contextAwareCompletitions.push(completitionType);
 }

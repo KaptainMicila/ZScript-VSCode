@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.7.5] The "Brackets Family" update
+-	Added support for more bracket types (useful for future updates)
+-	Various fixes to syntax highlighting (less stuff is now a class, like it should be)
+-	Many more forgotten ""fixes"" (sorry)
+-   Added "donations" support. I need ***more pizza***.
+
 ## [1.7.4] The "Classes4Everyone" update
 -	Added 1471 names of built-in classes and 76 of built-in structs to the autocompletion
 -	Added small documentation to 1% of these names (I'm ***NOT*** gonna continue that)
@@ -49,7 +55,7 @@
 ```acs
 script "Whatever" ENTER //<-- this one
 {
-	// BLAH BLAH
+    // BLAH BLAH
 }
 ```
 
@@ -109,40 +115,40 @@ Examples:
 
 ```cs
 States
-	{
-	Spawn:
-		TNT1 A 0 { chanceMod = 0;		return ResolveState("Spawn2"); }
-		TNT1 A 0 { chanceMod = 100;		return ResolveState("Spawn2"); }
-		TNT1 A 0 { chanceMod = 220;		return ResolveState("Spawn2"); }
-	Spawn2:
-		TNT1 A 0
-		{
-			A_SpawnItemEx("NashGoreBloodImpact", flags: BLOOD_FLAGS);
+    {
+    Spawn:
+        TNT1 A 0 { chanceMod = 0;		return ResolveState("Spawn2"); }
+        TNT1 A 0 { chanceMod = 100;		return ResolveState("Spawn2"); }
+        TNT1 A 0 { chanceMod = 220;		return ResolveState("Spawn2"); }
+    Spawn2:
+        TNT1 A 0
+        {
+            A_SpawnItemEx("NashGoreBloodImpact", flags: BLOOD_FLAGS);
 
-			for (int i = 0; i < 10; i++)
-			{
-				A_SpawnItemEx("NashGoreBloodParticle1",
-					frandom(-8, 8), frandom(-8, 8), frandom(-8, 8),
-					frandom(-2.0, 2.0), frandom(-2.0, 2.0), frandom(0.0, 4.0),
-					frandom(0, 360), BLOOD_FLAGS | SXF_TRANSFERPOINTERS, chanceMod);
-			}
-		}
-		TNT1 AAAAAAAAAA 1
-		{
-			A_SpawnItemEx("NashGoreBloodParticle2",
-				frandom(-8, 8), frandom(-8, 8), frandom(-8, 8),
-				frandom(-2.5, 2.5), frandom(-2.5, 2.5), frandom(1.0, 2.0),
-				frandom(0, 360), BLOOD_FLAGS, chanceMod);
-		}
-		TNT1 AAAAAAAAAA 1
-		{
-			A_SpawnItemEx("NashGoreBloodFloorSplashSpawner",
-				0, 0, 0,
-				frandom(-4.0, 4.0), frandom(-4.0, 4.0), frandom(1.0, 4.0),
-				frandom(0, 360), BLOOD_FLAGS, chanceMod);
-		}
-		Stop;
-	}
+            for (int i = 0; i < 10; i++)
+            {
+                A_SpawnItemEx("NashGoreBloodParticle1",
+                    frandom(-8, 8), frandom(-8, 8), frandom(-8, 8),
+                    frandom(-2.0, 2.0), frandom(-2.0, 2.0), frandom(0.0, 4.0),
+                    frandom(0, 360), BLOOD_FLAGS | SXF_TRANSFERPOINTERS, chanceMod);
+            }
+        }
+        TNT1 AAAAAAAAAA 1
+        {
+            A_SpawnItemEx("NashGoreBloodParticle2",
+                frandom(-8, 8), frandom(-8, 8), frandom(-8, 8),
+                frandom(-2.5, 2.5), frandom(-2.5, 2.5), frandom(1.0, 2.0),
+                frandom(0, 360), BLOOD_FLAGS, chanceMod);
+        }
+        TNT1 AAAAAAAAAA 1
+        {
+            A_SpawnItemEx("NashGoreBloodFloorSplashSpawner",
+                0, 0, 0,
+                frandom(-4.0, 4.0), frandom(-4.0, 4.0), frandom(1.0, 4.0),
+                frandom(0, 360), BLOOD_FLAGS, chanceMod);
+        }
+        Stop;
+    }
 ```
 
 -   Example 2
@@ -151,7 +157,7 @@ States
 class Class1 : Class2 {
 //				↑
 //				This is now recognized as a class!
-	// CODE
+    // CODE
 }
 ```
 
@@ -159,9 +165,9 @@ class Class1 : Class2 {
 
 ```cs
 enum Example {
-	VALUE_1,
-	value_2,
-	value_n
+    VALUE_1,
+    value_2,
+    value_n
 }
 ```
 

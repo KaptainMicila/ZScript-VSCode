@@ -1110,7 +1110,7 @@ exports.classes = [
     },
     {
         label: "VavoomLight",
-        description: new vscode_1.MarkdownString("Base class for Vavoom-type lights.")
+        description: new vscode_1.MarkdownString("Base class for Vavoom-type lights."),
     },
     {
         label: "VavoomLightColor",
@@ -1150,7 +1150,7 @@ exports.classes = [
     },
     {
         label: "FadeSetter",
-        description: new vscode_1.MarkdownString("Sets the containing sector's fade (fog) color using the values specified by its arguments")
+        description: new vscode_1.MarkdownString("Sets the containing sector's fade (fog) color using the values specified by its arguments"),
     },
     {
         label: "FastProjectile",

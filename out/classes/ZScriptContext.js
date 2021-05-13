@@ -20,6 +20,9 @@ class ZScriptContext extends vscode.Range {
     get type() {
         return this._type;
     }
+    set type(type) {
+        this._type = type;
+    }
 }
 exports.default = ZScriptContext;
 ZScriptContext.GLOBAL_SCOPE = null;

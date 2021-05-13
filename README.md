@@ -1,8 +1,18 @@
-# ZScript-VSCode
+<p align="center"><img width="100" height="100" src="./icons/GZDoom.png"></p>
+<h1 align="center">ZScript-VSCode</h1>
+
+<p align="center">
+<img src="https://img.shields.io/github/stars/KaptainMicila/ZScript-VSCode?style=for-the-badge">
+<img src="https://img.shields.io/badge/%20%F0%9F%8D%95%20DONATE%20PIZZA-4%20%E2%82%AC-important?style=for-the-badge&link=https://www.buymeacoffee.com/KaptainMicila">
+</p>
+
+---
 
 ## [GZDoom's](https://zdoom.org/index) [ZScript](https://zdoom.org/wiki/ZScript) language support for [VSCode](https://code.visualstudio.com/) (and compatible editors).
 
 Made with the help from: [marrub--'s ZScript documentation](https://github.com/marrub--/zdoom-doc).
+
+---
 
 ## FEATURES
 
@@ -24,6 +34,8 @@ Made with the help from: [marrub--'s ZScript documentation](https://github.com/m
 
 _More to come, soon™._
 
+---
+
 ## IMAGES
 
 archvile.zs (from gzdoom.pk3)
@@ -33,6 +45,8 @@ archvile.zs (from gzdoom.pk3)
 Error Checking
 
 ![error_checking](https://raw.githubusercontent.com/KaptainMicila/ZScript-VSCode/master/icons/ErrorChecking.png)
+
+---
 
 ## HOW DO I USE IT?
 

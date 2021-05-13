@@ -6,7 +6,7 @@ export default class ZScriptContext extends vscode.Range {
 
     private _outherContext: ZScriptContext | typeof ZScriptContext.GLOBAL_SCOPE = ZScriptContext.GLOBAL_SCOPE;
     private _innerContextes: Array<ZScriptContext> = [];
-    readonly _type: ZScriptContextType;
+    private _type: ZScriptContextType;
 
     constructor(start: vscode.Position, end: vscode.Position, type: ZScriptContextType) {
         super(start, end);
@@ -27,5 +27,9 @@ export default class ZScriptContext extends vscode.Range {
 
     public get type(): ZScriptContextType {
         return this._type;
+    }
+
+    public set type(type: ZScriptContextType) {
+        this._type = type;
     }
 }

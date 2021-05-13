@@ -3,7 +3,6 @@ import * as vscode from "vscode";
 import ZScriptContext from "./classes/ZScriptContext";
 import ZScriptError from "./classes/ZScriptError";
 import ZScriptContextType from "./enums/ZScriptContextType";
-import ZScriptCompletionItem from "./classes/ZScriptCompletionItem";
 import * as builtInCompletions from "./builtIn/completions";
 
 let majorContextes: Array<ZScriptContext> = [];
@@ -21,19 +20,27 @@ export async function activate(context: vscode.ExtensionContext) {
         provideCompletionItems(_document: vscode.TextDocument, position: vscode.Position) {
             let callContext: ZScriptContext | null = null;
 
-            for (const majorContext of majorContextes) {
-                if (majorContext.contains(position)) {
-                    callContext = majorContext;
+            async function cycleContextes(contextArray: ZScriptContext[]) {
+                for (const context of contextArray) {
+                    if (context.contains(position)) {
+                        callContext = context;
 
-                    break;
+                        if (context.innerContextes.length > 0) {
+                            cycleContextes(context.innerContextes);
+                        }
+
+                        break;
+                    }
                 }
             }
 
-            if (callContext === ZScriptCompletionItem.GLOBAL_SCOPE) {
+            cycleContextes(majorContextes);
+
+            if (callContext === null) {
                 return builtInCompletions.globalScopeValues;
             }
 
-            return builtInCompletions.contextCompletitions;
+            return builtInCompletions.contextAwareCompletitions;
         },
     });
 
@@ -71,8 +78,8 @@ async function updateDiagnostics(document: vscode.TextDocument, diagnosticsColle
 }
 
 async function updateTextContextes(document: vscode.TextDocument) {
-    const contextChanges: Array<vscode.Position> = [];
-    const tempContextes: Array<ZScriptContext> = [];
+    const contextChanges: vscode.Position[][] = [[], [], []];
+    const tempContextes: ZScriptContext[] = [];
     errorRanges = [];
     let commented = false;
     let singleLineCommented = false;
@@ -92,23 +99,47 @@ async function updateTextContextes(document: vscode.TextDocument) {
                 continue;
             }
 
+            let bracketType = ZScriptContextType.UnknownCurly;
+
             if (commented) {
                 commented = character !== "*" || lineText.charAt(characterIndex + 1) !== "/";
             } else {
                 switch (character) {
-                    case "{":
-                        contextChanges.push(new vscode.Position(lineIndex, characterIndex + 1));
+                    case "(":
+                    case ")":
+                        bracketType = ZScriptContextType.UnknownRound;
 
                         break;
+                    case "[":
+                    case "]":
+                        bracketType = ZScriptContextType.UnknownSquare;
+
+                        break;
+                    case "{":
                     case "}":
-                        contextChanges.push(new vscode.Position(lineIndex, characterIndex));
+                        bracketType = ZScriptContextType.UnknownCurly;
+
+                        break;
+                }
+
+                switch (character) {
+                    case "(":
+                    case "[":
+                    case "{":
+                        contextChanges[bracketType].push(new vscode.Position(lineIndex, characterIndex + 1));
+
+                        break;
+                    case ")":
+                    case "]":
+                    case "}":
+                        contextChanges[bracketType].push(new vscode.Position(lineIndex, characterIndex));
 
                         try {
                             tempContextes.push(
                                 new ZScriptContext(
-                                    contextChanges.splice(contextChanges.length - 2, 1)[0],
-                                    contextChanges.splice(contextChanges.length - 1, 1)[0],
-                                    ZScriptContextType.Unknown
+                                    contextChanges[bracketType].splice(contextChanges[bracketType].length - 2, 1)[0],
+                                    contextChanges[bracketType].splice(contextChanges[bracketType].length - 1, 1)[0],
+                                    bracketType
                                 )
                             );
                         } catch (error) {
@@ -116,7 +147,7 @@ async function updateTextContextes(document: vscode.TextDocument) {
                                 new ZScriptError(
                                     new vscode.Position(lineIndex, characterIndex),
                                     new vscode.Position(lineIndex, characterIndex),
-                                    '"{" expected somewhere!'
+                                    `"${["{", "(", "["][bracketType]}" expected somewhere!`
                                 )
                             );
                         }
@@ -155,11 +186,11 @@ async function updateTextContextes(document: vscode.TextDocument) {
 
     majorContextes = tempContextes.filter((contextWithOutherContext) => !contextWithOutherContext.outherContext);
 
-    if (contextChanges.length > 0) {
-        for (const change of contextChanges) {
-            const changePosition = new vscode.Position(change.line, change.character);
+    for (const contextTypeChanges of contextChanges) {
+        for (const contextChange of contextTypeChanges) {
+            const position = new vscode.Position(contextChange.line, contextChange.character);
 
-            errorRanges.push(new ZScriptError(changePosition, changePosition, '"}" expected somewhere!'));
+            errorRanges.push(new ZScriptError(position, position, `"${["}", ")", "]"][contextChanges.indexOf(contextTypeChanges)]}" is missing somewhere!`));
         }
     }
 }

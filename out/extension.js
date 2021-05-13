@@ -14,7 +14,6 @@ const vscode = require("vscode");
 const ZScriptContext_1 = require("./classes/ZScriptContext");
 const ZScriptError_1 = require("./classes/ZScriptError");
 const ZScriptContextType_1 = require("./enums/ZScriptContextType");
-const ZScriptCompletionItem_1 = require("./classes/ZScriptCompletionItem");
 const builtInCompletions = require("./builtIn/completions");
 let majorContextes = [];
 let errorRanges = [];
@@ -28,16 +27,24 @@ function activate(context) {
         const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
             provideCompletionItems(_document, position) {
                 let callContext = null;
-                for (const majorContext of majorContextes) {
-                    if (majorContext.contains(position)) {
-                        callContext = majorContext;
-                        break;
-                    }
+                function cycleContextes(contextArray) {
+                    return __awaiter(this, void 0, void 0, function* () {
+                        for (const context of contextArray) {
+                            if (context.contains(position)) {
+                                callContext = context;
+                                if (context.innerContextes.length > 0) {
+                                    cycleContextes(context.innerContextes);
+                                }
+                                break;
+                            }
+                        }
+                    });
                 }
-                if (callContext === ZScriptCompletionItem_1.default.GLOBAL_SCOPE) {
+                cycleContextes(majorContextes);
+                if (callContext === null) {
                     return builtInCompletions.globalScopeValues;
                 }
-                return builtInCompletions.contextCompletitions;
+                return builtInCompletions.contextAwareCompletitions;
             },
         });
         updateTextContextes(activeTextEditor.document);
@@ -72,7 +79,7 @@ function updateDiagnostics(document, diagnosticsCollection) {
 }
 function updateTextContextes(document) {
     return __awaiter(this, void 0, void 0, function* () {
-        const contextChanges = [];
+        const contextChanges = [[], [], []];
         const tempContextes = [];
         errorRanges = [];
         let commented = false;
@@ -88,21 +95,40 @@ function updateTextContextes(document) {
                 if (singleLineCommented) {
                     continue;
                 }
+                let bracketType = ZScriptContextType_1.default.UnknownCurly;
                 if (commented) {
                     commented = character !== "*" || lineText.charAt(characterIndex + 1) !== "/";
                 }
                 else {
                     switch (character) {
-                        case "{":
-                            contextChanges.push(new vscode.Position(lineIndex, characterIndex + 1));
+                        case "(":
+                        case ")":
+                            bracketType = ZScriptContextType_1.default.UnknownRound;
                             break;
+                        case "[":
+                        case "]":
+                            bracketType = ZScriptContextType_1.default.UnknownSquare;
+                            break;
+                        case "{":
                         case "}":
-                            contextChanges.push(new vscode.Position(lineIndex, characterIndex));
+                            bracketType = ZScriptContextType_1.default.UnknownCurly;
+                            break;
+                    }
+                    switch (character) {
+                        case "(":
+                        case "[":
+                        case "{":
+                            contextChanges[bracketType].push(new vscode.Position(lineIndex, characterIndex + 1));
+                            break;
+                        case ")":
+                        case "]":
+                        case "}":
+                            contextChanges[bracketType].push(new vscode.Position(lineIndex, characterIndex));
                             try {
-                                tempContextes.push(new ZScriptContext_1.default(contextChanges.splice(contextChanges.length - 2, 1)[0], contextChanges.splice(contextChanges.length - 1, 1)[0], ZScriptContextType_1.default.Unknown));
+                                tempContextes.push(new ZScriptContext_1.default(contextChanges[bracketType].splice(contextChanges[bracketType].length - 2, 1)[0], contextChanges[bracketType].splice(contextChanges[bracketType].length - 1, 1)[0], bracketType));
                             }
                             catch (error) {
-                                errorRanges.push(new ZScriptError_1.default(new vscode.Position(lineIndex, characterIndex), new vscode.Position(lineIndex, characterIndex), '"{" expected somewhere!'));
+                                errorRanges.push(new ZScriptError_1.default(new vscode.Position(lineIndex, characterIndex), new vscode.Position(lineIndex, characterIndex), `"${["{", "(", "["][bracketType]}" expected somewhere!`));
                             }
                             break;
                         case "/":
@@ -131,10 +157,10 @@ function updateTextContextes(document) {
             }
         }
         majorContextes = tempContextes.filter((contextWithOutherContext) => !contextWithOutherContext.outherContext);
-        if (contextChanges.length > 0) {
-            for (const change of contextChanges) {
-                const changePosition = new vscode.Position(change.line, change.character);
-                errorRanges.push(new ZScriptError_1.default(changePosition, changePosition, '"}" expected somewhere!'));
+        for (const contextTypeChanges of contextChanges) {
+            for (const contextChange of contextTypeChanges) {
+                const position = new vscode.Position(contextChange.line, contextChange.character);
+                errorRanges.push(new ZScriptError_1.default(position, position, `"${["}", ")", "]"][contextChanges.indexOf(contextTypeChanges)]}" is missing somewhere!`));
             }
         }
     });

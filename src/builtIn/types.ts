@@ -93,7 +93,11 @@ export const floats: Float[] = [
     },
 ];
 
-export interface ZScriptClass extends ZScriptType {}
+export interface ZScriptClass extends ZScriptType {
+    extends?: string;
+    methods?: ZScriptFunction[];
+    parameters?: Variable[];
+}
 
 export const classes: ZScriptClass[] = [
     {
@@ -1188,7 +1192,7 @@ export const classes: ZScriptClass[] = [
     },
     {
         label: "VavoomLight",
-        description: new MarkdownString("Base class for Vavoom-type lights.")
+        description: new MarkdownString("Base class for Vavoom-type lights."),
     },
     {
         label: "VavoomLightColor",
@@ -1228,7 +1232,9 @@ export const classes: ZScriptClass[] = [
     },
     {
         label: "FadeSetter",
-        description: new MarkdownString("Sets the containing sector's fade (fog) color using the values specified by its arguments")
+        description: new MarkdownString(
+            "Sets the containing sector's fade (fog) color using the values specified by its arguments"
+        ),
     },
     {
         label: "FastProjectile",
@@ -4577,7 +4583,9 @@ export const classes: ZScriptClass[] = [
     },
 ];
 
-export interface ZScriptStruct extends ZScriptType {}
+export interface ZScriptStruct extends ZScriptType {
+    parameters?: Variable[];
+}
 
 export const structs: ZScriptStruct[] = [
     {
@@ -4809,3 +4817,12 @@ export const structs: ZScriptStruct[] = [
         label: "WorldEvent",
     },
 ];
+
+export interface ZScriptFunction extends ZScriptType {
+    arguments?: Variable[];
+}
+
+export interface Variable extends ZScriptType {
+    type?: string;
+    value?: unknown;
+}
