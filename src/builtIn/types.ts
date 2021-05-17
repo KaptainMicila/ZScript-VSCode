@@ -24,7 +24,7 @@ export interface ZScriptType {
     description?: MarkdownString;
 }
 
-export interface Integer extends ZScriptType {
+export interface ZScriptInteger extends ZScriptType {
     /**
      * The lowest value this integer type can reach.
      */
@@ -36,7 +36,7 @@ export interface Integer extends ZScriptType {
     hvalue?: string;
 }
 
-export const integers: Integer[] = [
+export const integers: ZScriptInteger[] = [
     {
         label: "int",
         lvalue: "-2,147,483,648",
@@ -79,9 +79,9 @@ export const integers: Integer[] = [
     },
 ];
 
-export interface Float extends ZScriptType {}
+export interface ZScriptFloat extends ZScriptType {}
 
-export const floats: Float[] = [
+export const floats: ZScriptFloat[] = [
     {
         label: "double",
         description: new MarkdownString("64-bit floating-point number."),
@@ -96,7 +96,7 @@ export const floats: Float[] = [
 export interface ZScriptClass extends ZScriptType {
     extends?: string;
     methods?: ZScriptFunction[];
-    parameters?: Variable[];
+    parameters?: ZScriptVariable[];
 }
 
 export const classes: ZScriptClass[] = [
@@ -4584,7 +4584,7 @@ export const classes: ZScriptClass[] = [
 ];
 
 export interface ZScriptStruct extends ZScriptType {
-    parameters?: Variable[];
+    parameters?: ZScriptVariable[];
 }
 
 export const structs: ZScriptStruct[] = [
@@ -4819,10 +4819,12 @@ export const structs: ZScriptStruct[] = [
 ];
 
 export interface ZScriptFunction extends ZScriptType {
-    arguments?: Variable[];
+    arguments?: ZScriptVariable[];
 }
 
-export interface Variable extends ZScriptType {
+export interface ZScriptVariable extends ZScriptType {
     type?: string;
     value?: unknown;
+    parameters?: ZScriptVariable[],
+    modifiers?: string[]
 }

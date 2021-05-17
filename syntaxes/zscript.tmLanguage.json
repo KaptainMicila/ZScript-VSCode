@@ -6,6 +6,9 @@
             "include": "#comments"
         },
         {
+            "include": "#keywords"
+        },
+        {
             "include": "#blocks"
         },
         {
@@ -13,9 +16,6 @@
         },
         {
             "include": "#punctuation"
-        },
-        {
-            "include": "#keywords"
         },
         {
             "include": "#directives"
@@ -148,7 +148,7 @@
             "patterns": [
                 {
                     "name": "entity.name.class.zscript",
-                    "match": "(?i)(?<=\\bclass\\b\\s+?)\\w+?\\b|(?<=(?<=\\bclass\\b\\s+?)\\w+?\\s*?\\:\\s*?)\\w+?\\b|(?<=\\bclass[<]\\s*?)\\w+?(?=\\s*?[>])"
+                    "match": "(?<=\\bclass\\s+?)\\w+?\\b|(?<=\\s*?:\\s*?)\\w+?\\b|(?<=\\bclass[<]\\s*?)\\w+?(?=\\s*?[>])"
                 },
                 {
                     "name": "entity.name.class.property.zscript",

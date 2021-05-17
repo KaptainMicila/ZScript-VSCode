@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.7.6] The "Classed4Nobody" update
+-   Removed all forms of autocompletions until I manage to make the system good enough
+
 ## [1.7.5] The "Brackets Family" update
 -	Added support for more bracket types (useful for future updates)
 -	Various fixes to syntax highlighting (less stuff is now a class, like it should be)

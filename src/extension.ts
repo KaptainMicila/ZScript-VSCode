@@ -3,10 +3,11 @@ import * as vscode from "vscode";
 import ZScriptContext from "./classes/ZScriptContext";
 import ZScriptError from "./classes/ZScriptError";
 import ZScriptContextType from "./enums/ZScriptContextType";
-import * as builtInCompletions from "./builtIn/completions";
+import * as builtInTypes from "./builtIn/types";
 
-let majorContextes: Array<ZScriptContext> = [];
-let errorRanges: Array<ZScriptError> = [];
+let majorContextes: ZScriptContext[] = [];
+let errorRanges: ZScriptError[] = [];
+let usermadeCompletions: builtInTypes.ZScriptType[] = [];
 
 export async function activate(context: vscode.ExtensionContext) {
     const { activeTextEditor } = vscode.window;
@@ -37,10 +38,10 @@ export async function activate(context: vscode.ExtensionContext) {
             cycleContextes(majorContextes);
 
             if (callContext === null) {
-                return builtInCompletions.globalScopeValues;
+                return [];
             }
 
-            return builtInCompletions.contextAwareCompletitions;
+            return [];
         },
     });
 
@@ -81,6 +82,7 @@ async function updateTextContextes(document: vscode.TextDocument) {
     const contextChanges: vscode.Position[][] = [[], [], []];
     const tempContextes: ZScriptContext[] = [];
     errorRanges = [];
+    usermadeCompletions = [];
     let commented = false;
     let singleLineCommented = false;
 
@@ -171,7 +173,41 @@ async function updateTextContextes(document: vscode.TextDocument) {
         }
     }
 
+    let previousContextEndOffset = 0;
+
+    console.clear();
     for (const context of tempContextes) {
+        if (context.type === ZScriptContextType.UnknownCurly) {
+            const contextStart = document.offsetAt(context.start);
+            const contextText = document.getText().slice(previousContextEndOffset, contextStart).trimStart();
+
+            let contextTypeMatch = contextText.match(/\b(?:enum|struct|class)\b(?=.*?\s*?\{)/gim)?.pop();
+
+            switch (contextTypeMatch) {
+                case "enum":
+                    context.type = ZScriptContextType.Enum;
+                    break;
+                case "class":
+                    context.type = ZScriptContextType.Class;
+                    break;
+                case "struct":
+                    context.type = ZScriptContextType.Struct;
+                    break;
+            }
+
+            const contextVariable: builtInTypes.ZScriptVariable = {
+                label:
+                    contextText
+                        .match(/(?:(?<=(?:enum|struct|class)\s+?)\w+|(?<=\w+?\s+?)\w+?(?=\s*?\())(?=.*?\s*?\{)/gim)
+                        ?.pop() ?? "Unknown",
+                type: contextTypeMatch,
+            };
+
+            usermadeCompletions.push(contextVariable);
+
+            previousContextEndOffset = document.offsetAt(context.end) + 1;
+        }
+
         for (const otherContext of tempContextes) {
             if (context !== otherContext) {
                 if (otherContext.contains(context)) {
@@ -190,7 +226,13 @@ async function updateTextContextes(document: vscode.TextDocument) {
         for (const contextChange of contextTypeChanges) {
             const position = new vscode.Position(contextChange.line, contextChange.character);
 
-            errorRanges.push(new ZScriptError(position, position, `"${["}", ")", "]"][contextChanges.indexOf(contextTypeChanges)]}" is missing somewhere!`));
+            errorRanges.push(
+                new ZScriptError(
+                    position,
+                    position,
+                    `"${["}", ")", "]"][contextChanges.indexOf(contextTypeChanges)]}" is missing somewhere!`
+                )
+            );
         }
     }
 }

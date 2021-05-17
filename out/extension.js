@@ -14,9 +14,9 @@ const vscode = require("vscode");
 const ZScriptContext_1 = require("./classes/ZScriptContext");
 const ZScriptError_1 = require("./classes/ZScriptError");
 const ZScriptContextType_1 = require("./enums/ZScriptContextType");
-const builtInCompletions = require("./builtIn/completions");
 let majorContextes = [];
 let errorRanges = [];
+let usermadeCompletions = [];
 function activate(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { activeTextEditor } = vscode.window;
@@ -42,9 +42,9 @@ function activate(context) {
                 }
                 cycleContextes(majorContextes);
                 if (callContext === null) {
-                    return builtInCompletions.globalScopeValues;
+                    return [];
                 }
-                return builtInCompletions.contextAwareCompletitions;
+                return [];
             },
         });
         updateTextContextes(activeTextEditor.document);
@@ -78,10 +78,12 @@ function updateDiagnostics(document, diagnosticsCollection) {
     });
 }
 function updateTextContextes(document) {
+    var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const contextChanges = [[], [], []];
         const tempContextes = [];
         errorRanges = [];
+        usermadeCompletions = [];
         let commented = false;
         let singleLineCommented = false;
         for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
@@ -145,7 +147,32 @@ function updateTextContextes(document) {
                 }
             }
         }
+        let previousContextEndOffset = 0;
+        console.clear();
         for (const context of tempContextes) {
+            if (context.type === ZScriptContextType_1.default.UnknownCurly) {
+                const contextStart = document.offsetAt(context.start);
+                const contextText = document.getText().slice(previousContextEndOffset, contextStart).trimStart();
+                let contextTypeMatch = (_a = contextText.match(/\b(?:enum|struct|class)\b(?=.*?\s*?\{)/gim)) === null || _a === void 0 ? void 0 : _a.pop();
+                switch (contextTypeMatch) {
+                    case "enum":
+                        context.type = ZScriptContextType_1.default.Enum;
+                        break;
+                    case "class":
+                        context.type = ZScriptContextType_1.default.Class;
+                        break;
+                    case "struct":
+                        context.type = ZScriptContextType_1.default.Struct;
+                        break;
+                }
+                const contextVariable = {
+                    label: (_c = (_b = contextText
+                        .match(/(?:(?<=(?:enum|struct|class)\s+?)\w+|(?<=\w+?\s+?)\w+?(?=\s*?\())(?=.*?\s*?\{)/gim)) === null || _b === void 0 ? void 0 : _b.pop()) !== null && _c !== void 0 ? _c : "Unknown",
+                    type: contextTypeMatch,
+                };
+                usermadeCompletions.push(contextVariable);
+                previousContextEndOffset = document.offsetAt(context.end) + 1;
+            }
             for (const otherContext of tempContextes) {
                 if (context !== otherContext) {
                     if (otherContext.contains(context)) {
