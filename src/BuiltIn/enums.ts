@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
-enum ZScriptContextType {
+export enum AccessModifiers {
+    PUBLIC = "public",
+    PRIVATE = "private",
+    PROTECTED = "protected",
+}
+
+export enum ContextType {
     UnknownCurly,
     UnknownRound,
     UnknownSquare,
@@ -9,5 +15,3 @@ enum ZScriptContextType {
     Function,
     Condition,
 }
-
-export default ZScriptContextType;

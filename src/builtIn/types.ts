@@ -1,4 +1,6 @@
 import { MarkdownString } from "vscode";
+import ZScriptContext from "../Classes/ZScriptContext";
+import { AccessModifiers as AccessModifier } from "./enums";
 
 /**
  * This is the base type. It shouldn't be (please don't) used by itself.
@@ -22,6 +24,16 @@ export interface ZScriptType {
      * It can be used alone or used it as templates for all types.
      */
     description?: MarkdownString;
+
+    /**
+     * Can be useful to find out what kind of completition this is.
+     */
+    type?: string;
+
+    /**
+     * Useful to find who's the owner of this variable
+     */
+    context?: ZScriptContext;
 }
 
 export interface ZScriptInteger extends ZScriptType {
@@ -95,8 +107,11 @@ export const floats: ZScriptFloat[] = [
 
 export interface ZScriptClass extends ZScriptType {
     extends?: string;
-    methods?: ZScriptFunction[];
-    parameters?: ZScriptVariable[];
+    replaces?: string;
+    isReplacedBy?: string;
+    methods?: Array<ZScriptFunction & { visibility: AccessModifier }>;
+    variables?: Array<ZScriptVariable & { visbility: AccessModifier }>;
+    modifiers?: string[];
 }
 
 export const classes: ZScriptClass[] = [
@@ -4584,7 +4599,7 @@ export const classes: ZScriptClass[] = [
 ];
 
 export interface ZScriptStruct extends ZScriptType {
-    parameters?: ZScriptVariable[];
+    variables?: ZScriptVariable[];
 }
 
 export const structs: ZScriptStruct[] = [
@@ -4824,7 +4839,9 @@ export interface ZScriptFunction extends ZScriptType {
 
 export interface ZScriptVariable extends ZScriptType {
     type?: string;
-    value?: unknown;
-    parameters?: ZScriptVariable[],
-    modifiers?: string[]
+    modifiers?: string[];
+}
+
+export interface ZScriptEnum extends ZScriptType {
+    constants?: string[];
 }

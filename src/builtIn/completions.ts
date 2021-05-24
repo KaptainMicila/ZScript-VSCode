@@ -1,62 +1,6 @@
 import * as vscode from "vscode";
-import * as completionTypes from "../builtIn/types";
-
-interface CompletitionOptions {
-    defaultDescription?: vscode.MarkdownString;
-    customIcon?: vscode.CompletionItemKind;
-    customDetail?: string;
-}
-
-// Helper functions
-function addTypeToContext(
-    typeFamily: completionTypes.ZScriptType[],
-    contextArray: vscode.CompletionItem[],
-    options?: CompletitionOptions
-) {
-    for (const typeName of typeFamily) {
-        const newCompletition = new vscode.CompletionItem(
-            typeName.label,
-            options?.customIcon ?? vscode.CompletionItemKind.Keyword
-        );
-
-        let typeDescription = null;
-
-        if (typeName.description) {
-            typeDescription = typeName.description;
-            newCompletition.documentation = typeDescription;
-        } else if (options && options.defaultDescription) {
-            typeDescription = options.defaultDescription;
-            newCompletition.documentation = typeDescription;
-        }
-
-        if (options && options.customDetail) {
-            newCompletition.detail = options.customDetail;
-        }
-
-        contextArray.push(newCompletition);
-
-        if (typeName.aliases) {
-            for (const aliasName of typeName.aliases) {
-                const newCompletitionAlias = new vscode.CompletionItem(
-                    aliasName,
-                    options?.customIcon ?? vscode.CompletionItemKind.Keyword
-                );
-
-                if (options && !options.customDetail) {
-                    newCompletitionAlias.detail = typeName.label;
-                }
-
-                if (typeDescription) {
-                    newCompletitionAlias.documentation = new vscode.MarkdownString(
-                        typeDescription.value + `\n\nAlias of \`${typeName.label}\``
-                    );
-                }
-
-                contextArray.push(newCompletitionAlias);
-            }
-        }
-    }
-}
+import * as completionTypes from "./types";
+import * as ZScriptCompletionService from "../Services/ZScriptCompletionsService";
 
 // DEFAULT COMPLETIONS
 // Always avaible
@@ -87,16 +31,20 @@ export const globalScopeValues: vscode.CompletionItem[] = [...defaultCompletions
 
 export const contextAwareCompletitions: vscode.CompletionItem[] = [...defaultCompletions];
 
-addTypeToContext([...completionTypes.integers, ...completionTypes.floats], contextAwareCompletitions, {
-    customDetail: "built-in type",
-});
+ZScriptCompletionService.addTypeToContext(
+    [...completionTypes.integers, ...completionTypes.floats],
+    contextAwareCompletitions,
+    {
+        customDetail: "built-in type",
+    }
+);
 
-addTypeToContext(completionTypes.classes, contextAwareCompletitions, {
+ZScriptCompletionService.addTypeToContext(completionTypes.classes, contextAwareCompletitions, {
     customDetail: "built-in class",
     customIcon: vscode.CompletionItemKind.Class,
 });
 
-addTypeToContext(completionTypes.structs, contextAwareCompletitions, {
+ZScriptCompletionService.addTypeToContext(completionTypes.structs, contextAwareCompletitions, {
     customDetail: "built-in struct",
     customIcon: vscode.CompletionItemKind.Struct,
 });
