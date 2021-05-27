@@ -9,45 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addTypeToContext = exports.generateCompletionsFromObjects = void 0;
+exports.addTypeToContext = void 0;
 const vscode = require("vscode");
-function generateCompletionsFromObjects(completitionObjects) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const completitions = [];
-        console.clear();
-        console.table(completitionObjects);
-        for (const completitionObject of completitionObjects) {
-            const completition = new vscode.CompletionItem(completitionObject.label);
-            switch (completitionObject.type) {
-                case "class":
-                    completition.kind = vscode.CompletionItemKind.Class;
-                    completition.documentation = new vscode.MarkdownString();
-                    if (completitionObject.extends) {
-                        completition.documentation.appendMarkdown(`extends \`${completitionObject.extends}\``);
-                    }
-                    if (completitionObject.replaces) {
-                        completition.documentation.appendMarkdown(`replaces \`${completitionObject.extends}\``);
-                    }
-                    break;
-                case "enum":
-                    completition.kind = vscode.CompletionItemKind.Enum;
-                    break;
-                case "struct":
-                    completition.kind = vscode.CompletionItemKind.Struct;
-                    break;
-                case "function":
-                    completition.kind = vscode.CompletionItemKind.Function;
-                    break;
-                case undefined:
-                    continue;
-            }
-            completition.detail = `user-made ${completitionObject.type}`;
-            completitions.push(completition);
-        }
-        return completitions;
-    });
-}
-exports.generateCompletionsFromObjects = generateCompletionsFromObjects;
 function addTypeToContext(typeFamily, contextArray, options) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {

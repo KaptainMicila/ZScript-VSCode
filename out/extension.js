@@ -11,14 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = void 0;
 const vscode = require("vscode");
-const enums_1 = require("./BuiltIn/enums");
 const completions_1 = require("./BuiltIn/completions");
+// import ZScriptContext from "./Classes/ZScriptContext";
 const ZScriptContextService = require("./Services/ZScriptContextService");
-const ZScriptErrorService = require("./Services/ZScriptErrorService");
-const ZscriptCompletionService = require("./Services/ZScriptCompletionsService");
-let majorContextes = [];
-let errorRanges = [];
-let usermadeCompletions = [];
+// import * as ZScriptErrorService from "./Services/ZScriptErrorService";
 function activate(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { activeTextEditor } = vscode.window;
@@ -27,31 +23,21 @@ function activate(context) {
         }
         const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
         const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
-            provideCompletionItems(_document, position) {
+            provideCompletionItems(document, position) {
                 return __awaiter(this, void 0, void 0, function* () {
-                    const callContext = yield ZScriptContextService.findContextByPosition(position, majorContextes);
-                    const usermadeCompletionsList = yield ZscriptCompletionService.generateCompletionsFromObjects(usermadeCompletions);
-                    if (callContext === null) {
-                        return [
-                            ...completions_1.globalScopeValues,
-                            ...(yield ZscriptCompletionService.generateCompletionsFromObjects(usermadeCompletions.filter((completition) => { var _a; return !((_a = completition.context) === null || _a === void 0 ? void 0 : _a.outherContext); }))),
-                        ];
-                    }
-                    if (callContext.type === enums_1.ContextType.Enum) {
+                    const callContext = yield ZScriptContextService.findContextByPosition(document, position);
+                    if (callContext === undefined) {
                         return null;
                     }
-                    return [...usermadeCompletionsList];
+                    else if (callContext === null) {
+                        return [...completions_1.globalScopeValues];
+                    }
                 });
             },
         });
-        ZScriptContextService.updateTextContextes(activeTextEditor.document, errorRanges, usermadeCompletions, majorContextes);
-        ZScriptErrorService.updateDiagnostics(activeTextEditor.document, contextErrorsCollection, errorRanges);
+        ZScriptContextService.verifyDocumentStructure(activeTextEditor.document, contextErrorsCollection);
         context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => __awaiter(this, void 0, void 0, function* () {
-            majorContextes = [];
-            errorRanges = [];
-            usermadeCompletions = [];
-            ZScriptContextService.updateTextContextes(event.document, errorRanges, usermadeCompletions, majorContextes);
-            ZScriptErrorService.updateDiagnostics(event.document, contextErrorsCollection, errorRanges);
+            ZScriptContextService.verifyDocumentStructure(event.document, contextErrorsCollection);
         })), completitionProvider, contextErrorsCollection);
     });
 }

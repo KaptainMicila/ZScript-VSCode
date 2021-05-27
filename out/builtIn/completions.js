@@ -13,9 +13,9 @@ for (const completionText of ["class", "enum", "struct", "const", "mixin", "null
 }
 // GLOBAL SCOPE COMPLETIONS
 // Avaible only in global scope
-const version = new vscode.CompletionItem("version", vscode.CompletionItemKind.Keyword);
+const version = new vscode.CompletionItem("version", vscode.CompletionItemKind.Snippet);
 version.insertText = new vscode.SnippetString('version "${1}";');
-const include = new vscode.CompletionItem("include", vscode.CompletionItemKind.Keyword);
+const include = new vscode.CompletionItem("include", vscode.CompletionItemKind.Snippet);
 include.insertText = new vscode.SnippetString('#include "${1}";');
 exports.globalScopeValues = [...exports.defaultCompletions, version, include];
 // SCOPED (CURLY) CONTEXT COMPLETITIONS

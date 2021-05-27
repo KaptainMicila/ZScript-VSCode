@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.tagUnclosedBrackets = exports.updateDiagnostics = void 0;
 const vscode = require("vscode");
 const ZScriptError_1 = require("../Classes/ZScriptError");
-function updateDiagnostics(document, diagnosticsCollection, errorRangesArray) {
+function updateDiagnostics(documentUri, diagnosticsCollection, errorRangesArray) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
         if (errorRangesArray.length > 0) {
@@ -26,7 +26,7 @@ function updateDiagnostics(document, diagnosticsCollection, errorRangesArray) {
                     source: "zscript",
                 });
             }
-            diagnosticsCollection.set(document.uri, diagnosticsArray);
+            diagnosticsCollection.set(documentUri, diagnosticsArray);
         }
         else {
             diagnosticsCollection.clear();

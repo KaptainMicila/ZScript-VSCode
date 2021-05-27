@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import ZScriptError from "../Classes/ZScriptError";
 
 export async function updateDiagnostics(
-    document: vscode.TextDocument,
+    documentUri: vscode.Uri,
     diagnosticsCollection: vscode.DiagnosticCollection,
     errorRangesArray: ZScriptError[]
 ) {
@@ -19,7 +19,7 @@ export async function updateDiagnostics(
             });
         }
 
-        diagnosticsCollection.set(document.uri, diagnosticsArray);
+        diagnosticsCollection.set(documentUri, diagnosticsArray);
     } else {
         diagnosticsCollection.clear();
     }

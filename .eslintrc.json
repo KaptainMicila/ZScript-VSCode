@@ -15,7 +15,8 @@
         "eqeqeq": "warn",
         "no-throw-literal": "warn",
         "semi": "off",
-        "no-case-declarations": "off"
+        "no-case-declarations": "off",
+        "no-unused-vars": "off"
     },
     "extends": "eslint:recommended"
 }

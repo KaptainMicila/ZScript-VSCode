@@ -1,17 +1,10 @@
 "use strict";
 import * as vscode from "vscode";
+import { defaultCompletions, globalScopeValues } from "./BuiltIn/completions";
 import ZScriptContext from "./Classes/ZScriptContext";
-import ZScriptError from "./Classes/ZScriptError";
-import { ContextType } from "./BuiltIn/enums";
-import * as builtInTypes from "./BuiltIn/types";
-import { globalScopeValues } from "./BuiltIn/completions";
+// import ZScriptContext from "./Classes/ZScriptContext";
 import * as ZScriptContextService from "./Services/ZScriptContextService";
-import * as ZScriptErrorService from "./Services/ZScriptErrorService";
-import * as ZscriptCompletionService from "./Services/ZScriptCompletionsService";
-
-let majorContextes: ZScriptContext[] = [];
-let errorRanges: ZScriptError[] = [];
-let usermadeCompletions: builtInTypes.ZScriptType[] = [];
+// import * as ZScriptErrorService from "./Services/ZScriptErrorService";
 
 export async function activate(context: vscode.ExtensionContext) {
     const { activeTextEditor } = vscode.window;
@@ -22,48 +15,25 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
     const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
-        async provideCompletionItems(_document: vscode.TextDocument, position: vscode.Position) {
-            const callContext: ZScriptContext | null = await ZScriptContextService.findContextByPosition(
-                position,
-                majorContextes
+        async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+            const callContext: ZScriptContext | null | undefined = await ZScriptContextService.findContextByPosition(
+                document,
+                position
             );
 
-            const usermadeCompletionsList: vscode.CompletionItem[] =
-                await ZscriptCompletionService.generateCompletionsFromObjects(usermadeCompletions);
-
-            if (callContext === null) {
-                return [
-                    ...globalScopeValues,
-                    ...(await ZscriptCompletionService.generateCompletionsFromObjects(
-                        usermadeCompletions.filter((completition) => !completition.context?.outherContext)
-                    )),
-                ];
-            }
-
-            if (callContext.type === ContextType.Enum) {
+            if (callContext === undefined) {
                 return null;
+            } else if (callContext === null) {
+                return [...globalScopeValues];
             }
-
-            return [...usermadeCompletionsList];
         },
     });
 
-    ZScriptContextService.updateTextContextes(
-        activeTextEditor.document,
-        errorRanges,
-        usermadeCompletions,
-        majorContextes
-    );
-
-    ZScriptErrorService.updateDiagnostics(activeTextEditor.document, contextErrorsCollection, errorRanges);
+    ZScriptContextService.verifyDocumentStructure(activeTextEditor.document, contextErrorsCollection);
 
     context.subscriptions.push(
         vscode.workspace.onDidChangeTextDocument(async (event) => {
-            majorContextes = [];
-            errorRanges = [];
-            usermadeCompletions = [];
-            ZScriptContextService.updateTextContextes(event.document, errorRanges, usermadeCompletions, majorContextes);
-            ZScriptErrorService.updateDiagnostics(event.document, contextErrorsCollection, errorRanges);
+            ZScriptContextService.verifyDocumentStructure(event.document, contextErrorsCollection);
         }),
         completitionProvider,
         contextErrorsCollection

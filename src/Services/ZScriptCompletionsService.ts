@@ -2,57 +2,6 @@ import * as vscode from "vscode";
 import * as completionTypes from "../BuiltIn/types";
 import CompletitionOptions from "../Interfaces/CompletionOptionsInterface";
 
-export async function generateCompletionsFromObjects(completitionObjects: completionTypes.ZScriptType[]) {
-    const completitions: vscode.CompletionItem[] = [];
-
-    console.clear();
-    console.table(completitionObjects);
-
-    for (const completitionObject of completitionObjects) {
-        const completition = new vscode.CompletionItem(completitionObject.label);
-
-        switch (completitionObject.type) {
-            case "class":
-                completition.kind = vscode.CompletionItemKind.Class;
-                completition.documentation = new vscode.MarkdownString();
-
-                if ((completitionObject as completionTypes.ZScriptClass).extends) {
-                    completition.documentation.appendMarkdown(
-                        `extends \`${(completitionObject as completionTypes.ZScriptClass).extends}\``
-                    );
-                }
-
-                if ((completitionObject as completionTypes.ZScriptClass).replaces) {
-                    completition.documentation.appendMarkdown(
-                        `replaces \`${(completitionObject as completionTypes.ZScriptClass).extends}\``
-                    );
-                }
-
-                break;
-            case "enum":
-                completition.kind = vscode.CompletionItemKind.Enum;
-
-                break;
-            case "struct":
-                completition.kind = vscode.CompletionItemKind.Struct;
-
-                break;
-            case "function":
-                completition.kind = vscode.CompletionItemKind.Function;
-
-                break;
-            case undefined:
-                continue;
-        }
-
-        completition.detail = `user-made ${completitionObject.type}`;
-
-        completitions.push(completition);
-    }
-
-    return completitions;
-}
-
 export async function addTypeToContext(
     typeFamily: completionTypes.ZScriptType[],
     contextArray: vscode.CompletionItem[],

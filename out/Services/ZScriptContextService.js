@@ -9,71 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTextContextes = exports.findContextByPosition = exports.orderContextArray = exports.analyzeContextes = void 0;
-const enums_1 = require("../BuiltIn/enums");
+exports.findContextByPosition = exports.parseComments = exports.parseContextes = exports.verifyDocumentStructure = exports.orderContextArray = void 0;
 const ZScriptContext_1 = require("../Classes/ZScriptContext");
 const vscode = require("vscode");
+const enums_1 = require("../BuiltIn/enums");
 const ZScriptError_1 = require("../Classes/ZScriptError");
 const ZScriptErrorService = require("./ZScriptErrorService");
-function analyzeContextes(document, contextArray, resultArray) {
-    var _a, _b, _c, _d, _e;
-    return __awaiter(this, void 0, void 0, function* () {
-        for (const context of contextArray) {
-            if (context.type === enums_1.ContextType.UnknownCurly) {
-                const contextStart = document.offsetAt(context.start);
-                let documentStart;
-                if (context.outherContext) {
-                    documentStart = document.offsetAt(context.outherContext.start);
-                }
-                else {
-                    documentStart = document.getText().lastIndexOf("}", contextStart);
-                }
-                const contextText = document
-                    .getText()
-                    .slice(documentStart ? documentStart + 1 : 0, contextStart)
-                    .trimStart();
-                let contextTypeMatch = (_a = contextText.match(/\b(?:enum|struct|class)\b(?=.*?\s*?\{)/gim)) === null || _a === void 0 ? void 0 : _a.pop();
-                let contextVariable = {
-                    label: (_c = (_b = contextText
-                        .match(/(?:(?<=(?:enum|struct|class)\s+?)\w+|(?<=\w+?\s+?)\w+?(?=\s*?\())(?=.*?\s*?\{)/gim)) === null || _b === void 0 ? void 0 : _b.pop()) !== null && _c !== void 0 ? _c : "Unknown",
-                };
-                switch (contextTypeMatch) {
-                    case "enum":
-                        context.type = enums_1.ContextType.Enum;
-                        contextVariable.type = "enum";
-                        break;
-                    case "class":
-                        contextVariable.extends =
-                            (_d = contextText.match(/(?<=:\s*?)\w+?(?=(?:\s+?.+?)??\s*?{)/gim)) === null || _d === void 0 ? void 0 : _d.pop();
-                        contextVariable.replaces = (_e = contextText
-                            .match(/(?<=replaces\s+?)\w+?(?=(?:\s+?.+?)??\s*?{)/gim)) === null || _e === void 0 ? void 0 : _e.pop();
-                        context.type = enums_1.ContextType.Class;
-                        contextVariable.type = "class";
-                        break;
-                    case "struct":
-                        context.type = enums_1.ContextType.Struct;
-                        contextVariable.type = "struct";
-                        break;
-                    case undefined:
-                        if (!["if", "else", "for", "while", "do", "Unknown"].includes(contextVariable.label)) {
-                            context.type = enums_1.ContextType.Function;
-                            contextVariable.type = "function";
-                        }
-                        else {
-                            continue;
-                        }
-                        break;
-                }
-                contextVariable.context = context;
-                resultArray.push(contextVariable);
-                if (context.innerContextes.length > 0) {
-                    analyzeContextes(document, context.innerContextes, resultArray);
-                }
-            }
-        }
-    });
-}
-exports.analyzeContextes = analyzeContextes;
 function orderContextArray(contextArray) {
     return __awaiter(this, void 0, void 0, function* () {
         for (const context of contextArray) {
@@ -90,92 +31,132 @@ function orderContextArray(contextArray) {
     });
 }
 exports.orderContextArray = orderContextArray;
-function findContextByPosition(position, contextArray) {
+function verifyDocumentStructure(document, contextErrorsCollection) {
     return __awaiter(this, void 0, void 0, function* () {
-        for (const context of contextArray) {
-            if (context.contains(position)) {
-                if (context.innerContextes.length > 0) {
-                    findContextByPosition(position, context.innerContextes);
+        ZScriptErrorService.updateDiagnostics(document.uri, contextErrorsCollection, (yield parseContextes(document)).contextErrors);
+    });
+}
+exports.verifyDocumentStructure = verifyDocumentStructure;
+function parseContextes(document) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const contextChanges = [[], [], []];
+        const contextes = [];
+        const contextErrors = [];
+        const commentRanges = yield parseComments(document);
+        for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
+            const line = document.lineAt(lineNumber);
+            for (let characterIndex = 0; characterIndex < line.text.length; characterIndex++) {
+                if (yield isCommented(commentRanges, new vscode.Position(lineNumber, characterIndex))) {
+                    continue;
                 }
-                return context;
+                const character = line.text.charAt(characterIndex);
+                let bracketType = enums_1.ContextType.UnknownCurly;
+                switch (character) {
+                    case "(":
+                    case ")":
+                        bracketType = enums_1.ContextType.UnknownRound;
+                        break;
+                    case "[":
+                    case "]":
+                        bracketType = enums_1.ContextType.UnknownSquare;
+                        break;
+                    case "{":
+                    case "}":
+                        bracketType = enums_1.ContextType.UnknownCurly;
+                        break;
+                }
+                switch (character) {
+                    case "(":
+                    case "[":
+                    case "{":
+                        contextChanges[bracketType].push(new vscode.Position(lineNumber, characterIndex + 1));
+                        break;
+                    case ")":
+                    case "]":
+                    case "}":
+                        contextChanges[bracketType].push(new vscode.Position(lineNumber, characterIndex));
+                        try {
+                            contextes.push(new ZScriptContext_1.default(contextChanges[bracketType].splice(contextChanges[bracketType].length - 2, 1)[0], contextChanges[bracketType].splice(contextChanges[bracketType].length - 1, 1)[0], bracketType));
+                        }
+                        catch (error) {
+                            contextErrors.push(new ZScriptError_1.default(new vscode.Position(lineNumber, characterIndex), new vscode.Position(lineNumber, characterIndex), `"${["{", "(", "["][bracketType]}" expected somewhere!`));
+                        }
+                        break;
+                }
             }
         }
-        return null;
+        if (contextChanges.length > 0) {
+            ZScriptErrorService.tagUnclosedBrackets(contextChanges, contextErrors);
+        }
+        return { contextes, contextErrors };
+    });
+}
+exports.parseContextes = parseContextes;
+function parseComments(document) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const commentRanges = [];
+        let activeComment = null;
+        for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
+            if (yield isCommented(commentRanges, new vscode.Position(lineNumber, 0))) {
+                continue;
+            }
+            const line = document.lineAt(lineNumber);
+            if (activeComment !== null) {
+                if (line.text.includes("*/")) {
+                    commentRanges.push(new vscode.Range(activeComment, new vscode.Position(lineNumber, line.text.indexOf("*/"))));
+                    activeComment = null;
+                }
+                else {
+                    continue;
+                }
+            }
+            if (line.text.includes("//")) {
+                commentRanges.push(new vscode.Range(new vscode.Position(lineNumber, line.text.indexOf("//")), new vscode.Position(lineNumber, line.text.length)));
+                continue;
+            }
+            if (line.text.includes("/*")) {
+                if (line.text.includes("*/", line.text.indexOf("/*"))) {
+                    commentRanges.push(new vscode.Range(new vscode.Position(lineNumber, line.text.indexOf("/*")), new vscode.Position(lineNumber, line.text.indexOf("*/", line.text.indexOf("/*")))));
+                }
+                else {
+                    activeComment = new vscode.Position(lineNumber, line.text.indexOf("/*"));
+                    continue;
+                }
+            }
+        }
+        return commentRanges;
+    });
+}
+exports.parseComments = parseComments;
+function isCommented(commentRanges, position) {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (const commentRange of commentRanges) {
+            if (commentRange.contains(position)) {
+                return true;
+            }
+        }
+        return false;
+    });
+}
+function findContextByPosition(document, position) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const commentRanges = yield parseComments(document);
+        const contextes = (yield parseContextes(document)).contextes;
+        let contextFound = null;
+        for (const range of commentRanges) {
+            if (range.contains(position)) {
+                return undefined;
+            }
+        }
+        orderContextArray(contextes);
+        // Contextes, if needed, is not gonna be modified if I use it like that
+        for (const context of [...contextes].reverse()) {
+            if (context.contains(position)) {
+                contextFound = context;
+            }
+        }
+        return contextFound;
     });
 }
 exports.findContextByPosition = findContextByPosition;
-function updateTextContextes(document, errorRangesArray, completionsArray, contextesArray) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const contextChanges = [[], [], []];
-        const tempContextes = [];
-        let commented = false;
-        let singleLineCommented = false;
-        for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
-            const line = document.lineAt(lineIndex);
-            const lineText = line.text;
-            if (singleLineCommented) {
-                singleLineCommented = false;
-            }
-            for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
-                const character = lineText.charAt(characterIndex);
-                if (singleLineCommented) {
-                    continue;
-                }
-                let bracketType = enums_1.ContextType.UnknownCurly;
-                if (commented) {
-                    commented = character !== "*" || lineText.charAt(characterIndex + 1) !== "/";
-                }
-                else {
-                    switch (character) {
-                        case "(":
-                        case ")":
-                            bracketType = enums_1.ContextType.UnknownRound;
-                            break;
-                        case "[":
-                        case "]":
-                            bracketType = enums_1.ContextType.UnknownSquare;
-                            break;
-                        case "{":
-                        case "}":
-                            bracketType = enums_1.ContextType.UnknownCurly;
-                            break;
-                    }
-                    switch (character) {
-                        case "(":
-                        case "[":
-                        case "{":
-                            contextChanges[bracketType].push(new vscode.Position(lineIndex, characterIndex + 1));
-                            break;
-                        case ")":
-                        case "]":
-                        case "}":
-                            contextChanges[bracketType].push(new vscode.Position(lineIndex, characterIndex));
-                            try {
-                                tempContextes.push(new ZScriptContext_1.default(contextChanges[bracketType].splice(contextChanges[bracketType].length - 2, 1)[0], contextChanges[bracketType].splice(contextChanges[bracketType].length - 1, 1)[0], bracketType));
-                            }
-                            catch (error) {
-                                errorRangesArray.push(new ZScriptError_1.default(new vscode.Position(lineIndex, characterIndex), new vscode.Position(lineIndex, characterIndex), `"${["{", "(", "["][bracketType]}" expected somewhere!`));
-                            }
-                            break;
-                        case "/":
-                            switch (lineText.charAt(characterIndex + 1)) {
-                                case "*":
-                                    commented = true;
-                                    break;
-                                case "/":
-                                    singleLineCommented = true;
-                                    break;
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-        orderContextArray(tempContextes);
-        contextesArray.push(...tempContextes.filter((contextWithOutherContext) => !contextWithOutherContext.outherContext));
-        analyzeContextes(document, contextesArray, completionsArray);
-        ZScriptErrorService.tagUnclosedBrackets(contextChanges, errorRangesArray);
-    });
-}
-exports.updateTextContextes = updateTextContextes;
 //# sourceMappingURL=ZScriptContextService.js.map
