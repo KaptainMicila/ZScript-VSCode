@@ -1,10 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
-import { defaultCompletions, globalScopeValues } from "./BuiltIn/completions";
 import ZScriptContext from "./Classes/ZScriptContext";
-// import ZScriptContext from "./Classes/ZScriptContext";
 import * as ZScriptContextService from "./Services/ZScriptContextService";
-// import * as ZScriptErrorService from "./Services/ZScriptErrorService";
 
 export async function activate(context: vscode.ExtensionContext) {
     const { activeTextEditor } = vscode.window;
@@ -23,9 +20,23 @@ export async function activate(context: vscode.ExtensionContext) {
 
             if (callContext === undefined) {
                 return null;
-            } else if (callContext === null) {
-                return [...globalScopeValues];
             }
+
+            let completionText = document
+                .getText()
+                .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
+                .trim();
+
+            if (callContext === null) {
+                completionText = completionText
+                .replace(/\s*?\{[\s\S]*?\}[\s\S]*?(?=\w+?|$)/gmi, '')
+                .trim();
+            }
+
+            console.clear();
+            console.log(completionText);
+
+            return [];
         },
     });
 

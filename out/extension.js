@@ -11,10 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = void 0;
 const vscode = require("vscode");
-const completions_1 = require("./BuiltIn/completions");
-// import ZScriptContext from "./Classes/ZScriptContext";
 const ZScriptContextService = require("./Services/ZScriptContextService");
-// import * as ZScriptErrorService from "./Services/ZScriptErrorService";
 function activate(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { activeTextEditor } = vscode.window;
@@ -29,9 +26,18 @@ function activate(context) {
                     if (callContext === undefined) {
                         return null;
                     }
-                    else if (callContext === null) {
-                        return [...completions_1.globalScopeValues];
+                    let completionText = document
+                        .getText()
+                        .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
+                        .trim();
+                    if (callContext === null) {
+                        completionText = completionText
+                            .replace(/\s*?\{[\s\S]*?\}[\s\S]*?(?=\w+?|$)/gmi, '')
+                            .trim();
                     }
+                    console.clear();
+                    console.log(completionText);
+                    return [];
                 });
             },
         });
