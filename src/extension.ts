@@ -22,19 +22,15 @@ export async function activate(context: vscode.ExtensionContext) {
                 return null;
             }
 
-            let completionText = document
+            const completionText = document
                 .getText()
                 .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
                 .trim();
 
-            if (callContext === null) {
-                completionText = completionText
-                .replace(/\s*?\{[\s\S]*?\}[\s\S]*?(?=\w+?|$)/gmi, '')
-                .trim();
-            }
+            let contextTexts = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gmi);
 
             console.clear();
-            console.log(completionText);
+            console.table(contextTexts);
 
             return [];
         },
