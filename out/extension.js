@@ -19,28 +19,44 @@ function activate(context) {
             return;
         }
         const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
-        const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
+        const completionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
             provideCompletionItems(document, position) {
+                var _a;
                 return __awaiter(this, void 0, void 0, function* () {
                     const callContext = yield ZScriptContextService.findContextByPosition(document, position);
                     if (callContext === undefined) {
                         return null;
                     }
+                    const completions = [];
                     const completionText = document
                         .getText()
                         .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
                         .trim();
-                    let contextTexts = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gmi);
-                    console.clear();
-                    console.table(contextTexts);
-                    return [];
+                    let contextTextes = (_a = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gim)) !== null && _a !== void 0 ? _a : [];
+                    for (const contextText of contextTextes) {
+                        const explodedText = contextText.split(" ").map((text) => text.trim());
+                        console.log(explodedText);
+                        const completion = new vscode.CompletionItem(explodedText[1]);
+                        switch (explodedText[0].toLowerCase()) {
+                            case "class":
+                                completion.kind = vscode.CompletionItemKind.Class;
+                                break;
+                            case "enum":
+                                completion.kind = vscode.CompletionItemKind.Enum;
+                                break;
+                            case "struct":
+                                completion.kind = vscode.CompletionItemKind.Struct;
+                                break;
+                        }
+                    }
+                    return completions;
                 });
             },
         });
         ZScriptContextService.verifyDocumentStructure(activeTextEditor.document, contextErrorsCollection);
         context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => __awaiter(this, void 0, void 0, function* () {
             ZScriptContextService.verifyDocumentStructure(event.document, contextErrorsCollection);
-        })), completitionProvider, contextErrorsCollection);
+        })), completionProvider, contextErrorsCollection);
     });
 }
 exports.activate = activate;

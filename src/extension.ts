@@ -11,7 +11,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
-    const completitionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
+    const completionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
         async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
             const callContext: ZScriptContext | null | undefined = await ZScriptContextService.findContextByPosition(
                 document,
@@ -22,17 +22,36 @@ export async function activate(context: vscode.ExtensionContext) {
                 return null;
             }
 
+            const completions: vscode.CompletionItem[] = [];
+
             const completionText = document
                 .getText()
                 .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
                 .trim();
 
-            let contextTexts = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gmi);
+            let contextTextes = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gim) ?? [];
 
-            console.clear();
-            console.table(contextTexts);
+            for (const contextText of contextTextes) {
+                const explodedText = contextText.split(" ").map((text) => text.trim());
 
-            return [];
+                console.log(explodedText);
+
+                const completion = new vscode.CompletionItem(explodedText[1]);
+
+                switch (explodedText[0].toLowerCase()) {
+                    case "class":
+                        completion.kind = vscode.CompletionItemKind.Class;
+                        break;
+                    case "enum":
+                        completion.kind = vscode.CompletionItemKind.Enum;
+                        break;
+                    case "struct":
+                        completion.kind = vscode.CompletionItemKind.Struct;
+                        break;
+                }
+            }
+
+            return completions;
         },
     });
 
@@ -42,7 +61,7 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.workspace.onDidChangeTextDocument(async (event) => {
             ZScriptContextService.verifyDocumentStructure(event.document, contextErrorsCollection);
         }),
-        completitionProvider,
+        completionProvider,
         contextErrorsCollection
     );
 }
