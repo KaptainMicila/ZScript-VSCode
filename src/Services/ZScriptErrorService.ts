@@ -7,11 +7,10 @@ export async function updateDiagnostics(
     errorRangesArray: ZScriptError[]
 ) {
     if (errorRangesArray.length > 0) {
-        const diagnosticsArray: Array<vscode.Diagnostic> = [];
+        const diagnosticsArray: vscode.Diagnostic[] = [];
 
         for (const range of errorRangesArray) {
             diagnosticsArray.push({
-                code: "",
                 message: range.description ?? "",
                 range: range,
                 severity: vscode.DiagnosticSeverity.Error,

@@ -19,7 +19,6 @@ function updateDiagnostics(documentUri, diagnosticsCollection, errorRangesArray)
             const diagnosticsArray = [];
             for (const range of errorRangesArray) {
                 diagnosticsArray.push({
-                    code: "",
                     message: (_a = range.description) !== null && _a !== void 0 ? _a : "",
                     range: range,
                     severity: vscode.DiagnosticSeverity.Error,

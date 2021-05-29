@@ -33,22 +33,35 @@ export async function activate(context: vscode.ExtensionContext) {
 
             for (const contextText of contextTextes) {
                 const explodedText = contextText.split(" ").map((text) => text.trim());
-
-                console.log(explodedText);
-
                 const completion = new vscode.CompletionItem(explodedText[1]);
 
                 switch (explodedText[0].toLowerCase()) {
                     case "class":
                         completion.kind = vscode.CompletionItemKind.Class;
+                        completion.detail = "Class";
+
+                        if (explodedText[2] === ":") {
+                            if (explodedText[3]) {
+                                completion.documentation = new vscode.MarkdownString();
+                                completion.documentation.appendCodeblock(`extends ${explodedText[3]}`, "zscript");
+                            }
+                        }
+
                         break;
                     case "enum":
                         completion.kind = vscode.CompletionItemKind.Enum;
+                        completion.detail = "Enum";
                         break;
                     case "struct":
                         completion.kind = vscode.CompletionItemKind.Struct;
+                        completion.detail = "Struct";
+
                         break;
+                    default:
+                        continue;
                 }
+
+                completions.push(completion);
             }
 
             return completions;
