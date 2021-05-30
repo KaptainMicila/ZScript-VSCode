@@ -62,7 +62,7 @@
                 },
                 {
                     "name": "keyword.other.zscript",
-                    "match": "\\b(?i:abstract|action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend|in|out)\\b"
+                    "match": "\\b(?i:abstract|action|clearscope|deprecated|final|native|override|play|private|protected|static|ui|vararg|virtual|virtualscope|abstract|replaces|readonly|extend|in|out|self)\\b"
                 }
             ]
         },

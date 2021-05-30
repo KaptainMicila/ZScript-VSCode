@@ -141,7 +141,7 @@ function isCommented(commentRanges, position) {
 function findContextByPosition(document, position) {
     return __awaiter(this, void 0, void 0, function* () {
         const commentRanges = yield parseComments(document);
-        const contextes = (yield parseContextes(document)).contextes;
+        const { contextes } = yield parseContextes(document);
         let contextFound = null;
         for (const range of commentRanges) {
             if (range.contains(position)) {

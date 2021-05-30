@@ -8,7 +8,9 @@ import * as ZScriptCompletionService from "../Services/ZScriptCompletionsService
 export const defaultCompletions: vscode.CompletionItem[] = [];
 
 for (const completionText of ["class", "enum", "struct", "const", "mixin", "null", "void", "voidptr"]) {
-    const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.Keyword);
+    const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.TypeParameter);
+    
+    completitionType.detail = "type";
 
     defaultCompletions.push(completitionType);
 }
@@ -19,10 +21,12 @@ for (const completionText of ["class", "enum", "struct", "const", "mixin", "null
 const version = new vscode.CompletionItem("version", vscode.CompletionItemKind.Snippet);
 
 version.insertText = new vscode.SnippetString('version "${1}";');
+version.detail = "snippet";
 
 const include = new vscode.CompletionItem("include", vscode.CompletionItemKind.Snippet);
 
 include.insertText = new vscode.SnippetString('#include "${1}";');
+include.detail = "snippet";
 
 export const globalScopeValues: vscode.CompletionItem[] = [...defaultCompletions, version, include];
 

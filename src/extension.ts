@@ -1,5 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
+import { defaultCompletions, globalScopeValues } from "./BuiltIn/completions";
+import { ContextType } from "./BuiltIn/enums";
 import ZScriptContext from "./Classes/ZScriptContext";
 import * as ZScriptContextService from "./Services/ZScriptContextService";
 
@@ -29,16 +31,16 @@ export async function activate(context: vscode.ExtensionContext) {
                 .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
                 .trim();
 
-            let contextTextes = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gim) ?? [];
+            let completionTextes = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gim) ?? [];
 
-            for (const contextText of contextTextes) {
+            for (const contextText of completionTextes) {
                 const explodedText = contextText.split(" ").map((text) => text.trim());
                 const completion = new vscode.CompletionItem(explodedText[1]);
 
                 switch (explodedText[0].toLowerCase()) {
                     case "class":
                         completion.kind = vscode.CompletionItemKind.Class;
-                        completion.detail = "Class";
+                        completion.detail = `class ${explodedText[1]}`;
 
                         if (explodedText[2] === ":") {
                             if (explodedText[3]) {
@@ -50,11 +52,12 @@ export async function activate(context: vscode.ExtensionContext) {
                         break;
                     case "enum":
                         completion.kind = vscode.CompletionItemKind.Enum;
-                        completion.detail = "Enum";
+                        completion.detail = `enum ${explodedText[1]}`;
+
                         break;
                     case "struct":
                         completion.kind = vscode.CompletionItemKind.Struct;
-                        completion.detail = "Struct";
+                        completion.detail = `struct ${explodedText[1]}`;
 
                         break;
                     default:
@@ -64,7 +67,51 @@ export async function activate(context: vscode.ExtensionContext) {
                 completions.push(completion);
             }
 
-            return completions;
+            if (callContext === null) {
+                return [...globalScopeValues, ...completions];
+            }
+
+            const contextText = document
+                .getText()
+                .slice(
+                    document.getText().lastIndexOf("}", document.offsetAt(callContext.start)) + 1,
+                    document.offsetAt(callContext.end)
+                )
+                .trim();
+
+            const [contextDefinitionText, contextContentText] = contextText.split("{").map((text) => text.trim());
+            
+            const contextRegex = contextDefinitionText.match(
+                /(?<classModifiers>.+?(?=\s+?class))|(?<classDefinition>class[\s\S]+$)/gim
+            );
+
+            if (contextRegex) {
+                if (contextRegex.length > 1) {
+                    const contextDefinition = contextRegex[1];
+                }
+            }
+
+            // const explodedContextDefinition = contextDefinitionText.split(" ");
+
+            // if (explodedContextDefinition[0] === "enum") {
+            //     return [];
+            // }
+
+            // const contextName = explodedContextDefinition[1];
+
+            // const contextCompletition = completions.find((completion) => completion.label === contextName);
+
+            // if (contextCompletition) {
+            //     contextCompletition.label = "self";
+            // }
+
+            // console.clear();
+            // console.log({
+            //     text: contextText,
+            //     content: { definition: contextDefinitionText, content: contextContentText },
+            // });
+
+            return [...defaultCompletions, ...completions];
         },
     });
 

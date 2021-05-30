@@ -8,15 +8,18 @@ const ZScriptCompletionService = require("../Services/ZScriptCompletionsService"
 // Always avaible
 exports.defaultCompletions = [];
 for (const completionText of ["class", "enum", "struct", "const", "mixin", "null", "void", "voidptr"]) {
-    const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.Keyword);
+    const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.TypeParameter);
+    completitionType.detail = "type";
     exports.defaultCompletions.push(completitionType);
 }
 // GLOBAL SCOPE COMPLETIONS
 // Avaible only in global scope
 const version = new vscode.CompletionItem("version", vscode.CompletionItemKind.Snippet);
 version.insertText = new vscode.SnippetString('version "${1}";');
+version.detail = "snippet";
 const include = new vscode.CompletionItem("include", vscode.CompletionItemKind.Snippet);
 include.insertText = new vscode.SnippetString('#include "${1}";');
+include.detail = "snippet";
 exports.globalScopeValues = [...exports.defaultCompletions, version, include];
 // SCOPED (CURLY) CONTEXT COMPLETITIONS
 // When you're inside a context that's not the global one, inside curly brackets.
