@@ -1,9 +1,8 @@
 "use strict";
 import * as vscode from "vscode";
-import { defaultCompletions, globalScopeValues } from "./BuiltIn/completions";
-import { ContextType } from "./BuiltIn/enums";
-import ZScriptContext from "./Classes/ZScriptContext";
 import * as ZScriptContextService from "./Services/ZScriptContextService";
+import ZScriptContext from "./Classes/ZScriptContext";
+import { defaultCompletions, globalScopeValues } from "./BuiltIn/completions";
 
 export async function activate(context: vscode.ExtensionContext) {
     const { activeTextEditor } = vscode.window;
@@ -81,8 +80,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
             const [contextDefinitionText, contextContentText] = contextText.split("{").map((text) => text.trim());
 
+            // I'm not taking Enum, because screw them.
             const contextRegex = contextDefinitionText.match(
-                /(?<classModifiers>.+?(?=\s+?class))|(?<classDefinition>class[\s\S]+$)/gim
+                /(?<classModifiers>.+?(?=\s+?class))|(?<classDefinition>(?:class|struct)[\s\S]+$)/gim
             );
 
             if (!contextRegex) {
@@ -99,15 +99,15 @@ export async function activate(context: vscode.ExtensionContext) {
                 explodedContextDefinition.push(...contextRegex[0].split(" "));
             }
 
-            if (explodedContextDefinition[0] === "enum") {
-                return [];
-            }
-
             const contextName = explodedContextDefinition[1];
             const contextCompletion = completions.find((completion) => completion.label === contextName);
 
             if (contextCompletion) {
-                contextCompletion.label = "self";
+                if (explodedContextDefinition[0] === "struct") {
+                    completions.splice(completions.indexOf(contextCompletion), 1);
+                } else {
+                    contextCompletion.label = "self";
+                }
             }
 
             console.clear();

@@ -11,8 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = void 0;
 const vscode = require("vscode");
-const completions_1 = require("./BuiltIn/completions");
 const ZScriptContextService = require("./Services/ZScriptContextService");
+const completions_1 = require("./BuiltIn/completions");
 function activate(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { activeTextEditor } = vscode.window;
@@ -69,7 +69,8 @@ function activate(context) {
                         .slice(document.getText().lastIndexOf("}", document.offsetAt(callContext.start)) + 1, document.offsetAt(callContext.end))
                         .trim();
                     const [contextDefinitionText, contextContentText] = contextText.split("{").map((text) => text.trim());
-                    const contextRegex = contextDefinitionText.match(/(?<classModifiers>.+?(?=\s+?class))|(?<classDefinition>class[\s\S]+$)/gim);
+                    // I'm not taking Enum, because screw them.
+                    const contextRegex = contextDefinitionText.match(/(?<classModifiers>.+?(?=\s+?class))|(?<classDefinition>(?:class|struct)[\s\S]+$)/gim);
                     if (!contextRegex) {
                         return [];
                     }
@@ -82,13 +83,15 @@ function activate(context) {
                     else {
                         explodedContextDefinition.push(...contextRegex[0].split(" "));
                     }
-                    if (explodedContextDefinition[0] === "enum") {
-                        return [];
-                    }
                     const contextName = explodedContextDefinition[1];
                     const contextCompletion = completions.find((completion) => completion.label === contextName);
                     if (contextCompletion) {
-                        contextCompletion.label = "self";
+                        if (explodedContextDefinition[0] === "struct") {
+                            completions.splice(completions.indexOf(contextCompletion), 1);
+                        }
+                        else {
+                            contextCompletion.label = "self";
+                        }
                     }
                     console.clear();
                     console.log({

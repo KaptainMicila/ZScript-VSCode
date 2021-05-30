@@ -1,6 +1,9 @@
 import * as vscode from "vscode";
+import { defaultCompletions, globalScopeValues } from "../BuiltIn/completions";
 import * as completionTypes from "../BuiltIn/types";
+import ZScriptContext from "../Classes/ZScriptContext";
 import CompletitionOptions from "../Interfaces/CompletionOptionsInterface";
+import * as ZScriptContextService from "../Services/ZScriptContextService";
 
 export async function addTypeToContext(
     typeFamily: completionTypes.ZScriptType[],
