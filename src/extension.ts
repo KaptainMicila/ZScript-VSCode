@@ -80,36 +80,42 @@ export async function activate(context: vscode.ExtensionContext) {
                 .trim();
 
             const [contextDefinitionText, contextContentText] = contextText.split("{").map((text) => text.trim());
-            
+
             const contextRegex = contextDefinitionText.match(
                 /(?<classModifiers>.+?(?=\s+?class))|(?<classDefinition>class[\s\S]+$)/gim
             );
 
-            if (contextRegex) {
-                if (contextRegex.length > 1) {
-                    const contextDefinition = contextRegex[1];
-                }
+            if (!contextRegex) {
+                return [];
             }
 
-            // const explodedContextDefinition = contextDefinitionText.split(" ");
+            const contextProprieties: string[] = [];
+            const explodedContextDefinition: string[] = [];
 
-            // if (explodedContextDefinition[0] === "enum") {
-            //     return [];
-            // }
+            if (contextRegex.length > 1) {
+                contextProprieties.push(...contextRegex[0].split(" "));
+                explodedContextDefinition.push(...contextRegex[1].split(" "));
+            } else {
+                explodedContextDefinition.push(...contextRegex[0].split(" "));
+            }
 
-            // const contextName = explodedContextDefinition[1];
+            if (explodedContextDefinition[0] === "enum") {
+                return [];
+            }
 
-            // const contextCompletition = completions.find((completion) => completion.label === contextName);
+            const contextName = explodedContextDefinition[1];
+            const contextCompletion = completions.find((completion) => completion.label === contextName);
 
-            // if (contextCompletition) {
-            //     contextCompletition.label = "self";
-            // }
+            if (contextCompletion) {
+                contextCompletion.label = "self";
+            }
 
-            // console.clear();
-            // console.log({
-            //     text: contextText,
-            //     content: { definition: contextDefinitionText, content: contextContentText },
-            // });
+            console.clear();
+            console.log({
+                prorieties: contextProprieties,
+                text: contextText,
+                content: { definition: contextDefinitionText, content: contextContentText },
+            });
 
             return [...defaultCompletions, ...completions];
         },

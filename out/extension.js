@@ -70,25 +70,32 @@ function activate(context) {
                         .trim();
                     const [contextDefinitionText, contextContentText] = contextText.split("{").map((text) => text.trim());
                     const contextRegex = contextDefinitionText.match(/(?<classModifiers>.+?(?=\s+?class))|(?<classDefinition>class[\s\S]+$)/gim);
-                    if (contextRegex) {
-                        if (contextRegex.length > 1) {
-                            const contextDefinition = contextRegex[1];
-                        }
+                    if (!contextRegex) {
+                        return [];
                     }
-                    // const explodedContextDefinition = contextDefinitionText.split(" ");
-                    // if (explodedContextDefinition[0] === "enum") {
-                    //     return [];
-                    // }
-                    // const contextName = explodedContextDefinition[1];
-                    // const contextCompletition = completions.find((completion) => completion.label === contextName);
-                    // if (contextCompletition) {
-                    //     contextCompletition.label = "self";
-                    // }
-                    // console.clear();
-                    // console.log({
-                    //     text: contextText,
-                    //     content: { definition: contextDefinitionText, content: contextContentText },
-                    // });
+                    const contextProprieties = [];
+                    const explodedContextDefinition = [];
+                    if (contextRegex.length > 1) {
+                        contextProprieties.push(...contextRegex[0].split(" "));
+                        explodedContextDefinition.push(...contextRegex[1].split(" "));
+                    }
+                    else {
+                        explodedContextDefinition.push(...contextRegex[0].split(" "));
+                    }
+                    if (explodedContextDefinition[0] === "enum") {
+                        return [];
+                    }
+                    const contextName = explodedContextDefinition[1];
+                    const contextCompletion = completions.find((completion) => completion.label === contextName);
+                    if (contextCompletion) {
+                        contextCompletion.label = "self";
+                    }
+                    console.clear();
+                    console.log({
+                        prorieties: contextProprieties,
+                        text: contextText,
+                        content: { definition: contextDefinitionText, content: contextContentText },
+                    });
                     return [...completions_1.defaultCompletions, ...completions];
                 });
             },
