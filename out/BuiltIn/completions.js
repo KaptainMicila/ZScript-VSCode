@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.contextAwareCompletitions = exports.globalScopeValues = exports.defaultCompletions = void 0;
 const vscode = require("vscode");
-const completionTypes = require("./types");
-const ZScriptCompletionService = require("../Services/ZScriptCompletionsService");
 // DEFAULT COMPLETIONS
 // Always avaible
 exports.defaultCompletions = [];
@@ -24,30 +22,34 @@ exports.globalScopeValues = [...exports.defaultCompletions, version, include];
 // SCOPED (CURLY) CONTEXT COMPLETITIONS
 // When you're inside a context that's not the global one, inside curly brackets.
 exports.contextAwareCompletitions = [...exports.defaultCompletions];
-ZScriptCompletionService.addTypeToContext([...completionTypes.integers, ...completionTypes.floats], exports.contextAwareCompletitions, {
-    customDetail: "built-in type",
-});
-ZScriptCompletionService.addTypeToContext(completionTypes.classes, exports.contextAwareCompletitions, {
-    customDetail: "built-in class",
-    customIcon: vscode.CompletionItemKind.Class,
-});
-ZScriptCompletionService.addTypeToContext(completionTypes.structs, exports.contextAwareCompletitions, {
-    customDetail: "built-in struct",
-    customIcon: vscode.CompletionItemKind.Struct,
-});
-for (const completionText of [
-    "string",
-    "name",
-    "vector2",
-    "vector3",
-    "bool",
-    "sound",
-    "spriteid",
-    "state",
-    "statelabel",
-    "textureid",
-]) {
-    const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.Keyword);
-    exports.contextAwareCompletitions.push(completitionType);
-}
+// ZScriptCompletionService.addTypeToContext(
+//     [...completionTypes.integers, ...completionTypes.floats],
+//     contextAwareCompletitions,
+//     {
+//         customDetail: "built-in type",
+//     }
+// );
+// ZScriptCompletionService.addTypeToContext(completionTypes.classes, contextAwareCompletitions, {
+//     customDetail: "built-in class",
+//     customIcon: vscode.CompletionItemKind.Class,
+// });
+// ZScriptCompletionService.addTypeToContext(completionTypes.structs, contextAwareCompletitions, {
+//     customDetail: "built-in struct",
+//     customIcon: vscode.CompletionItemKind.Struct,
+// });
+// for (const completionText of [
+//     "string",
+//     "name",
+//     "vector2",
+//     "vector3",
+//     "bool",
+//     "sound",
+//     "spriteid",
+//     "state",
+//     "statelabel",
+//     "textureid",
+// ]) {
+//     const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.Keyword);
+//     contextAwareCompletitions.push(completitionType);
+// }
 //# sourceMappingURL=completions.js.map

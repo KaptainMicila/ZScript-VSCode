@@ -35,37 +35,37 @@ export const globalScopeValues: vscode.CompletionItem[] = [...defaultCompletions
 
 export const contextAwareCompletitions: vscode.CompletionItem[] = [...defaultCompletions];
 
-ZScriptCompletionService.addTypeToContext(
-    [...completionTypes.integers, ...completionTypes.floats],
-    contextAwareCompletitions,
-    {
-        customDetail: "built-in type",
-    }
-);
+// ZScriptCompletionService.addTypeToContext(
+//     [...completionTypes.integers, ...completionTypes.floats],
+//     contextAwareCompletitions,
+//     {
+//         customDetail: "built-in type",
+//     }
+// );
 
-ZScriptCompletionService.addTypeToContext(completionTypes.classes, contextAwareCompletitions, {
-    customDetail: "built-in class",
-    customIcon: vscode.CompletionItemKind.Class,
-});
+// ZScriptCompletionService.addTypeToContext(completionTypes.classes, contextAwareCompletitions, {
+//     customDetail: "built-in class",
+//     customIcon: vscode.CompletionItemKind.Class,
+// });
 
-ZScriptCompletionService.addTypeToContext(completionTypes.structs, contextAwareCompletitions, {
-    customDetail: "built-in struct",
-    customIcon: vscode.CompletionItemKind.Struct,
-});
+// ZScriptCompletionService.addTypeToContext(completionTypes.structs, contextAwareCompletitions, {
+//     customDetail: "built-in struct",
+//     customIcon: vscode.CompletionItemKind.Struct,
+// });
 
-for (const completionText of [
-    "string",
-    "name",
-    "vector2",
-    "vector3",
-    "bool",
-    "sound",
-    "spriteid",
-    "state",
-    "statelabel",
-    "textureid",
-]) {
-    const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.Keyword);
+// for (const completionText of [
+//     "string",
+//     "name",
+//     "vector2",
+//     "vector3",
+//     "bool",
+//     "sound",
+//     "spriteid",
+//     "state",
+//     "statelabel",
+//     "textureid",
+// ]) {
+//     const completitionType = new vscode.CompletionItem(completionText, vscode.CompletionItemKind.Keyword);
 
-    contextAwareCompletitions.push(completitionType);
-}
+//     contextAwareCompletitions.push(completitionType);
+// }
