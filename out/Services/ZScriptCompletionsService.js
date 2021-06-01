@@ -22,10 +22,13 @@ exports.defaultCompletionProvider = vscode.languages.registerCompletionItemProvi
                 return null;
             }
             const completions = [];
+            const completionEnd = document.getText().indexOf(";", document.offsetAt(position)) === -1 ? document.offsetAt(position) : document.getText().indexOf(";", document.offsetAt(position));
             const completionText = document
                 .getText()
-                .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
+                .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : completionEnd)
                 .trim();
+            console.clear();
+            console.log(completionText);
             let completionTextes = (_a = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gim)) !== null && _a !== void 0 ? _a : [];
             for (const contextText of completionTextes) {
                 const explodedText = contextText.split(" ").map((text) => text.trim());
@@ -86,12 +89,6 @@ exports.defaultCompletionProvider = vscode.languages.registerCompletionItemProvi
                     contextCompletion.label = "self";
                 }
             }
-            console.clear();
-            console.log({
-                prorieties: contextProprieties,
-                text: contextText,
-                content: { definition: contextDefinitionText, content: contextContentText },
-            });
             return [...completions_1.defaultCompletions, ...completions];
         });
     },

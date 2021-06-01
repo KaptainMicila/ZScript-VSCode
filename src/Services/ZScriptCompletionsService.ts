@@ -17,11 +17,15 @@ export const defaultCompletionProvider: vscode.Disposable = vscode.languages.reg
         }
 
         const completions: vscode.CompletionItem[] = [];
+        const completionEnd = document.getText().indexOf(";", document.offsetAt(position)) === -1 ? document.offsetAt(position) : document.getText().indexOf(";", document.offsetAt(position));
 
         const completionText = document
             .getText()
-            .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
+            .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : completionEnd)
             .trim();
+
+        console.clear();
+        console.log(completionText);
 
         let completionTextes = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gim) ?? [];
 
@@ -102,13 +106,6 @@ export const defaultCompletionProvider: vscode.Disposable = vscode.languages.reg
                 contextCompletion.label = "self";
             }
         }
-
-        console.clear();
-        console.log({
-            prorieties: contextProprieties,
-            text: contextText,
-            content: { definition: contextDefinitionText, content: contextContentText },
-        });
 
         return [...defaultCompletions, ...completions];
     },
