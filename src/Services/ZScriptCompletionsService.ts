@@ -17,99 +17,50 @@ export const defaultCompletionProvider: vscode.Disposable = vscode.languages.reg
         }
 
         const completions: vscode.CompletionItem[] = [];
-        const completionEnd = document.getText().indexOf(";", document.offsetAt(position)) === -1 ? document.offsetAt(position) : document.getText().indexOf(";", document.offsetAt(position));
 
         const completionText = document
             .getText()
-            .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : completionEnd)
+            .slice(0, callContext ? document.offsetAt(callContext.end) + 1 : document.offsetAt(position))
             .trim();
 
-        console.clear();
-        console.log(completionText);
-
-        let completionTextes = completionText.match(/(?:class|enum|struct)[\s\S]*?(?=\s*?{)/gim) ?? [];
-
-        for (const contextText of completionTextes) {
-            const explodedText = contextText.split(" ").map((text) => text.trim());
-            const completion = new vscode.CompletionItem(explodedText[1]);
-
-            switch (explodedText[0].toLowerCase()) {
-                case "class":
-                    completion.kind = vscode.CompletionItemKind.Class;
-                    completion.detail = `class ${explodedText[1]}`;
-
-                    if (explodedText[2] === ":") {
-                        if (explodedText[3]) {
-                            completion.documentation = new vscode.MarkdownString();
-                            completion.documentation.appendCodeblock(`extends ${explodedText[3]}`, "zscript");
-                        }
-                    }
-
-                    break;
-                case "enum":
-                    completion.kind = vscode.CompletionItemKind.Enum;
-                    completion.detail = `enum ${explodedText[1]}`;
-
-                    break;
-                case "struct":
-                    completion.kind = vscode.CompletionItemKind.Struct;
-                    completion.detail = `struct ${explodedText[1]}`;
-
-                    break;
-                default:
-                    continue;
-            }
-
-            completions.push(completion);
-        }
-
-        if (callContext === null) {
-            return [...globalScopeValues, ...completions];
-        }
-
-        const contextText = document
-            .getText()
-            .slice(
-                document.getText().lastIndexOf("}", document.offsetAt(callContext.start)) + 1,
-                document.offsetAt(callContext.end)
-            )
-            .trim();
-
-        const [contextDefinitionText, contextContentText] = contextText.split("{").map((text) => text.trim());
-
-        // I'm not taking Enum, because screw them.
-        const contextRegex = contextDefinitionText.match(
-            /(?<classModifiers>.+?(?=\s+?class))|(?<classDefinition>(?:class|struct)[\s\S]+$)/gim
-        );
-
-        if (!contextRegex) {
-            return [];
-        }
-
-        const contextProprieties: string[] = [];
-        const explodedContextDefinition: string[] = [];
-
-        if (contextRegex.length > 1) {
-            contextProprieties.push(...contextRegex[0].split(" "));
-            explodedContextDefinition.push(...contextRegex[1].split(" "));
-        } else {
-            explodedContextDefinition.push(...contextRegex[0].split(" "));
-        }
-
-        const contextName = explodedContextDefinition[1];
-        const contextCompletion = completions.find((completion) => completion.label === contextName);
-
-        if (contextCompletion) {
-            if (explodedContextDefinition[0] === "struct") {
-                completions.splice(completions.indexOf(contextCompletion), 1);
-            } else {
-                contextCompletion.label = "self";
-            }
-        }
+        completions.push(...await scanTextVariables(completionText));
 
         return [...defaultCompletions, ...completions];
-    },
+    }
 });
+
+async function scanTextVariables(contextTextToScan: string): Promise<vscode.CompletionItem[]> {
+    console.clear();
+
+    let testText: string = '';
+    let contextesToSkip: number = 0;
+
+    for (let charIndex = 0; charIndex < contextTextToScan.length; charIndex++) {
+        const charAtIndex = contextTextToScan.charAt(charIndex);
+
+        if (charAtIndex === "{") {
+            if (contextesToSkip < 1) {
+                testText += charAtIndex;
+            }
+
+            contextesToSkip++;
+
+            continue;
+        }
+
+        if (charAtIndex === "}") {
+            contextesToSkip--;
+        }
+
+        if (contextesToSkip < 1) {
+            testText += charAtIndex;
+        }
+    }
+
+    console.log(testText);
+
+    return [];
+}
 
 // export async function addTypeToContext(
 //     typeFamily: completionTypes.ZScriptType[],
