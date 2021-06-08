@@ -141,13 +141,13 @@ function isCommented(commentRanges, position) {
 function findContextByPosition(document, position) {
     return __awaiter(this, void 0, void 0, function* () {
         const commentRanges = yield parseComments(document);
-        const { contextes } = yield parseContextes(document);
-        let contextFound = null;
         for (const range of commentRanges) {
             if (range.contains(position)) {
                 return undefined;
             }
         }
+        const { contextes } = yield parseContextes(document);
+        let contextFound = null;
         orderContextArray(contextes);
         // Contextes, if needed, is not gonna be modified if I use it like that
         for (const context of [...contextes].reverse()) {

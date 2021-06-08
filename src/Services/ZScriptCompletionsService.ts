@@ -15,7 +15,6 @@ export const defaultCompletionProvider: vscode.Disposable = vscode.languages.reg
         if (callContext === undefined) {
             return null;
         }
-
         const completions: vscode.CompletionItem[] = [];
 
         const completionText = document
@@ -31,16 +30,68 @@ export const defaultCompletionProvider: vscode.Disposable = vscode.languages.reg
 
 async function scanTextVariables(contextTextToScan: string): Promise<vscode.CompletionItem[]> {
     console.clear();
+    const variables: vscode.CompletionItem[] = [];
 
-    let testText: string = '';
+    const contextComponents: string[] =
+        (await getCleanText(contextTextToScan))
+            .split(/;|{}/gmi)
+            .map(text =>
+                text
+                    .trim()
+                    .replace(/(\r)??\n/gmi, '')
+            );
+
+    // The last element is usually '', screw it
+    contextComponents.pop();
+
+    for (const component of contextComponents) {
+        const explodedComponent = component.split(" ");
+        let variableVisibility: string | undefined = undefined;
+
+        // This check 100% helps identifying if the variable's inside a class
+        if (['public', 'private'].includes(explodedComponent[0])) {
+            variableVisibility = explodedComponent.splice(0, 1)[0];
+        }
+
+        // You better start putting 'private' or 'public' on those variables: ""performance boosts""!
+        if (variableVisibility === undefined) {
+            if (explodedComponent.includes("class")) {
+                const classParameters = explodedComponent.splice(0, explodedComponent.indexOf("class"));
+                const newVariable = new vscode.CompletionItem(explodedComponent[1], vscode.CompletionItemKind.Class);
+
+                newVariable.documentation = new vscode.MarkdownString("");
+                newVariable.detail = `${explodedComponent[0]} ${explodedComponent[1]}`;
+
+                if (explodedComponent.length > 2 && explodedComponent[2] === ':') {
+                    newVariable.documentation.appendCodeblock(`@extends ${explodedComponent[3]}`);
+                }
+
+                if (classParameters.length > 0) {
+                    newVariable.detail = `${classParameters.join(" ")} ${newVariable.detail}`;
+
+                    for (const classParameter of classParameters) {
+                        newVariable.documentation.appendCodeblock(`@${classParameter.toLowerCase()}`);
+                    }
+                }
+
+                variables.push(newVariable);
+            }
+        }
+    }
+
+    return variables;
+}
+
+async function getCleanText(textToClear: string) {
+    let textToReturn: string = '';
     let contextesToSkip: number = 0;
 
-    for (let charIndex = 0; charIndex < contextTextToScan.length; charIndex++) {
-        const charAtIndex = contextTextToScan.charAt(charIndex);
+    for (let charIndex = 0; charIndex < textToClear.length; charIndex++) {
+        const charAtIndex = textToClear.charAt(charIndex);
 
         if (charAtIndex === "{") {
             if (contextesToSkip < 1) {
-                testText += charAtIndex;
+                textToReturn += charAtIndex;
             }
 
             contextesToSkip++;
@@ -53,13 +104,11 @@ async function scanTextVariables(contextTextToScan: string): Promise<vscode.Comp
         }
 
         if (contextesToSkip < 1) {
-            testText += charAtIndex;
+            textToReturn += charAtIndex;
         }
     }
 
-    console.log(testText);
-
-    return [];
+    return textToReturn;
 }
 
 // export async function addTypeToContext(

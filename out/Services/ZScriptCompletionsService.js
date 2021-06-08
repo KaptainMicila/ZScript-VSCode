@@ -33,13 +33,53 @@ exports.defaultCompletionProvider = vscode.languages.registerCompletionItemProvi
 function scanTextVariables(contextTextToScan) {
     return __awaiter(this, void 0, void 0, function* () {
         console.clear();
-        let testText = '';
+        const variables = [];
+        const contextComponents = (yield getCleanText(contextTextToScan))
+            .split(/;|{}/gmi)
+            .map(text => text
+            .trim()
+            .replace(/(\r)??\n/gmi, ''));
+        // The last element is usually '', screw it
+        contextComponents.pop();
+        for (const component of contextComponents) {
+            const explodedComponent = component.split(" ");
+            let variableVisibility = undefined;
+            // This check 100% helps identifying if the variable's inside a class
+            if (['public', 'private'].includes(explodedComponent[0])) {
+                variableVisibility = explodedComponent.splice(0, 1)[0];
+            }
+            // You better start putting 'private' or 'public' on those variables: ""performance boosts""!
+            if (variableVisibility === undefined) {
+                if (explodedComponent.includes("class")) {
+                    const classParameters = explodedComponent.splice(0, explodedComponent.indexOf("class"));
+                    const newVariable = new vscode.CompletionItem(explodedComponent[1], vscode.CompletionItemKind.Class);
+                    newVariable.documentation = new vscode.MarkdownString("");
+                    newVariable.detail = `${explodedComponent[0]} ${explodedComponent[1]}`;
+                    if (explodedComponent.length > 2 && explodedComponent[2] === ':') {
+                        newVariable.documentation.appendCodeblock(`@extends ${explodedComponent[3]}`);
+                    }
+                    if (classParameters.length > 0) {
+                        newVariable.detail = `${classParameters.join(" ")} ${newVariable.detail}`;
+                        for (const classParameter of classParameters) {
+                            newVariable.documentation.appendCodeblock(`@${classParameter.toLowerCase()}`);
+                        }
+                    }
+                    variables.push(newVariable);
+                }
+            }
+        }
+        return variables;
+    });
+}
+function getCleanText(textToClear) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let textToReturn = '';
         let contextesToSkip = 0;
-        for (let charIndex = 0; charIndex < contextTextToScan.length; charIndex++) {
-            const charAtIndex = contextTextToScan.charAt(charIndex);
+        for (let charIndex = 0; charIndex < textToClear.length; charIndex++) {
+            const charAtIndex = textToClear.charAt(charIndex);
             if (charAtIndex === "{") {
                 if (contextesToSkip < 1) {
-                    testText += charAtIndex;
+                    textToReturn += charAtIndex;
                 }
                 contextesToSkip++;
                 continue;
@@ -48,11 +88,10 @@ function scanTextVariables(contextTextToScan) {
                 contextesToSkip--;
             }
             if (contextesToSkip < 1) {
-                testText += charAtIndex;
+                textToReturn += charAtIndex;
             }
         }
-        console.log(testText);
-        return [];
+        return textToReturn;
     });
 }
 // export async function addTypeToContext(

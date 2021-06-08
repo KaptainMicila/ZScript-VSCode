@@ -178,14 +178,15 @@ export async function findContextByPosition(
     position: vscode.Position
 ): Promise<ZScriptContext | null | undefined> {
     const commentRanges: vscode.Range[] = await parseComments(document);
-    const { contextes } = await parseContextes(document);
-    let contextFound: ZScriptContext | null | undefined = null;
 
     for (const range of commentRanges) {
         if (range.contains(position)) {
             return undefined;
         }
     }
+
+    const { contextes } = await parseContextes(document);
+    let contextFound: ZScriptContext | null | undefined = null;
 
     orderContextArray(contextes);
 
