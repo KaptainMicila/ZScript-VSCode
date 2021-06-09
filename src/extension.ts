@@ -13,12 +13,12 @@ export async function activate(context: vscode.ExtensionContext) {
     const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
     const completionProvider = defaultCompletionProvider;
 
-    ZScriptContextService.verifyDocumentStructure(activeTextEditor.document, contextErrorsCollection);
-
     context.subscriptions.push(
-        vscode.workspace.onDidChangeTextDocument(async (event) => {
-            ZScriptContextService.verifyDocumentStructure(event.document, contextErrorsCollection);
-        }),
+        vscode.workspace.onDidChangeTextDocument(
+            async function (event) {
+
+            }
+        ),
         completionProvider,
         contextErrorsCollection
     );

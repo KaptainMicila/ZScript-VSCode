@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = void 0;
 const vscode = require("vscode");
-const ZScriptContextService = require("./Services/ZScriptContextService");
 const ZScriptCompletionsService_1 = require("./Services/ZScriptCompletionsService");
 function activate(context) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -21,10 +20,10 @@ function activate(context) {
         }
         const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
         const completionProvider = ZScriptCompletionsService_1.defaultCompletionProvider;
-        ZScriptContextService.verifyDocumentStructure(activeTextEditor.document, contextErrorsCollection);
-        context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => __awaiter(this, void 0, void 0, function* () {
-            ZScriptContextService.verifyDocumentStructure(event.document, contextErrorsCollection);
-        })), completionProvider, contextErrorsCollection);
+        context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(function (event) {
+            return __awaiter(this, void 0, void 0, function* () {
+            });
+        }), completionProvider, contextErrorsCollection);
     });
 }
 exports.activate = activate;
