@@ -5,10 +5,7 @@ import ZScriptDocumentService from "./ZScriptDocumentService";
 export default class ZScriptCompletionService {
     static defaultCompletionProvider: vscode.Disposable = vscode.languages.registerCompletionItemProvider("zscript", {
         provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-            console.clear();
             const inComment: boolean = ZScriptDocumentService.positionInComment(document, position);
-
-            console.log(inComment);
 
             if (inComment) {
                 return null;

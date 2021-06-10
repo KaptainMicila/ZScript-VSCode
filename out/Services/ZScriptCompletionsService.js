@@ -67,9 +67,7 @@ class ZScriptCompletionService {
 exports.default = ZScriptCompletionService;
 ZScriptCompletionService.defaultCompletionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
     provideCompletionItems(document, position) {
-        console.clear();
         const inComment = ZScriptDocumentService_1.default.positionInComment(document, position);
-        console.log(inComment);
         if (inComment) {
             return null;
         }
