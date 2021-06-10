@@ -1,9 +1,7 @@
-"use strict";
 import * as vscode from "vscode";
-import * as ZScriptContextService from "./Services/ZScriptContextService";
-import { defaultCompletionProvider } from "./Services/ZScriptCompletionsService";
+import ZScriptCompletionsService from "./Services/ZScriptCompletionsService";
 
-export async function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
     const { activeTextEditor } = vscode.window;
 
     if (!activeTextEditor) {
@@ -11,14 +9,9 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     const contextErrorsCollection = vscode.languages.createDiagnosticCollection("contextErrors");
-    const completionProvider = defaultCompletionProvider;
+    const completionProvider = ZScriptCompletionsService.defaultCompletionProvider;
 
     context.subscriptions.push(
-        vscode.workspace.onDidChangeTextDocument(
-            async function (event) {
-
-            }
-        ),
         completionProvider,
         contextErrorsCollection
     );

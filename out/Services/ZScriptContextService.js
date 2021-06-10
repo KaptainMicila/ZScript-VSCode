@@ -9,29 +9,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.positionInComment = void 0;
-function positionInComment(document, position) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.clear();
-        const positionOffset = document.offsetAt(position);
-        const documentText = document.getText();
-        function offsetPosition(string) {
-            return documentText.indexOf(string, positionOffset);
-        }
-        function lastOffsetPosition(string) {
-            return documentText.lastIndexOf(string, positionOffset);
-        }
-        if ((lastOffsetPosition("/*") > lastOffsetPosition("*/")
-            && offsetPosition("/*") > offsetPosition("*/"))
-            || lastOffsetPosition("*/") === offsetPosition("*/")) {
-            return true;
-        }
-        const lineText = document.lineAt(position.line).text;
-        if (lineText.includes("//") && lineText.indexOf("//") < position.character) {
-            return true;
-        }
-        return false;
-    });
+class ZScriptDocumentService {
+    static positionInComment(document, position) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const positionOffset = document.offsetAt(position);
+            const documentText = document.getText();
+            if ((documentText.lastIndexOf("/*", positionOffset) > documentText.lastIndexOf("*/", positionOffset)
+                && documentText.indexOf("/*", positionOffset) > documentText.indexOf("*/", positionOffset))
+                || documentText.lastIndexOf("*/", positionOffset) === documentText.indexOf("*/", positionOffset)) {
+                return true;
+            }
+            const lineText = document.lineAt(position.line).text;
+            if (lineText.includes("//") && lineText.indexOf("//") < position.character) {
+                return true;
+            }
+            return false;
+        });
+    }
+    static positionInContext(document, position) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const positionOffset = document.offsetAt(position);
+            const documentText = document.getText();
+            return false;
+        });
+    }
 }
-exports.positionInComment = positionInComment;
+exports.default = ZScriptDocumentService;
 //# sourceMappingURL=ZScriptContextService.js.map

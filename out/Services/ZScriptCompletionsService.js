@@ -1,33 +1,12 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaultCompletionProvider = void 0;
 const vscode = require("vscode");
 const completions_1 = require("../BuiltIn/completions");
-const ZScriptContextService = require("../Services/ZScriptContextService");
-exports.defaultCompletionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
-    provideCompletionItems(document, position) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const inComment = yield ZScriptContextService.positionInComment(document, position);
-            if (inComment) {
-                return null;
-            }
-            return [...completions_1.defaultCompletions];
-        });
-    }
-});
-function scanTextVariables(contextTextToScan) {
-    return __awaiter(this, void 0, void 0, function* () {
+const ZScriptDocumentService_1 = require("./ZScriptDocumentService");
+class ZScriptCompletionService {
+    static scanTextVariables(contextTextToScan) {
         const variables = [];
-        const contextComponents = (yield getCleanText(contextTextToScan))
+        const contextComponents = this.getCleanText(contextTextToScan)
             .split(/;|{}/gmi)
             .map(text => text
             .trim()
@@ -62,10 +41,8 @@ function scanTextVariables(contextTextToScan) {
             }
         }
         return variables;
-    });
-}
-function getCleanText(textToClear) {
-    return __awaiter(this, void 0, void 0, function* () {
+    }
+    static getCleanText(textToClear) {
         let textToReturn = '';
         let contextesToSkip = 0;
         for (let charIndex = 0; charIndex < textToClear.length; charIndex++) {
@@ -85,6 +62,19 @@ function getCleanText(textToClear) {
             }
         }
         return textToReturn;
-    });
+    }
 }
+exports.default = ZScriptCompletionService;
+ZScriptCompletionService.defaultCompletionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
+    provideCompletionItems(document, position) {
+        console.clear();
+        const inComment = ZScriptDocumentService_1.default.positionInComment(document, position);
+        console.log(inComment);
+        if (inComment) {
+            return null;
+        }
+        const contextData = ZScriptDocumentService_1.default.positionContextData(document, position);
+        return [...completions_1.defaultCompletions];
+    }
+});
 //# sourceMappingURL=ZScriptCompletionsService.js.map
