@@ -4,9 +4,9 @@ const vscode = require("vscode");
 const completions_1 = require("../BuiltIn/completions");
 const ZScriptDocumentService_1 = require("./ZScriptDocumentService");
 class ZScriptCompletionService {
-    static scanTextVariables(contextTextToScan) {
+    static scanTextVariables(textToScan) {
         const variables = [];
-        const contextComponents = this.getCleanText(contextTextToScan)
+        const contextComponents = this.getCleanText(textToScan)
             .split(/;|{}/gmi)
             .map(text => text
             .trim()
@@ -72,6 +72,10 @@ ZScriptCompletionService.defaultCompletionProvider = vscode.languages.registerCo
             return null;
         }
         const contextData = ZScriptDocumentService_1.default.positionContextData(document, position);
+        if (contextData) {
+            console.clear();
+            console.log(document.positionAt(contextData.opening), document.positionAt(contextData.closing));
+        }
         return [...completions_1.defaultCompletions];
     }
 });

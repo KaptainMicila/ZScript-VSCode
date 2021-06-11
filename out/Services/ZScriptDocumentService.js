@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const vscode = require("vscode");
 class ZScriptDocumentService {
     static positionInComment(document, position) {
         const positionOffset = document.offsetAt(position);
@@ -19,7 +20,37 @@ class ZScriptDocumentService {
         if (!this.stringOffetComparsion(documentText, positionOffset, "{", "}")) {
             return null;
         }
-        return { opening: documentText.lastIndexOf("{", positionOffset), closing: documentText.indexOf("}", positionOffset) };
+        let searchingPosition = { opening: 0, closing: 0 };
+        let contextesToIgnore = 0;
+        for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
+            const line = document.lineAt(lineIndex);
+            const lineText = line.text;
+            for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
+                const character = lineText.charAt(characterIndex);
+                if (character === '{') {
+                    if (searchingPosition.opening === 0) {
+                        searchingPosition.opening = document.offsetAt(new vscode.Position(lineIndex, characterIndex));
+                    }
+                    else {
+                        contextesToIgnore++;
+                    }
+                }
+                if (character === "}") {
+                    if (searchingPosition.opening > 0) {
+                        if (contextesToIgnore === 0) {
+                            searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex));
+                            if (searchingPosition.opening < positionOffset && positionOffset < searchingPosition.closing) {
+                                return searchingPosition;
+                            }
+                            searchingPosition.opening = searchingPosition.closing = 0;
+                            continue;
+                        }
+                        contextesToIgnore--;
+                    }
+                }
+            }
+        }
+        return null;
     }
     /**
      * @param {string} documentText The document text to check

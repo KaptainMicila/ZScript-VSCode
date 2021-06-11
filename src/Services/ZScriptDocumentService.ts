@@ -26,7 +26,44 @@ export default class ZScriptDocumentService {
             return null;
         }
 
-        return { opening: documentText.lastIndexOf("{", positionOffset), closing: documentText.indexOf("}", positionOffset) };
+        let searchingPosition: { opening: number, closing: number } = { opening: 0, closing: 0 };
+        let contextesToIgnore: number = 0;
+
+        for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
+            const line = document.lineAt(lineIndex);
+            const lineText = line.text;
+
+            for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
+                const character: string = lineText.charAt(characterIndex);
+
+                if (character === '{') {
+                    if (searchingPosition.opening === 0) {
+                        searchingPosition.opening = document.offsetAt(new vscode.Position(lineIndex, characterIndex));
+                    } else {
+                        contextesToIgnore++;
+                    }
+                }
+
+                if (character === "}") {
+                    if (searchingPosition.opening > 0) {
+                        if (contextesToIgnore === 0) {
+                            searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex));
+
+                            if (searchingPosition.opening < positionOffset && positionOffset < searchingPosition.closing) {
+                                return searchingPosition;
+                            }
+
+                            searchingPosition.opening = searchingPosition.closing = 0;
+                            continue;
+                        }
+
+                        contextesToIgnore--;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     /** 

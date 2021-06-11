@@ -13,15 +13,20 @@ export default class ZScriptCompletionService {
 
             const contextData: { opening: number, closing: number } | null = ZScriptDocumentService.positionContextData(document, position);
 
+            if (contextData) {
+                console.clear();
+                console.log(document.positionAt(contextData.opening), document.positionAt(contextData.closing));
+            }
+
             return [...defaultCompletions];
         }
     });
 
-    static scanTextVariables(contextTextToScan: string): vscode.CompletionItem[] {
+    static scanTextVariables(textToScan: string): vscode.CompletionItem[] {
         const variables: vscode.CompletionItem[] = [];
 
         const contextComponents: string[] =
-            this.getCleanText(contextTextToScan)
+            this.getCleanText(textToScan)
                 .split(/;|{}/gmi)
                 .map(text =>
                     text
