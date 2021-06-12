@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import ContextData from "../Interfaces/ContextData";
 
 export default class ZScriptDocumentService {
     static positionInComment(document: vscode.TextDocument, position: vscode.Position): boolean {
@@ -18,7 +19,7 @@ export default class ZScriptDocumentService {
         return false;
     }
 
-    static positionContextData(document: vscode.TextDocument, position: vscode.Position): { opening: number, closing: number } | null {
+    static positionContextData(document: vscode.TextDocument, position: vscode.Position): ContextData | null {
         const documentText: string = document.getText();
         const positionOffset: number = document.offsetAt(position);
 
@@ -47,7 +48,7 @@ export default class ZScriptDocumentService {
                 if (character === "}") {
                     if (searchingPosition.opening > 0) {
                         if (contextesToIgnore === 0) {
-                            searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex));
+                            searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex)) + 1;
 
                             if (searchingPosition.opening < positionOffset && positionOffset < searchingPosition.closing) {
                                 return searchingPosition;

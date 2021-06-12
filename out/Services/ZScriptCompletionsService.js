@@ -65,6 +65,7 @@ class ZScriptCompletionService {
     }
 }
 exports.default = ZScriptCompletionService;
+ZScriptCompletionService.DOCUMENT_START = new vscode.Position(0, 0);
 ZScriptCompletionService.defaultCompletionProvider = vscode.languages.registerCompletionItemProvider("zscript", {
     provideCompletionItems(document, position) {
         const inComment = ZScriptDocumentService_1.default.positionInComment(document, position);
@@ -72,10 +73,12 @@ ZScriptCompletionService.defaultCompletionProvider = vscode.languages.registerCo
             return null;
         }
         const contextData = ZScriptDocumentService_1.default.positionContextData(document, position);
+        let completionText = document.getText(new vscode.Range(ZScriptCompletionService.DOCUMENT_START, position));
         if (contextData) {
-            console.clear();
-            console.log(document.positionAt(contextData.opening), document.positionAt(contextData.closing));
+            completionText = completionText.concat(document.getText(new vscode.Range(position, document.positionAt(contextData.closing))));
         }
+        console.clear();
+        console.log(completionText);
         return [...completions_1.defaultCompletions];
     }
 });

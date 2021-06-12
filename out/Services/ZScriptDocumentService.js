@@ -38,7 +38,7 @@ class ZScriptDocumentService {
                 if (character === "}") {
                     if (searchingPosition.opening > 0) {
                         if (contextesToIgnore === 0) {
-                            searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex));
+                            searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex)) + 1;
                             if (searchingPosition.opening < positionOffset && positionOffset < searchingPosition.closing) {
                                 return searchingPosition;
                             }

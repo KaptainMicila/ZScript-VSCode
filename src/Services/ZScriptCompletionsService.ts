@@ -1,8 +1,11 @@
 import * as vscode from "vscode";
 import { defaultCompletions } from "../BuiltIn/completions";
+import ContextData from "../Interfaces/ContextData";
 import ZScriptDocumentService from "./ZScriptDocumentService";
 
 export default class ZScriptCompletionService {
+    public static DOCUMENT_START = new vscode.Position(0, 0);
+
     static defaultCompletionProvider: vscode.Disposable = vscode.languages.registerCompletionItemProvider("zscript", {
         provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
             const inComment: boolean = ZScriptDocumentService.positionInComment(document, position);
@@ -11,12 +14,16 @@ export default class ZScriptCompletionService {
                 return null;
             }
 
-            const contextData: { opening: number, closing: number } | null = ZScriptDocumentService.positionContextData(document, position);
+            const contextData: ContextData | null = ZScriptDocumentService.positionContextData(document, position);
+
+            let completionText = document.getText(new vscode.Range(ZScriptCompletionService.DOCUMENT_START, position));
 
             if (contextData) {
-                console.clear();
-                console.log(document.positionAt(contextData.opening), document.positionAt(contextData.closing));
+                completionText = completionText.concat(document.getText(new vscode.Range(position, document.positionAt(contextData.closing))));
             }
+
+            console.clear();
+            console.log(completionText);
 
             return [...defaultCompletions];
         }
