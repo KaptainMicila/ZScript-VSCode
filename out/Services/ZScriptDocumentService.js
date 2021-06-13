@@ -37,7 +37,7 @@ class ZScriptDocumentService {
                 }
                 if (character === "}") {
                     if (searchingPosition.opening > 0) {
-                        if (contextesToIgnore === 0) {
+                        if (contextesToIgnore <= 0) {
                             searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex)) + 1;
                             if (searchingPosition.opening < positionOffset && positionOffset < searchingPosition.closing) {
                                 return searchingPosition;
@@ -65,6 +65,36 @@ class ZScriptDocumentService {
         const lastIn = documentText.indexOf(opening, positionOffset);
         const lastOut = documentText.indexOf(closing, positionOffset);
         return (firstIn > -1 && firstIn > firstOut) || (lastIn > -1 && lastIn > lastOut);
+    }
+    static getCleanText(textToClean) {
+        textToClean = textToClean.replace(/ *?\/\*[\s\S]+?\*\//gmi, '').trim();
+        let cleanedText = '';
+        let ignoring = false;
+        let bracketsToIgnore = 0;
+        for (let charIndex = 0; charIndex < textToClean.length; charIndex++) {
+            const char = textToClean.charAt(charIndex);
+            switch (char) {
+                case "{":
+                    if (ignoring) {
+                        bracketsToIgnore++;
+                    }
+                    else {
+                        cleanedText += char;
+                        ignoring = true;
+                    }
+                    break;
+                case "}":
+                    bracketsToIgnore--;
+                    if (bracketsToIgnore <= 0) {
+                        ignoring = false;
+                    }
+                    break;
+            }
+            if (!ignoring) {
+                cleanedText += char;
+            }
+        }
+        return cleanedText;
     }
 }
 exports.default = ZScriptDocumentService;

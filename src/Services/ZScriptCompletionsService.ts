@@ -8,106 +8,32 @@ export default class ZScriptCompletionService {
 
     static defaultCompletionProvider: vscode.Disposable = vscode.languages.registerCompletionItemProvider("zscript", {
         provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-            const inComment: boolean = ZScriptDocumentService.positionInComment(document, position);
-
-            if (inComment) {
+            if (ZScriptDocumentService.positionInComment(document, position)) {
                 return null;
             }
 
             const contextData: ContextData | null = ZScriptDocumentService.positionContextData(document, position);
 
-            let completionText = document.getText(new vscode.Range(ZScriptCompletionService.DOCUMENT_START, position));
+            let globalContextText = document.getText(new vscode.Range(ZScriptCompletionService.DOCUMENT_START, position));
+            let completions: vscode.CompletionItem[] = [];
 
             if (contextData) {
-                completionText = completionText.concat(document.getText(new vscode.Range(position, document.positionAt(contextData.closing))));
+                globalContextText = globalContextText.concat(document.getText(new vscode.Range(position, document.positionAt(contextData.closing))));
             }
 
-            console.clear();
-            console.log(completionText);
+            completions.push(...ZScriptCompletionService.getContextTextVariables(globalContextText));
 
             return [...defaultCompletions];
         }
     });
 
-    static scanTextVariables(textToScan: string): vscode.CompletionItem[] {
-        const variables: vscode.CompletionItem[] = [];
+    static getContextTextVariables(contextText: string): vscode.CompletionItem[] {
+        console.clear();
 
-        const contextComponents: string[] =
-            this.getCleanText(textToScan)
-                .split(/;|{}/gmi)
-                .map(text =>
-                    text
-                        .trim()
-                        .replace(/(\r)??\n/gmi, '')
-                );
+        const cleanedText = ZScriptDocumentService.getCleanText(contextText);
 
-        // The last element is usually '', screw it
-        contextComponents.pop();
+        console.log(cleanedText);
 
-        for (const component of contextComponents) {
-            const explodedComponent = component.split(" ");
-            let variableVisibility: string | undefined = undefined;
-
-            // This check 100% helps identifying if the variable's inside a class
-            if (['public', 'private'].includes(explodedComponent[0])) {
-                variableVisibility = explodedComponent.splice(0, 1)[0];
-            }
-
-            // You better start putting 'private' or 'public' on those variables: ""performance boosts""!
-            if (variableVisibility === undefined) {
-                if (explodedComponent.includes("class")) {
-                    const classParameters = explodedComponent.splice(0, explodedComponent.indexOf("class"));
-                    const newVariable = new vscode.CompletionItem(explodedComponent[1], vscode.CompletionItemKind.Class);
-
-                    newVariable.documentation = new vscode.MarkdownString("");
-                    newVariable.detail = `${explodedComponent[0]} ${explodedComponent[1]}`;
-
-                    if (explodedComponent.length > 2 && explodedComponent[2] === ':') {
-                        newVariable.documentation.appendCodeblock(`@extends ${explodedComponent[3]}`);
-                    }
-
-                    if (classParameters.length > 0) {
-                        newVariable.detail = `${classParameters.join(" ")} ${newVariable.detail}`;
-
-                        for (const classParameter of classParameters) {
-                            newVariable.documentation.appendCodeblock(`@${classParameter.toLowerCase()}`);
-                        }
-                    }
-
-                    variables.push(newVariable);
-                }
-            }
-        }
-
-        return variables;
-    }
-
-    static getCleanText(textToClear: string) {
-        let textToReturn: string = '';
-        let contextesToSkip: number = 0;
-
-        for (let charIndex = 0; charIndex < textToClear.length; charIndex++) {
-            const charAtIndex = textToClear.charAt(charIndex);
-
-            if (charAtIndex === "{") {
-                if (contextesToSkip < 1) {
-                    textToReturn += charAtIndex;
-                }
-
-                contextesToSkip++;
-
-                continue;
-            }
-
-            if (charAtIndex === "}") {
-                contextesToSkip--;
-            }
-
-            if (contextesToSkip < 1) {
-                textToReturn += charAtIndex;
-            }
-        }
-
-        return textToReturn;
+        return [];
     }
 }
