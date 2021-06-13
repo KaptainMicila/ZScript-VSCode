@@ -67,30 +67,21 @@ class ZScriptDocumentService {
         return (firstIn > -1 && firstIn > firstOut) || (lastIn > -1 && lastIn > lastOut);
     }
     static getCleanText(textToClean) {
-        textToClean = textToClean.replace(/ *?\/\*[\s\S]+?\*\//gmi, '').trim();
+        textToClean = textToClean.replace(/ *?(?:\/\*[\s\S]+?\*\/|\/\/.*?(\r)??\n)/gmi, '').trim();
         let cleanedText = '';
-        let ignoring = false;
-        let bracketsToIgnore = 0;
+        let contextesToClose = 0;
         for (let charIndex = 0; charIndex < textToClean.length; charIndex++) {
             const char = textToClean.charAt(charIndex);
-            switch (char) {
-                case "{":
-                    if (ignoring) {
-                        bracketsToIgnore++;
-                    }
-                    else {
-                        cleanedText += char;
-                        ignoring = true;
-                    }
-                    break;
-                case "}":
-                    bracketsToIgnore--;
-                    if (bracketsToIgnore <= 0) {
-                        ignoring = false;
-                    }
-                    break;
+            if (char === "{") {
+                if (contextesToClose < 1) {
+                    cleanedText += char;
+                }
+                contextesToClose++;
             }
-            if (!ignoring) {
+            if (char === "}") {
+                contextesToClose--;
+            }
+            if (contextesToClose < 1) {
                 cleanedText += char;
             }
         }

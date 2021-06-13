@@ -2,12 +2,13 @@ import * as vscode from "vscode";
 import { defaultCompletions } from "../BuiltIn/completions";
 import ContextData from "../Interfaces/ContextData";
 import ZScriptDocumentService from "./ZScriptDocumentService";
+import ZScriptVariablesService from "./ZScriptVariablesService";
 
 export default class ZScriptCompletionService {
     public static DOCUMENT_START = new vscode.Position(0, 0);
 
     static defaultCompletionProvider: vscode.Disposable = vscode.languages.registerCompletionItemProvider("zscript", {
-        provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+        async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
             if (ZScriptDocumentService.positionInComment(document, position)) {
                 return null;
             }
@@ -21,19 +22,25 @@ export default class ZScriptCompletionService {
                 globalContextText = globalContextText.concat(document.getText(new vscode.Range(position, document.positionAt(contextData.closing))));
             }
 
-            completions.push(...ZScriptCompletionService.getContextTextVariables(globalContextText));
+            completions.push(...await ZScriptCompletionService.getContextTextVariables(globalContextText));
 
-            return [...defaultCompletions];
+            return [...defaultCompletions, ...completions];
         }
     });
 
-    static getContextTextVariables(contextText: string): vscode.CompletionItem[] {
+    static async getContextTextVariables(contextText: string): Promise<vscode.CompletionItem[]> {
+        const cleanedTextPieces = ZScriptDocumentService.getCleanText(contextText)
+            .split(/;|\{\}/gmi)
+            .map(textPiece => textPiece.replace(/(\r)??\n/gmi, '').trim())
+            .filter(textPiece => textPiece && (!textPiece.startsWith("version") && !textPiece.startsWith("#include")));
+
+        const cleanedPromises: Promise<vscode.CompletionItem>[] = [];
+
         console.clear();
+        for (const cleanedTextPiece of cleanedTextPieces) {
+            cleanedPromises.push(ZScriptVariablesService.treatVariableLine(cleanedTextPiece));
+        }
 
-        const cleanedText = ZScriptDocumentService.getCleanText(contextText);
-
-        console.log(cleanedText);
-
-        return [];
+        return Promise.all(cleanedPromises);
     }
 }
