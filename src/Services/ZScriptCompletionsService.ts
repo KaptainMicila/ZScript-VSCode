@@ -36,7 +36,6 @@ export default class ZScriptCompletionService {
 
         const cleanedPromises: Promise<vscode.CompletionItem>[] = [];
 
-        console.clear();
         for (const cleanedTextPiece of cleanedTextPieces) {
             cleanedPromises.push(ZScriptVariablesService.treatVariableLine(cleanedTextPiece));
         }

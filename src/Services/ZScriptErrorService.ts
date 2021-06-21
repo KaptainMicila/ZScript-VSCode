@@ -1,41 +1,60 @@
 import * as vscode from "vscode";
 import ZScriptError from "../Classes/ZScriptError";
 
-export async function updateDiagnostics(
-    documentUri: vscode.Uri,
-    diagnosticsCollection: vscode.DiagnosticCollection,
-    errorRangesArray: ZScriptError[]
-) {
-    if (errorRangesArray.length > 0) {
-        const diagnosticsArray: vscode.Diagnostic[] = [];
+export default class ZScriptErrorService {
+    static updateDiagnostics(
+        documentUri: vscode.Uri,
+        diagnosticsCollection: vscode.DiagnosticCollection,
+        errorRangesArray: ZScriptError[]
+    ) {
+        if (errorRangesArray.length > 0) {
+            const diagnosticsArray: vscode.Diagnostic[] = [];
 
-        for (const range of errorRangesArray) {
-            diagnosticsArray.push({
-                message: range.description ?? "",
-                range: range,
-                severity: vscode.DiagnosticSeverity.Error,
-                source: "zscript",
-            });
+            for (const range of errorRangesArray) {
+                diagnosticsArray.push({
+                    message: range.description ?? "",
+                    range: range,
+                    severity: vscode.DiagnosticSeverity.Error,
+                    source: "zscript",
+                });
+            }
+
+            diagnosticsCollection.set(documentUri, diagnosticsArray);
+        } else {
+            diagnosticsCollection.clear();
         }
 
-        diagnosticsCollection.set(documentUri, diagnosticsArray);
-    } else {
-        diagnosticsCollection.clear();
+        return diagnosticsCollection;
     }
-}
 
-export async function tagUnclosedBrackets(contextChanges: vscode.Position[][], errorRanges: ZScriptError[]) {
-    for (const contextTypeChanges of contextChanges) {
-        for (const contextChange of contextTypeChanges) {
-            const position = new vscode.Position(contextChange.line, contextChange.character);
+    static searchForUnclosedBrackets(document: vscode.TextDocument) {
+        const documentText: string = document.getText();
+        let bracketsBuffer: number[] = [];
 
-            errorRanges.push(
-                new ZScriptError(
-                    position,
-                    position,
-                    `"${["}", ")", "]"][contextChanges.indexOf(contextTypeChanges)]}" is missing somewhere!`
-                )
-            );
+        for (let charIndex = 0; charIndex < documentText.length; charIndex++) {
+            const char = documentText.charAt(charIndex);
+
+            if (char === "{") {
+                bracketsBuffer.push(charIndex);
+            }
+
+            if (char === "}") {
+                bracketsBuffer.pop();
+            }
         }
+
+        const bracketErrorCollection = vscode.languages.createDiagnosticCollection("unclosedBrackets");
+
+        if (bracketsBuffer.length > 0) {
+            const zscriptErrors: ZScriptError[] = [];
+
+            for (const position of bracketsBuffer) {
+                zscriptErrors.push(new ZScriptError(document.positionAt(position), document.positionAt(position), "Something missing"));
+            }
+
+            return this.updateDiagnostics(document.uri, bracketErrorCollection, zscriptErrors);
+        }
+
+        return bracketErrorCollection;
     }
 }

@@ -21,7 +21,6 @@ class ZScriptCompletionService {
                 .map(textPiece => textPiece.replace(/(\r)??\n/gmi, '').trim())
                 .filter(textPiece => textPiece && (!textPiece.startsWith("version") && !textPiece.startsWith("#include")));
             const cleanedPromises = [];
-            console.clear();
             for (const cleanedTextPiece of cleanedTextPieces) {
                 cleanedPromises.push(ZScriptVariablesService_1.default.treatVariableLine(cleanedTextPiece));
             }
