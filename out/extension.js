@@ -10,9 +10,11 @@ function activate(context) {
         return;
     }
     const completionProvider = ZScriptCompletionsService_1.default.defaultCompletionProvider;
-    context.subscriptions.push(ZScriptErrorService_1.default.searchForUnclosedBrackets(activeTextEditor.document), vscode.workspace.onDidChangeTextDocument(function (event) {
-        ZScriptErrorService_1.default.searchForUnclosedBrackets(event.document);
-    }), completionProvider);
+    const bracketsErrorCollection = vscode.languages.createDiagnosticCollection();
+    ZScriptErrorService_1.default.searchForUnclosedBrackets(activeTextEditor.document, bracketsErrorCollection),
+        context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(function (event) {
+            ZScriptErrorService_1.default.searchForUnclosedBrackets(event.document, bracketsErrorCollection);
+        }), completionProvider, bracketsErrorCollection);
 }
 exports.activate = activate;
 //# sourceMappingURL=extension.js.map

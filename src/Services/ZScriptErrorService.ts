@@ -23,13 +23,12 @@ export default class ZScriptErrorService {
         } else {
             diagnosticsCollection.clear();
         }
-
-        return diagnosticsCollection;
     }
 
-    static searchForUnclosedBrackets(document: vscode.TextDocument) {
+    static searchForUnclosedBrackets(document: vscode.TextDocument, bracketErrorCollection: vscode.DiagnosticCollection) {
         const documentText: string = document.getText();
         let bracketsBuffer: number[] = [];
+        const zscriptErrors: ZScriptError[] = [];
 
         for (let charIndex = 0; charIndex < documentText.length; charIndex++) {
             const char = documentText.charAt(charIndex);
@@ -39,22 +38,28 @@ export default class ZScriptErrorService {
             }
 
             if (char === "}") {
-                bracketsBuffer.pop();
+                if (bracketsBuffer.pop() === undefined) {
+                    zscriptErrors.push(
+                        new ZScriptError(
+                            document.positionAt(charIndex),
+                            document.positionAt(charIndex),
+                            "{ missing somewhere!"
+                        )
+                    );
+                }
             }
         }
 
-        const bracketErrorCollection = vscode.languages.createDiagnosticCollection("unclosedBrackets");
-
-        if (bracketsBuffer.length > 0) {
-            const zscriptErrors: ZScriptError[] = [];
-
-            for (const position of bracketsBuffer) {
-                zscriptErrors.push(new ZScriptError(document.positionAt(position), document.positionAt(position), "Something missing"));
-            }
-
-            return this.updateDiagnostics(document.uri, bracketErrorCollection, zscriptErrors);
+        for (const position of bracketsBuffer) {
+            zscriptErrors.push(
+                new ZScriptError(
+                    document.positionAt(position),
+                    document.positionAt(position),
+                    "} missing somewhere!"
+                )
+            );
         }
 
-        return bracketErrorCollection;
+        this.updateDiagnostics(document.uri, bracketErrorCollection, zscriptErrors);
     }
 }

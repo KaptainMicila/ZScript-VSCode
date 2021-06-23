@@ -10,12 +10,15 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const completionProvider = ZScriptCompletionsService.defaultCompletionProvider;
+    const bracketsErrorCollection = vscode.languages.createDiagnosticCollection();
 
-    context.subscriptions.push(
-        ZScriptErrorService.searchForUnclosedBrackets(activeTextEditor.document),
-        vscode.workspace.onDidChangeTextDocument(function (event: vscode.TextDocumentChangeEvent) {
-            ZScriptErrorService.searchForUnclosedBrackets(event.document);
-        }),
-        completionProvider,
-    );
+    ZScriptErrorService.searchForUnclosedBrackets(activeTextEditor.document, bracketsErrorCollection),
+
+        context.subscriptions.push(
+            vscode.workspace.onDidChangeTextDocument(function (event: vscode.TextDocumentChangeEvent) {
+                ZScriptErrorService.searchForUnclosedBrackets(event.document, bracketsErrorCollection);
+            }),
+            completionProvider,
+            bracketsErrorCollection
+        );
 }

@@ -20,29 +20,26 @@ class ZScriptErrorService {
         else {
             diagnosticsCollection.clear();
         }
-        return diagnosticsCollection;
     }
-    static searchForUnclosedBrackets(document) {
+    static searchForUnclosedBrackets(document, bracketErrorCollection) {
         const documentText = document.getText();
         let bracketsBuffer = [];
+        const zscriptErrors = [];
         for (let charIndex = 0; charIndex < documentText.length; charIndex++) {
             const char = documentText.charAt(charIndex);
             if (char === "{") {
                 bracketsBuffer.push(charIndex);
             }
             if (char === "}") {
-                bracketsBuffer.pop();
+                if (bracketsBuffer.pop() === undefined) {
+                    zscriptErrors.push(new ZScriptError_1.default(document.positionAt(charIndex), document.positionAt(charIndex), "{ missing somewhere!"));
+                }
             }
         }
-        const bracketErrorCollection = vscode.languages.createDiagnosticCollection("unclosedBrackets");
-        if (bracketsBuffer.length > 0) {
-            const zscriptErrors = [];
-            for (const position of bracketsBuffer) {
-                zscriptErrors.push(new ZScriptError_1.default(document.positionAt(position), document.positionAt(position), "Something missing"));
-            }
-            return this.updateDiagnostics(document.uri, bracketErrorCollection, zscriptErrors);
+        for (const position of bracketsBuffer) {
+            zscriptErrors.push(new ZScriptError_1.default(document.positionAt(position), document.positionAt(position), "} missing somewhere!"));
         }
-        return bracketErrorCollection;
+        this.updateDiagnostics(document.uri, bracketErrorCollection, zscriptErrors);
     }
 }
 exports.default = ZScriptErrorService;
