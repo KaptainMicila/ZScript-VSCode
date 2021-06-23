@@ -4,13 +4,12 @@ export default class ZScriptVariablesService {
     static async treatVariableLine(varLine: string): Promise<vscode.CompletionItem> {
         const explodedLine = varLine.split(" ");
         const varCompletion = new vscode.CompletionItem("UNKNOWN");
-        let varVisbility: string = "public";
         let varParameters: string[] = [];
 
         varCompletion.documentation = new vscode.MarkdownString();
 
         if (['private', 'public'].includes(explodedLine[0].toLowerCase())) {
-            let varVisbility = explodedLine.splice(0, 1);
+            varParameters.push(...explodedLine.splice(0, 1));
         }
 
         if (explodedLine.includes("class")) {
@@ -34,7 +33,7 @@ export default class ZScriptVariablesService {
     }
 
     private static assignCompletionToType(varType: string, varCompletion: vscode.CompletionItem, explodedLine: string[]) {
-        varCompletion.detail = varType;
+        varCompletion.detail = varCompletion.detail ? `${varCompletion.detail} ${varType}` : varType;
 
         const classParameters = explodedLine.splice(0, explodedLine.indexOf(varType));
 

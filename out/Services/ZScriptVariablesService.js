@@ -15,11 +15,10 @@ class ZScriptVariablesService {
         return __awaiter(this, void 0, void 0, function* () {
             const explodedLine = varLine.split(" ");
             const varCompletion = new vscode.CompletionItem("UNKNOWN");
-            let varVisbility = "public";
             let varParameters = [];
             varCompletion.documentation = new vscode.MarkdownString();
             if (['private', 'public'].includes(explodedLine[0].toLowerCase())) {
-                let varVisbility = explodedLine.splice(0, 1);
+                varParameters.push(...explodedLine.splice(0, 1));
             }
             if (explodedLine.includes("class")) {
                 varParameters = this.assignCompletionToType("class", varCompletion, explodedLine);
@@ -45,7 +44,7 @@ class ZScriptVariablesService {
         });
     }
     static assignCompletionToType(varType, varCompletion, explodedLine) {
-        varCompletion.detail = varType;
+        varCompletion.detail = varCompletion.detail ? `${varCompletion.detail} ${varType}` : varType;
         const classParameters = explodedLine.splice(0, explodedLine.indexOf(varType));
         if (classParameters.length > 0) {
             varCompletion.detail = `${classParameters.join(" ")} ${varCompletion.detail}`;
