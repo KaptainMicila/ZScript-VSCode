@@ -43,6 +43,10 @@ ZScriptCompletionService.defaultCompletionProvider = vscode.languages.registerCo
                 globalContextText = globalContextText.concat(document.getText(new vscode.Range(position, document.positionAt(contextData.closing))));
             }
             completions.push(...yield ZScriptCompletionService.getContextTextVariables(globalContextText));
+            if (contextData) {
+                const contextText = document.getText(new vscode.Range(document.positionAt(contextData.opening + 1), position)).trim();
+                completions.push(...yield ZScriptCompletionService.getContextTextVariables(contextText));
+            }
             return [...completions_1.defaultCompletions, ...completions];
         });
     }

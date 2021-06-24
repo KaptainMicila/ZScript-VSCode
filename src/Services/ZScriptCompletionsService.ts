@@ -24,6 +24,12 @@ export default class ZScriptCompletionService {
 
             completions.push(...await ZScriptCompletionService.getContextTextVariables(globalContextText));
 
+            if (contextData) {
+                const contextText = document.getText(new vscode.Range(document.positionAt(contextData.opening + 1), position)).trim();
+
+                completions.push(...await ZScriptCompletionService.getContextTextVariables(contextText));
+            }
+
             return [...defaultCompletions, ...completions];
         }
     });

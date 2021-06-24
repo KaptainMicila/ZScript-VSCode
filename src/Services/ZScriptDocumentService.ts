@@ -22,44 +22,24 @@ export default class ZScriptDocumentService {
     static positionContextData(document: vscode.TextDocument, position: vscode.Position): ContextData | null {
         const documentText: string = document.getText();
         const positionOffset: number = document.offsetAt(position);
+        const bracketsBuffer: number[] = [];
 
-        if (!this.stringOffetComparsion(documentText, positionOffset, "{", "}")) {
-            return null;
-        }
+        for (let charIndex = 0; charIndex < documentText.length; charIndex++) {
+            const char = documentText.charAt(charIndex);
 
-        let searchingPosition: { opening: number, closing: number } = { opening: 0, closing: 0 };
-        let contextesToIgnore: number = 0;
+            if (char === "{") {
+                bracketsBuffer.push(charIndex);
+            }
 
-        for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
-            const line = document.lineAt(lineIndex);
-            const lineText = line.text;
+            if (char === "}") {
+                const startIndex = bracketsBuffer.pop();
 
-            for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
-                const character: string = lineText.charAt(characterIndex);
-
-                if (character === '{') {
-                    if (searchingPosition.opening === 0) {
-                        searchingPosition.opening = document.offsetAt(new vscode.Position(lineIndex, characterIndex));
-                    } else {
-                        contextesToIgnore++;
-                    }
+                if (!startIndex) {
+                    continue;
                 }
 
-                if (character === "}") {
-                    if (searchingPosition.opening > 0) {
-                        if (contextesToIgnore <= 0) {
-                            searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex)) + 1;
-
-                            if (searchingPosition.opening < positionOffset && positionOffset < searchingPosition.closing) {
-                                return searchingPosition;
-                            }
-
-                            searchingPosition.opening = searchingPosition.closing = 0;
-                            continue;
-                        }
-
-                        contextesToIgnore--;
-                    }
+                if (bracketsBuffer.length <= 0 && (startIndex < positionOffset && positionOffset <= charIndex)) {
+                    return { opening: startIndex, closing: charIndex };
                 }
             }
         }

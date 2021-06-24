@@ -16,9 +16,10 @@ class ZScriptVariablesService {
             const explodedLine = varLine.split(" ");
             const varCompletion = new vscode.CompletionItem("UNKNOWN");
             let varParameters = [];
+            let varVisibility;
             varCompletion.documentation = new vscode.MarkdownString();
             if (['private', 'public'].includes(explodedLine[0].toLowerCase())) {
-                varParameters.push(...explodedLine.splice(0, 1));
+                varVisibility = explodedLine.splice(0, 1)[0];
             }
             if (explodedLine.includes("class")) {
                 varParameters = this.assignCompletionToType("class", varCompletion, explodedLine);
@@ -36,20 +37,27 @@ class ZScriptVariablesService {
                 varParameters = this.assignCompletionToType("struct", varCompletion, explodedLine);
                 varCompletion.kind = vscode.CompletionItemKind.Struct;
             }
+            else if (explodedLine[1].endsWith(")")) {
+                varParameters = this.assignCompletionToType("function", varCompletion, explodedLine, -2);
+                varCompletion.kind = vscode.CompletionItemKind.Function;
+            }
             else {
                 varParameters = this.assignCompletionToType("variable", varCompletion, explodedLine);
                 varCompletion.kind = vscode.CompletionItemKind.Variable;
             }
+            if (varVisibility) {
+                varCompletion.detail = `${varVisibility} ${varCompletion.detail}`;
+            }
             return varCompletion;
         });
     }
-    static assignCompletionToType(varType, varCompletion, explodedLine) {
+    static assignCompletionToType(varType, varCompletion, explodedLine, removeChars = 0) {
         varCompletion.detail = varCompletion.detail ? `${varCompletion.detail} ${varType}` : varType;
         const classParameters = explodedLine.splice(0, explodedLine.indexOf(varType));
         if (classParameters.length > 0) {
             varCompletion.detail = `${classParameters.join(" ")} ${varCompletion.detail}`;
         }
-        varCompletion.label = explodedLine[1];
+        varCompletion.label = explodedLine[1].substr(0, explodedLine[1].length - (-removeChars));
         varCompletion.detail = `${varCompletion.detail} ${varCompletion.label}`;
         return classParameters;
     }

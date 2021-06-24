@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const vscode = require("vscode");
 class ZScriptDocumentService {
     static positionInComment(document, position) {
         const positionOffset = document.offsetAt(position);
@@ -17,36 +16,19 @@ class ZScriptDocumentService {
     static positionContextData(document, position) {
         const documentText = document.getText();
         const positionOffset = document.offsetAt(position);
-        if (!this.stringOffetComparsion(documentText, positionOffset, "{", "}")) {
-            return null;
-        }
-        let searchingPosition = { opening: 0, closing: 0 };
-        let contextesToIgnore = 0;
-        for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
-            const line = document.lineAt(lineIndex);
-            const lineText = line.text;
-            for (let characterIndex = 0; characterIndex < lineText.length; characterIndex++) {
-                const character = lineText.charAt(characterIndex);
-                if (character === '{') {
-                    if (searchingPosition.opening === 0) {
-                        searchingPosition.opening = document.offsetAt(new vscode.Position(lineIndex, characterIndex));
-                    }
-                    else {
-                        contextesToIgnore++;
-                    }
+        const bracketsBuffer = [];
+        for (let charIndex = 0; charIndex < documentText.length; charIndex++) {
+            const char = documentText.charAt(charIndex);
+            if (char === "{") {
+                bracketsBuffer.push(charIndex);
+            }
+            if (char === "}") {
+                const startIndex = bracketsBuffer.pop();
+                if (!startIndex) {
+                    continue;
                 }
-                if (character === "}") {
-                    if (searchingPosition.opening > 0) {
-                        if (contextesToIgnore <= 0) {
-                            searchingPosition.closing = document.offsetAt(new vscode.Position(lineIndex, characterIndex)) + 1;
-                            if (searchingPosition.opening < positionOffset && positionOffset < searchingPosition.closing) {
-                                return searchingPosition;
-                            }
-                            searchingPosition.opening = searchingPosition.closing = 0;
-                            continue;
-                        }
-                        contextesToIgnore--;
-                    }
+                if (bracketsBuffer.length <= 0 && (startIndex < positionOffset && positionOffset <= charIndex)) {
+                    return { opening: startIndex, closing: charIndex };
                 }
             }
         }
