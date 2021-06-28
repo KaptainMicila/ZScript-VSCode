@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import ZScriptCompletionsService from "./Services/ZScriptCompletionsService";
+// import ZScriptCompletionsService from "./Services/ZScriptCompletionsService";
 import ZScriptErrorService from "./Services/ZScriptErrorService";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
         return;
     }
 
-    const completionProvider = ZScriptCompletionsService.defaultCompletionProvider;
+    // const completionProvider = ZScriptCompletionsService.defaultCompletionProvider;
     const bracketsErrorCollection = vscode.languages.createDiagnosticCollection();
 
     ZScriptErrorService.searchForUnclosedBrackets(activeTextEditor.document, bracketsErrorCollection),
@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.workspace.onDidChangeTextDocument(function (event: vscode.TextDocumentChangeEvent) {
                 ZScriptErrorService.searchForUnclosedBrackets(event.document, bracketsErrorCollection);
             }),
-            completionProvider,
+            // completionProvider,
             bracketsErrorCollection
         );
 }

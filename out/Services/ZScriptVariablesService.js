@@ -42,7 +42,7 @@ class ZScriptVariablesService {
                 varCompletion.kind = vscode.CompletionItemKind.Function;
             }
             else {
-                varParameters = this.assignCompletionToType("variable", varCompletion, explodedLine);
+                varParameters = this.assignCompletionToType(explodedLine[0], varCompletion, explodedLine);
                 varCompletion.kind = vscode.CompletionItemKind.Variable;
             }
             if (varVisibility) {

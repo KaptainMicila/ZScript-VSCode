@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.8.0] The "Annother Rewrite" update
+-   Rewrote the whole thing for not murdering "VSCode & Co." with huge files (LOC > 1000) and to look actually decent
+-   Sneak peak for auto-complete (working this time, I swear: you can even try it if you know how compile this mess)
+-   Some other fixes (and bugs) I forgot during the rewrite.
+
 ## [1.7.6] The "Classed4Nobody" update
 -   Removed all forms of autocompletions until I manage to make the system good enough
 

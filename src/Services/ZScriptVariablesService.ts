@@ -29,7 +29,7 @@ export default class ZScriptVariablesService {
             varParameters = this.assignCompletionToType("function", varCompletion, explodedLine, -2);
             varCompletion.kind = vscode.CompletionItemKind.Function;
         } else {
-            varParameters = this.assignCompletionToType("variable", varCompletion, explodedLine);
+            varParameters = this.assignCompletionToType(explodedLine[0], varCompletion, explodedLine);
             varCompletion.kind = vscode.CompletionItemKind.Variable;
         }
 
