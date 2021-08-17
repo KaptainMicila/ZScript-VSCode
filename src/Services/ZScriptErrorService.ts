@@ -25,7 +25,10 @@ export default class ZScriptErrorService {
         }
     }
 
-    static searchForUnclosedBrackets(document: vscode.TextDocument, bracketErrorCollection: vscode.DiagnosticCollection) {
+    static searchForUnclosedBrackets(
+        document: vscode.TextDocument,
+        bracketErrorCollection: vscode.DiagnosticCollection
+    ) {
         const documentText: string = document.getText();
         let bracketsBuffer: number[] = [];
         const zscriptErrors: ZScriptError[] = [];
@@ -52,11 +55,7 @@ export default class ZScriptErrorService {
 
         for (const position of bracketsBuffer) {
             zscriptErrors.push(
-                new ZScriptError(
-                    document.positionAt(position),
-                    document.positionAt(position),
-                    "} missing somewhere!"
-                )
+                new ZScriptError(document.positionAt(position), document.positionAt(position), "} missing somewhere!")
             );
         }
 

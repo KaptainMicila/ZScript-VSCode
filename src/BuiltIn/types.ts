@@ -1,5 +1,4 @@
 import { MarkdownString } from "vscode";
-import ZScriptContext from "../Classes/ZScriptContext";
 import { AccessModifiers as AccessModifier } from "./enums";
 
 /**
@@ -29,11 +28,6 @@ export interface ZScriptType {
      * Can be useful to find out what kind of completition this is.
      */
     type?: string;
-
-    /**
-     * Useful to find who's the owner of this variable
-     */
-    context?: ZScriptContext;
 }
 
 export interface ZScriptInteger extends ZScriptType {

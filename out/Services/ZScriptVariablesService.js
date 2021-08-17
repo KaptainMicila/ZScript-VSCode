@@ -40,6 +40,7 @@ class ZScriptVariablesService {
             else if (explodedLine[1].endsWith(")")) {
                 varParameters = this.assignCompletionToType("function", varCompletion, explodedLine, -2);
                 varCompletion.kind = vscode.CompletionItemKind.Function;
+                varCompletion.insertText = new vscode.SnippetString(varCompletion.label + "(${1})${0}");
             }
             else {
                 varParameters = this.assignCompletionToType(explodedLine[0], varCompletion, explodedLine);

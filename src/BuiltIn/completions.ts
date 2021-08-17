@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import * as completionTypes from "./types";
-import * as ZScriptCompletionService from "../Services/ZScriptCompletionsService";
 
 // DEFAULT COMPLETIONS
 // Always avaible
