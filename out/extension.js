@@ -11,23 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = void 0;
 const vscode = require("vscode");
-const ZScriptTokenizer_1 = require("./Classes/ZScriptTokenizer");
 const ZScriptErrorService_1 = require("./Services/ZScriptErrorService");
 function activate(context) {
     const { activeTextEditor } = vscode.window;
     if (!activeTextEditor) {
         return;
     }
-    const tokenizer = new ZScriptTokenizer_1.ZScriptTokenizer(activeTextEditor.document);
-    // const parser = new ZScriptParser(activeTextEditor.document);
     const bracketsErrorCollection = vscode.languages.createDiagnosticCollection();
-    ZScriptErrorService_1.default.searchForUnclosedBrackets(activeTextEditor.document, bracketsErrorCollection),
-        context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => __awaiter(this, void 0, void 0, function* () {
-            console.clear();
-            console.table(tokenizer.tokenize());
-            // parser.parse(event);
-            ZScriptErrorService_1.default.searchForUnclosedBrackets(event.document, bracketsErrorCollection);
-        })), bracketsErrorCollection);
+    ZScriptErrorService_1.default.searchForUnclosedBrackets(activeTextEditor.document, bracketsErrorCollection);
+    context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => __awaiter(this, void 0, void 0, function* () {
+        ZScriptErrorService_1.default.searchForUnclosedBrackets(event.document, bracketsErrorCollection);
+    })), bracketsErrorCollection);
 }
 exports.activate = activate;
 //# sourceMappingURL=extension.js.map

@@ -4,5 +4,7 @@ vsc-extension-quickstart.md
 *.7z
 *.zip
 node_modules
-package-lock.json
 .idea
+dist
+.vscode-test-web
+/out/

@@ -23,7 +23,7 @@ class ZScriptErrorService {
     }
     static searchForUnclosedBrackets(document, bracketErrorCollection) {
         const documentText = document.getText();
-        let bracketsBuffer = [];
+        const bracketsBuffer = [];
         const zscriptErrors = [];
         for (let charIndex = 0; charIndex < documentText.length; charIndex++) {
             const char = documentText.charAt(charIndex);
