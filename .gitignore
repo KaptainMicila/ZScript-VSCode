@@ -5,3 +5,4 @@ vsc-extension-quickstart.md
 *.zip
 node_modules
 package-lock.json
+.idea

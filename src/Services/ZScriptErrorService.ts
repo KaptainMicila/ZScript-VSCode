@@ -29,8 +29,8 @@ export default class ZScriptErrorService {
         document: vscode.TextDocument,
         bracketErrorCollection: vscode.DiagnosticCollection
     ) {
-        const documentText: string = document.getText();
-        let bracketsBuffer: number[] = [];
+        const documentText = document.getText();
+        const bracketsBuffer: number[] = [];
         const zscriptErrors: ZScriptError[] = [];
 
         for (let charIndex = 0; charIndex < documentText.length; charIndex++) {
@@ -55,7 +55,10 @@ export default class ZScriptErrorService {
 
         for (const position of bracketsBuffer) {
             zscriptErrors.push(
-                new ZScriptError(document.positionAt(position), document.positionAt(position), "} missing somewhere!")
+                new ZScriptError(document.positionAt(position),
+                    document.positionAt(position),
+                    "} missing somewhere!"
+                )
             );
         }
 
