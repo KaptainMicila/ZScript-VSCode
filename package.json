@@ -4,7 +4,7 @@
     "description": "GZDoom's multiple scripting languages support (with a focus on ZScript) for VSCode (and compatible editors)",
     "publisher": "kaptainmicila",
     "icon": "icons/GZDoom.png",
-    "version": "1.8.2",
+    "version": "1.8.3",
     "repository": {
         "type": "git",
         "url": "https://github.com/KaptainMicila/ZScript-VSCode.git"
@@ -102,8 +102,8 @@
         "onLanguage:acs",
         "onLanguage:decorate"
     ],
-    "main": "./dist/extension.js",
-    "browser": "./dist/web/extension.js",
+    "main": "./out/main.js",
+    "browser": "./out/web/extension.js",
     "scripts": {
         "vscode:prepublish": "npm run esbuild-base -- --minify",
         "watch": "tsc -watch -p ./",

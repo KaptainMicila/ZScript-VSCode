@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.8.3] The "Bundler" update
+- Extension weights almost 13 MB less.
+
 ## [1.8.2] The "ZScript on the GO" update
 
 - Restarted the project, again.
