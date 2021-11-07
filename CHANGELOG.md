@@ -1,64 +1,74 @@
 # Change Log
 
+## [1.8.2] The "ZScript on the GO" update
+
+- Restarted the project, again.
+- Now the extension runs on the web version of vscode
+
 ## [1.8.0] The "Annother Rewrite" update
--   Rewrote the whole thing for not murdering "VSCode & Co." with huge files (LOC > 1000) and to look actually decent
--   Sneak peak for auto-complete (working this time, I swear: you can even try it if you know how compile this mess)
--   Some other fixes (and bugs) I forgot during the rewrite.
+
+- Rewrote the whole thing for not murdering "VSCode & Co." with huge files (LOC > 1000) and to look actually decent
+- Sneak peek for auto-complete (working this time, I swear: you can even try it if you know how compile this mess)
+- Some other fixes (and bugs) I forgot during the rewrite.
 
 ## [1.7.6] The "Classed4Nobody" update
--   Removed all forms of autocompletions until I manage to make the system good enough
+
+- Removed all forms of autocompletions until I manage to make the system good enough
 
 ## [1.7.5] The "Brackets Family" update
--	Added support for more bracket types (useful for future updates)
--	Various fixes to syntax highlighting (less stuff is now a class, like it should be)
--	Many more forgotten ""fixes"" (sorry)
--   Added "donations" support. I need ***more pizza***.
+
+- Added support for more bracket types (useful for future updates)
+- Various fixes to syntax highlighting (less stuff is now a class, like it should be)
+- Many more forgotten ""fixes"" (sorry)
+- Added "donations" support. I need ***more pizza***.
 
 ## [1.7.4] The "Classes4Everyone" update
--	Added 1471 names of built-in classes and 76 of built-in structs to the autocompletion
--	Added small documentation to 1% of these names (I'm ***NOT*** gonna continue that)
--	Added `A_*` functions highlighting (previously broken, for some reason)
+
+- Added 1471 names of built-in classes and 76 of built-in structs to the autocompletion
+- Added small documentation to 1% of these names (I'm ***NOT*** going to continue that)
+- Added `A_*` functions highlighting (previously broken, for some reason)
 
 ## [1.7.3] The "One less `continue` to rule them all" update
--	Removed one single `continue`, that's it.
+
+- Removed one single `continue`, that's it.
 
 ## [1.7.2] The "Cleanup, but stronger" update
 
--   Extreme optimization (hope it does not break more stuff)
--   Fixed a work breaking bug
+- Extreme optimization (hope it does not break more stuff)
+- Fixed a work breaking bug
 
 ## [1.7.1] The "Cleanup" update
 
--   Removed junk around the code
--   Fixed some inaccuracies
--   Fixed a bug that wouldn't update the context while writing code
+- Removed junk around the code
+- Fixed some inaccuracies
+- Fixed a bug that wouldn't update the context while writing code
 
 ## [1.7.0] The "Absolute Decorate Man" update
 
--   Added support for DECORATE
--   Fixed some stuff for ACS
+- Added support for DECORATE
+- Fixed some stuff for ACS
 
 ## [1.6.2] The "Autocomplete begins" update
 
--   Added initial autocomplete capability. More to come.
+- Added initial autocomplete capability. More to come.
 
 ## [1.6.1] The "Comments have value" update
 
--   Added comments support for file parsing (I'm gonna need it for context support)
--   Added types for contextes (is it a class? An enum? A struct? ...)
--   Microfixes around the place
--   A little peek to what to do next (maybe)
+- Added comments support for file parsing (I'm gonna need it for context support)
+- Added types for contextes (is it a class? An enum? A struct? ...)
+- Microfixes around the place
+- A little peek to what to do next (maybe)
 
 ## [1.6.0] The "Kaptain can't program" update
 
--   Small fixes about folding in both ZScript and ACS
--   Really broken "open and closed curly brackets" checking, for your class/enum/structs making pleasure.
--   Soon™ to come.
+- Small fixes about folding in both ZScript and ACS
+- Really broken "open and closed curly brackets" checking, for your class/enum/structs making pleasure.
+- Soon™ to come.
 
 ## [1.5.0] The "Script Types" update
 
--   Fixed inconsistencies with ACS
--   Added script types support
+- Fixed inconsistencies with ACS
+- Added script types support
 
 ```acs
 script "Whatever" ENTER //<-- this one
@@ -69,57 +79,57 @@ script "Whatever" ENTER //<-- this one
 
 ## [1.4.0] The "The ACS End (?)" update
 
--   ACS support seems done
--   String escaping is now supported
--   Hexadecimal numbers are now supported (octal numbers were already supported, but they're still considered "numbers")
--   Small fixes
+- ACS support seems done
+- String escaping is now supported
+- Hexadecimal numbers are now supported (octal numbers were already supported, but they're still considered "numbers")
+- Small fixes
 
 ## [1.3.0] The "ACS" update
 
--   Added experimental ACS support
--   Fixed "folding" error caused by me deleting the zscript language configuration.
+- Added experimental ACS support
+- Fixed "folding" error caused by me deleting the zscript language configuration.
 
 ## [1.2.0] The "I don't like TypeScript, but at least there's a entry point for you" update
 
--   Created entry point for typescript. (So you can extend whatever this extension is.)
+- Created entry point for typescript. (So you can extend whatever this extension is.)
 
 ## [1.0.0] The "Release" update
 
--   Minor fixes
--   Removed comments (less pace wasted)
+- Minor fixes
+- Removed comments (less pace wasted)
 
 ## [0.9.6] The "Booleans are constants now" update
 
--   `true` and `false` are now language constants (different colors)
+- `true` and `false` are now language constants (different colors)
 
 ## [0.9.5] The "~~Screw Off Typescript~~" update
 
--   Enhanced code folding support
--   Enhanced brackets detection (now with angle brackets!)
+- Enhanced code folding support
+- Enhanced brackets detection (now with angle brackets!)
 
 ## [0.9.4] The "Abstact" update
 
--   Added support for the `abstract` keyword
--   Fixed `class` word broken detection
+- Added support for the `abstract` keyword
+- Fixed `class` word broken detection
 
 ## [0.9.3] The "Usable state(?)" update
 
--   Noticed this file exists
--   Fixed file type recognition, now is: `.zs`,`.zsc`,`.zc` (this one was used by Nash Muhandes, so I added it)
--   Added support for "anonymous functions" (as seen in example 1), this means:
-    -   Now you can use anonymous functions!
-    -   Fixed "states" block ending, as they can have "anonymous functions inside"
--   Upgraded performance thanks to some regex magic!
--   Updated class highlighting (example 2)
--   Fixed the `default` and `states` blocks detection, again. (They won't be found in comments anymore)
--   Fixed `default` blocks getting called `decorate` blocks in the token view
--   Removed a lot of hardcoded stuff
--   Changed highlighting type from `class` to `tag` for `Default` blocks' attributes
--   Added enum support (example 3, but was it really required?)
+- Noticed this file exists
+- Fixed file type recognition, now is: `.zs`,`.zsc`,`.zc` (this one was used by Nash Muhandes, so I added it)
+- Added support for "anonymous functions" (as seen in example 1), this means:
+    - Now you can use anonymous functions!
+    - Fixed "states" block ending, as they can have "anonymous functions inside"
+- Upgraded performance thanks to some regex magic!
+- Updated class highlighting (example 2)
+- Fixed the `default` and `states` blocks detection, again. (They won't be found in comments anymore)
+- Fixed `default` blocks getting called `decorate` blocks in the token view
+- Removed a lot of hardcoded stuff
+- Changed highlighting type from `class` to `tag` for `Default` blocks' attributes
+- Added enum support (example 3, but was it really required?)
 
 Examples:
 
--   Example 1
+- Example 1
 
 ```cs
 States
@@ -159,7 +169,7 @@ States
     }
 ```
 
--   Example 2
+- Example 2
 
 ```cs
 class Class1 : Class2 {
@@ -169,7 +179,7 @@ class Class1 : Class2 {
 }
 ```
 
--   Example 3
+- Example 3
 
 ```cs
 enum Example {
@@ -181,12 +191,12 @@ enum Example {
 
 ## [0.9.2] The "Dynamic" update
 
--   Fixed some issues with the `Array<>` detection
+- Fixed some issues with the `Array<>` detection
 
 ## [0.9.1] The "Blocky" update
 
--   Fixed some issues with the `Default` and `States` blocks detection
+- Fixed some issues with the `Default` and `States` blocks detection
 
 ## [0.9.0] The "Legend begins" update
 
--   Initial release
+- Initial release
