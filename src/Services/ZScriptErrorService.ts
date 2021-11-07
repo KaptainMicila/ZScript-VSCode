@@ -55,13 +55,18 @@ export default class ZScriptErrorService {
 
         for (const position of bracketsBuffer) {
             zscriptErrors.push(
-                new ZScriptError(document.positionAt(position),
+                new ZScriptError(
+                    document.positionAt(position),
                     document.positionAt(position),
                     "} missing somewhere!"
                 )
             );
         }
 
-        this.updateDiagnostics(document.uri, bracketErrorCollection, zscriptErrors);
+        this.updateDiagnostics(
+            document.uri,
+            bracketErrorCollection,
+            zscriptErrors
+        );
     }
 }
