@@ -1,5 +1,4 @@
 vsc-extension-quickstart.md
-.vscodeignore
 *.vsix
 *.7z
 *.zip
