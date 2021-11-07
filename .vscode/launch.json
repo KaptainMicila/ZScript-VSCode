@@ -18,19 +18,6 @@
             "preLaunchTask": "${defaultBuildTask}"
         },
         {
-            "name": "Extension Tests",
-            "type": "extensionHost",
-            "request": "launch",
-            "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}",
-                "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
-            ],
-            "outFiles": [
-                "${workspaceFolder}/out/test/**/*.js"
-            ],
-            "preLaunchTask": "${defaultBuildTask}"
-        },
-        {
             "name": "Run Web Extension in VS Code",
             "type": "pwa-extensionHost",
             "debugWebWorkerHost": true,

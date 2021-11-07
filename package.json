@@ -102,12 +102,12 @@
         "onLanguage:acs",
         "onLanguage:decorate"
     ],
-    "main": "./out/main.js",
+    "main": "./out/extension.js",
     "browser": "./out/web/extension.js",
     "scripts": {
         "vscode:prepublish": "npm run esbuild-base -- --minify",
         "watch": "tsc -watch -p ./",
-        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
         "lint": "eslint src --ext ts",
         "esbuild": "npm run esbuild-base -- --sourcemap",
         "compile-web": "webpack",
