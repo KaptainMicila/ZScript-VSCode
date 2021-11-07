@@ -41,6 +41,7 @@ export default class ZScriptErrorService {
             }
 
             if (char === "}") {
+                // If a "}" is found but there's no "{" before it, an Error is added to the list.
                 if (bracketsBuffer.pop() === undefined) {
                     zscriptErrors.push(
                         new ZScriptError(
@@ -53,6 +54,7 @@ export default class ZScriptErrorService {
             }
         }
 
+        // For each "{" that doesn't have a "}" an Error is added to the list.
         for (const position of bracketsBuffer) {
             zscriptErrors.push(
                 new ZScriptError(
@@ -63,6 +65,7 @@ export default class ZScriptErrorService {
             );
         }
 
+        // Updates the diagnostics once it ends searching for unopened/unclosed contextes.
         this.updateDiagnostics(
             document.uri,
             bracketErrorCollection,
