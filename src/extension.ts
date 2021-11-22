@@ -8,19 +8,16 @@ export function activate(context: vscode.ExtensionContext) {
 
     const bracketsErrorCollection = vscode.languages.createDiagnosticCollection();
 
-    ZScriptErrorService.searchForUnclosedBrackets(
-        activeTextEditor.document,
-        bracketsErrorCollection
-    );
+    async function searchForUnclosedBrackets(document: vscode.TextDocument) {
+        ZScriptErrorService.searchForUnclosedBrackets(
+            document,
+            bracketsErrorCollection
+        );
+    }
 
     context.subscriptions.push(
-        vscode.workspace.onDidChangeTextDocument(
-            async (event: vscode.TextDocumentChangeEvent) => {
-                ZScriptErrorService.searchForUnclosedBrackets(
-                    event.document,
-                    bracketsErrorCollection
-                );
-            }),
+        vscode.workspace.onDidOpenTextDocument(async document => searchForUnclosedBrackets(document)),
+        vscode.workspace.onDidChangeTextDocument(async event => searchForUnclosedBrackets(event.document)),
         bracketsErrorCollection
     );
 }
