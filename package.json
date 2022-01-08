@@ -62,6 +62,33 @@
                     "decorate"
                 ],
                 "configuration": "./configurations/DecorateConfiguration.json"
+            },
+            {
+                "id": "mapinfolike",
+                "aliases": [
+                    "MAPINFOLIKE",
+                    "mapinfolike"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "mapinfo",
+                "aliases": [
+                    "MAPINFO",
+                    "mapinfo",
+                    "ZMAPINFO",
+                    "zmapinfo"
+                ],
+                "extensions": [
+                    ".mapinfo"
+                ],
+                "filenames": [
+                    "MAPINFO",
+                    "mapinfo",
+                    "ZMAPINFO",
+                    "zmapinfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -79,6 +106,16 @@
                 "language": "decorate",
                 "scopeName": "source.decorate",
                 "path": "./syntaxes/decorate.tmLanguage.json"
+            },
+            {
+                "language": "mapinfolike",
+                "scopeName": "source.mapinfolike",
+                "path": "./syntaxes/mapinfolike.tmLanguage.json"
+            },
+            {
+                "language": "mapinfo",
+                "scopeName": "source.mapinfo",
+                "path": "./syntaxes/mapinfo.tmLanguage.json"
             }
         ]
     },
