@@ -104,6 +104,21 @@
                     "lockdefs"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "decaldef",
+                "aliases": [
+                    "DECALDEF",
+                    "decaldef"
+                ],
+                "extensions": [
+                    ".decaldef"
+                ],
+                "filenames": [
+                    "DECALDEF",
+                    "decaldef"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -136,6 +151,11 @@
                 "language": "lockdefs",
                 "scopeName": "source.lockdefs",
                 "path": "./syntaxes/lockdefs.tmLanguage.json"
+            },
+            {
+                "language": "decaldef",
+                "scopeName": "source.decaldef",
+                "path": "./syntaxes/decaldef.tmLanguage.json"
             }
         ]
     },
