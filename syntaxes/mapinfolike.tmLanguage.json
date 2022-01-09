@@ -32,6 +32,18 @@
                     "begin": "//",
                     "end": "$",
                     "contentName": "comment.line.double-slash.text.mapinfolike"
+                },
+                {
+                    "name": "comment.line.semicolon.mapinfolike",
+                    "begin": ";",
+                    "end": "$",
+                    "contentName": "comment.line.semicolon.text.mapinfolike"
+                },
+                {
+                    "name": "comment.block.mapinfolike",
+                    "begin": "\\/\\*",
+                    "end": "\\*\\/",
+                    "contentName": "comment.block.text.mapinfolike"
                 }
             ]
         },

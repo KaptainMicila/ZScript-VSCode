@@ -15,11 +15,11 @@
         "headers": {
             "patterns": [
                 {
-                    "name": "keyword.lockdefs",
+                    "name": "storage.type.lockdefs",
                     "match": "(?<=^\\s*?)\\b(?i:lock)\\b(?=(?:\\s*?|.*?)$)"
                 },
                 {
-                    "name": "constant.header.mapinfo",
+                    "name": "entity.name.class.mapinfo",
                     "match": "(?<=^\\s*?\\b(?i:lock)\\b\\s+?.+?\\s+?)\\w+?\\b(?=(?:\\s*?|.*?)$)"
                 }
             ]

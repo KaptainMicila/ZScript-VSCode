@@ -1,0 +1,9 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "MENUDEF",
+    "patterns": [
+        { "include": "source.mapinfolike" }
+    ],
+    "repository": {},
+    "scopeName": "source.menudef"
+}

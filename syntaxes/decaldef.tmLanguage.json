@@ -15,11 +15,11 @@
         "headers": {
             "patterns": [
                 {
-                    "name": "keyword.decaldef",
+                    "name": "storage.type.decaldef",
                     "match": "(?<=^\\s*?)\\b(?i:decal|decalgroup|generator)\\b(?=(?:\\s*?|.*?)$)"
                 },
                 {
-                    "name": "constant.header.decaldef",
+                    "name": "entity.name.class.decaldef",
                     "match": "(?<=\\w+?\\s+?)\\w+?\\b"
                 }
             ]

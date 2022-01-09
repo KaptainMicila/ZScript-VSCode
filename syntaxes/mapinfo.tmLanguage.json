@@ -12,7 +12,7 @@
         "headers": {
             "patterns": [
                 {
-                    "name": "keyword.mapinfo",
+                    "name": "storage.type.mapinfo",
                     "match": "(?<=^\\s*?)\\b(?i:episode|cluster|skill|gameinfo|cast|automap|doomednums|spawnnums|conversationids|damagetype|map)\\b(?=(?:\\s*?|.*?)$)"
                 },
                 {
@@ -20,11 +20,11 @@
                     "match": "(?<=^\\s*?)\\b\\w+?\\b(?=\\s*?$)"
                 },
                 {
-                    "name": "constant.header.mapinfo",
+                    "name": "entity.name.class.mapinfo",
                     "match": "(?<=^\\s*?(?i:map|episode|cluster|skill|damagetype)\\s+?)\\b\\w+?\\b(?=(?:\\s*?|.*?)$)"
                 },
                 {
-                    "name": "variable.map.header.lookup.mapinfo",
+                    "name": "entity.name.tag.mapinfo",
                     "match": "(?<=^\\s*?map\\s+?\\w+?\\s+?)\\w+?\\b(?=(?:\\s*?|.*?)$)"
                 }
             ]
