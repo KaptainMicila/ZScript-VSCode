@@ -119,6 +119,21 @@
                     "decaldef"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "menudef",
+                "aliases": [
+                    "MENUDEF",
+                    "menudef"
+                ],
+                "extensions": [
+                    ".menudef"
+                ],
+                "filenames": [
+                    "MENUDEF",
+                    "menudef"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -156,6 +171,11 @@
                 "language": "decaldef",
                 "scopeName": "source.decaldef",
                 "path": "./syntaxes/decaldef.tmLanguage.json"
+            },
+            {
+                "language": "menudef",
+                "scopeName": "source.menudef",
+                "path": "./syntaxes/menudef.tmLanguage.json"
             }
         ]
     },

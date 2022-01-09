@@ -19,7 +19,7 @@
                     "match": "(?<=^\\s*?)\\b(?i:lock)\\b(?=(?:\\s*?|.*?)$)"
                 },
                 {
-                    "name": "entity.name.class.mapinfo",
+                    "name": "entity.name.class.lockdefs",
                     "match": "(?<=^\\s*?\\b(?i:lock)\\b\\s+?.+?\\s+?)\\w+?\\b(?=(?:\\s*?|.*?)$)"
                 }
             ]
