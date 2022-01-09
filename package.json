@@ -89,6 +89,21 @@
                     "zmapinfo"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "lockdefs",
+                "aliases": [
+                    "LOCKDEFS",
+                    "lockdefs"
+                ],
+                "extensions": [
+                    ".lockdefs"
+                ],
+                "filenames": [
+                    "LOCKDEFS",
+                    "lockdefs"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -116,6 +131,11 @@
                 "language": "mapinfo",
                 "scopeName": "source.mapinfo",
                 "path": "./syntaxes/mapinfo.tmLanguage.json"
+            },
+            {
+                "language": "lockdefs",
+                "scopeName": "source.lockdefs",
+                "path": "./syntaxes/lockdefs.tmLanguage.json"
             }
         ]
     },
