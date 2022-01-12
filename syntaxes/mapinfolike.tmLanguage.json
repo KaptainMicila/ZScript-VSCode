@@ -90,6 +90,10 @@
                 {
                     "name": "constant.numeric.mapinfolike",
                     "match": "\\b\\d+?\\b"
+                },
+                {
+                    "name": "constant.numeric.decimal.point.zscript",
+                    "match": "(?<=[\\d]?)\\.(?=[\\d])"
                 }
             ]
         },
