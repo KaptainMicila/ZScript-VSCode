@@ -1,0 +1,40 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "ANIMDEFS",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "storage.type.animdefs",
+            "match": "\\b(?i:flat|texture|switch|animateddoor|cameratexture)\\b"
+        },
+        {
+            "name": "entity.name.function.animdefs",
+            "match": "(?i)\\ballowdecals\\b"
+        },
+        {
+            "name": "variable.parameter.animdefs",
+            "match": "\\b(?i:pic|tics|range|rand|(?:open|close)??sound|fit)\\b"
+        },
+        {
+            "name": "keyword.animdefs",
+            "match": "\\b(?i:warp(?:2)??|on|off)\\b"
+        },
+        {
+            "name": "entity.name.class.animdefs",
+            "match": "(?<=(?i:flat|texture|pic|animateddoor|range|(?:open|close)sound)\\s+?)\\w+?\\b"
+        },
+        {
+            "name": "entity.name.class.switch.animdefs",
+            "match": "(?<=(?i:switch)(?:\\s+?\\w+?)??\\s+?)\\w+?\\b"
+        },
+        {
+            "name": "entity.name.class.sound.namespace.animdefs",
+            "match": "(?<=(?i:\\bsound)\\s+?)\\w+?\\b(?=\\s*?\/)"
+        },
+        {
+            "name": "entity.name.class.sound.animdefs",
+            "match": "(?<=(?i:\\bsound)(?:\\s+?\\w+?\\b\\s*?\/)??\\s*?)\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.animdefs"
+}

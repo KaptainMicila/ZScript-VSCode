@@ -148,7 +148,7 @@
                     "ALTHUD",
                     "althud"
                 ],
-                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             },
             {
                 "id": "defbinds",
@@ -162,7 +162,23 @@
                 "filenames": [
                     "DEFBINDS",
                     "defbinds"
-                ]
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "animdefs",
+                "aliases": [
+                    "ANIMDEFS",
+                    "animdefs"
+                ],
+                "extensions": [
+                    ".animdefs"
+                ],
+                "filenames": [
+                    "ANIMDEFS",
+                    "animdefs"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -215,6 +231,11 @@
                 "language": "defbinds",
                 "scopeName": "source.defbinds",
                 "path": "./syntaxes/defbinds.tmLanguage.json"
+            },
+            {
+                "language": "animdefs",
+                "scopeName": "source.animdefs",
+                "path": "./syntaxes/animdefs.tmLanguage.json"
             }
         ]
     },
