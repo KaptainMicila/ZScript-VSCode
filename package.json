@@ -149,6 +149,20 @@
                     "althud"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "defbinds",
+                "aliases": [
+                    "DEFBINDS",
+                    "defbinds"
+                ],
+                "extensions": [
+                    ".defbinds"
+                ],
+                "filenames": [
+                    "DEFBINDS",
+                    "defbinds"
+                ]
             }
         ],
         "grammars": [
@@ -196,6 +210,11 @@
                 "language": "althud",
                 "scopeName": "source.althud",
                 "path": "./syntaxes/althud.tmLanguage.json"
+            },
+            {
+                "language": "defbinds",
+                "scopeName": "source.defbinds",
+                "path": "./syntaxes/defbinds.tmLanguage.json"
             }
         ]
     },
