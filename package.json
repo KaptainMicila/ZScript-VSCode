@@ -179,6 +179,21 @@
                     "animdefs"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "cvarinfo",
+                "aliases": [
+                    "CVARINFO",
+                    "cvarinfo"
+                ],
+                "extensions": [
+                    ".cvarinfo"
+                ],
+                "filenames": [
+                    "CVARINFO",
+                    "cvarinfo"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -236,6 +251,11 @@
                 "language": "animdefs",
                 "scopeName": "source.animdefs",
                 "path": "./syntaxes/animdefs.tmLanguage.json"
+            },
+            {
+                "language": "cvarinfo",
+                "scopeName": "source.cvarinfo",
+                "path": "./syntaxes/cvarinfo.tmLanguage.json"
             }
         ]
     },
