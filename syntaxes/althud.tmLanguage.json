@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "ALTHUD",
+    "patterns": [
+        { "include": "#althudPatterns" },
+        { "include": "source.mapinfolike#innerContextPatterns" }
+    ],
+    "repository": {
+        "althudPatterns": {
+            "patterns": [
+                {
+                    "name": "constant.name.althud",
+                    "match": "(?<=\\w+?\\s+?)\\w+?\\b"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.althud"
+}

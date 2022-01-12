@@ -134,6 +134,21 @@
                     "menudef"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "althud",
+                "aliases": [
+                    "ALTHUD",
+                    "althud"
+                ],
+                "extensions": [
+                    ".althud"
+                ],
+                "filenames": [
+                    "ALTHUD",
+                    "althud"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -176,6 +191,11 @@
                 "language": "menudef",
                 "scopeName": "source.menudef",
                 "path": "./syntaxes/menudef.tmLanguage.json"
+            },
+            {
+                "language": "althud",
+                "scopeName": "source.althud",
+                "path": "./syntaxes/althud.tmLanguage.json"
             }
         ]
     },
