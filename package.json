@@ -194,6 +194,21 @@
                     "cvarinfo"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "defcvars",
+                "aliases": [
+                    "DEFCVARS",
+                    "defcvars"
+                ],
+                "extensions": [
+                    ".defcvars"
+                ],
+                "filenames": [
+                    "DEFCVARS",
+                    "defcvars"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -256,6 +271,11 @@
                 "language": "cvarinfo",
                 "scopeName": "source.cvarinfo",
                 "path": "./syntaxes/cvarinfo.tmLanguage.json"
+            },
+            {
+                "language": "defcvars",
+                "scopeName": "source.defcvars",
+                "path": "./syntaxes/defcvars.tmLanguage.json"
             }
         ]
     },
