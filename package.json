@@ -209,6 +209,21 @@
                     "defcvars"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "dmxgus",
+                "aliases": [
+                    "DMXGUS",
+                    "dmxgus"
+                ],
+                "extensions": [
+                    ".dmxgus"
+                ],
+                "filenames": [
+                    "DMXGUS",
+                    "dmxgus"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -276,6 +291,11 @@
                 "language": "defcvars",
                 "scopeName": "source.defcvars",
                 "path": "./syntaxes/defcvars.tmLanguage.json"
+            },
+            {
+                "language": "dmxgus",
+                "scopeName": "source.dmxgus",
+                "path": "./syntaxes/dmxgus.tmLanguage.json"
             }
         ]
     },

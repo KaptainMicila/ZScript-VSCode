@@ -1,0 +1,14 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "dmxgus",
+    "patterns": [
+        {
+            "include": "source.mapinfolike#numbers"
+        },
+        {
+            "name": "variable.parameter.dmxgus",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.dmxgus"
+}
