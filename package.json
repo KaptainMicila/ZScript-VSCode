@@ -254,6 +254,21 @@
                     "gameinfo"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "gldefs",
+                "aliases": [
+                    "GLDEFS",
+                    "gldefs"
+                ],
+                "extensions": [
+                    ".gldefs"
+                ],
+                "filenames": [
+                    "GLDEFS",
+                    "gldefs"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -336,6 +351,11 @@
                 "language": "gameinfo",
                 "scopeName": "source.gameinfo",
                 "path": "./syntaxes/gameinfo.tmLanguage.json"
+            },
+            {
+                "language": "gldefs",
+                "scopeName": "source.gldefs",
+                "path": "./syntaxes/gldefs.tmLanguage.json"
             }
         ]
     },
