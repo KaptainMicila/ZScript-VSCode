@@ -224,6 +224,21 @@
                     "dmxgus"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "fontdefs",
+                "aliases": [
+                    "FONTDEFS",
+                    "fontdefs"
+                ],
+                "extensions": [
+                    ".fontdefs"
+                ],
+                "filenames": [
+                    "FONTDEFS",
+                    "fontdefs"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -296,6 +311,11 @@
                 "language": "dmxgus",
                 "scopeName": "source.dmxgus",
                 "path": "./syntaxes/dmxgus.tmLanguage.json"
+            },
+            {
+                "language": "fontdefs",
+                "scopeName": "source.fontdefs",
+                "path": "./syntaxes/fontdefs.tmLanguage.json"
             }
         ]
     },
