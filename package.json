@@ -239,6 +239,21 @@
                     "fontdefs"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "gameinfo",
+                "aliases": [
+                    "GAMEINFO",
+                    "gameinfo"
+                ],
+                "extensions": [
+                    ".gameinfo"
+                ],
+                "filenames": [
+                    "GAMEINFO",
+                    "gameinfo"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -316,6 +331,11 @@
                 "language": "fontdefs",
                 "scopeName": "source.fontdefs",
                 "path": "./syntaxes/fontdefs.tmLanguage.json"
+            },
+            {
+                "language": "gameinfo",
+                "scopeName": "source.gameinfo",
+                "path": "./syntaxes/gameinfo.tmLanguage.json"
             }
         ]
     },
