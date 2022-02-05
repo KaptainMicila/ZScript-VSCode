@@ -283,6 +283,21 @@
                     "IWADINFO",
                     "iwadinfo"
                 ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "keyconf",
+                "aliases": [
+                    "KEYCONF",
+                    "keyconf"
+                ],
+                "extensions": [
+                    ".keyconf"
+                ],
+                "filenames": [
+                    "KEYCONF",
+                    "keyconf"
+                ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
@@ -376,6 +391,11 @@
                 "language": "iwadinfo",
                 "scopeName": "source.iwadinfo",
                 "path": "./syntaxes/iwadinfo.tmLanguage.json"
+            },
+            {
+                "language": "keyconf",
+                "scopeName": "source.keyconf",
+                "path": "./syntaxes/keyconf.tmLanguage.json"
             }
         ]
     },
