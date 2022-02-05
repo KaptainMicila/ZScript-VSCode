@@ -299,6 +299,21 @@
                     "keyconf"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "language",
+                "aliases": [
+                    "LANGUAGE",
+                    "language"
+                ],
+                "extensions": [
+                    ".language"
+                ],
+                "filenames": [
+                    "LANGUAGE",
+                    "language"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -396,6 +411,11 @@
                 "language": "keyconf",
                 "scopeName": "source.keyconf",
                 "path": "./syntaxes/keyconf.tmLanguage.json"
+            },
+            {
+                "language": "language",
+                "scopeName": "source.language",
+                "path": "./syntaxes/language.tmLanguage.json"
             }
         ]
     },

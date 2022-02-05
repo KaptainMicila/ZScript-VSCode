@@ -1,0 +1,53 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "language",
+    "patterns": [
+        {
+            "name": "punctuation.terminator.statement.language",
+            "match": ";"
+        },
+        { "include": "source.mapinfolike#comments" },
+        { "include": "source.mapinfolike#numbers" },
+        { "include": "source.mapinfolike#booleans" },
+        { "include": "source.mapinfolike#symbols" },
+        {
+            "name": "keyword.control.language",
+            "match": "\\[(?:.+?)??\\]"
+        },
+        {
+            "begin": "(?<!\\\\)\"",
+            "end": "(?<!\\\\)\"",
+            "beginCaptures": {
+                "0": { "name": "string.quoted.double.open.language" }
+            },
+            "endCaptures": {
+                "0": { "name": "string.quoted.double.close.language" }
+            },
+            "name": "expression.string",
+            "patterns": [
+                {
+                    "name": "variable.string.language",
+                    "match": "\\$\\$\\w+?\\b"
+                },
+                {
+                    "name": "keyword.string.language",
+                    "match": "\\\\\\w\\b"
+                }
+            ],
+            "contentName": "string.content.language"
+        },
+        {
+            "name": "keyword.control.language",
+            "match": "\\$ifgame"
+        },
+        {
+            "name": "punctuation.brackets.round.language",
+            "match": "[()]"
+        },
+        {
+            "name": "variable.name.language",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.language"
+}
