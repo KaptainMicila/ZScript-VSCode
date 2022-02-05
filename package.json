@@ -269,6 +269,21 @@
                     "gldefs"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "iwadinfo",
+                "aliases": [
+                    "IWADINFO",
+                    "iwadinfo"
+                ],
+                "extensions": [
+                    ".iwadinfo"
+                ],
+                "filenames": [
+                    "IWADINFO",
+                    "iwadinfo"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -356,6 +371,11 @@
                 "language": "gldefs",
                 "scopeName": "source.gldefs",
                 "path": "./syntaxes/gldefs.tmLanguage.json"
+            },
+            {
+                "language": "iwadinfo",
+                "scopeName": "source.iwadinfo",
+                "path": "./syntaxes/iwadinfo.tmLanguage.json"
             }
         ]
     },
