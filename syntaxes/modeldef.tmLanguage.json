@@ -1,0 +1,60 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "MODELDEF",
+    "patterns": [
+        { "include": "#modeldefOutherContextPatterns" },
+        { "include": "source.mapinfolike" }
+    ],
+    "repository": {
+        "modeldefOutherContextPatterns": {
+            "patterns": [
+                { "include": "#headers" },
+                { "include": "#modeldefInnerContextes" }
+            ]
+        },
+        "headers": {
+            "patterns": [
+                {
+                    "name": "storage.type.modeldef",
+                    "match": "(?<=^\\s*?)\\b\\w+?\\b(?=(?:\\s*?|.*?)$)"
+                },
+                {
+                    "name": "entity.name.class.modeldef",
+                    "match": "(?<=^\\s*?\\w+?\\s+?)\\w+?\\b"
+                }
+            ]
+        },
+        "modeldefInnerContextes": {
+            "patterns": [
+                {
+                    "begin": "\\{",
+                    "end": "\\}",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.bracket.open" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.bracket.close" }
+                    },
+                    "name": "expression.group",
+                    "patterns": [{ "include": "#modeldefInnerContextPatterns" }]
+                }
+            ]
+        },
+        "modeldefInnerContextPatterns": {
+            "patterns": [
+                {
+                    "name": "storage.type.modeldef",
+                    "match": "\\b(?i:Frame|FrameIndex)\\b"
+                },
+                {
+                    "name": "entity.name.class.entityname.modeldef",
+                    "match": "(?<=(?i:Frame|FrameIndex)\\s+?)\\w+?\\b"
+                },
+                { "include": "#modeldefInnerContextes" },
+                { "include": "source.mapinfolike#basicPatterns" },
+                { "include": "source.mapinfolike#innerContextPatterns" }
+            ]
+        }
+    },
+    "scopeName": "source.modeldef"
+}

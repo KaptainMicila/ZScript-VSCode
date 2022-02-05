@@ -314,6 +314,21 @@
                     "language"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "modeldef",
+                "aliases": [
+                    "MODELDEF",
+                    "modeldef"
+                ],
+                "extensions": [
+                    ".modeldef"
+                ],
+                "filenames": [
+                    "MODELDEF",
+                    "modeldef"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -416,6 +431,11 @@
                 "language": "language",
                 "scopeName": "source.language",
                 "path": "./syntaxes/language.tmLanguage.json"
+            },
+            {
+                "language": "modeldef",
+                "scopeName": "source.modeldef",
+                "path": "./syntaxes/modeldef.tmLanguage.json"
             }
         ]
     },
