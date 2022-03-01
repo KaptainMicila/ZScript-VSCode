@@ -344,6 +344,21 @@
                     "musinfo"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "palvers",
+                "aliases": [
+                    "PALVERS",
+                    "palvers"
+                ],
+                "extensions": [
+                    ".palvers"
+                ],
+                "filenames": [
+                    "PALVERS",
+                    "palvers"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -456,6 +471,11 @@
                 "language": "musinfo",
                 "scopeName": "source.musinfo",
                 "path": "./syntaxes/musinfo.tmLanguage.json"
+            },
+            {
+                "language": "palvers",
+                "scopeName": "source.palvers",
+                "path": "./syntaxes/palvers.tmLanguage.json"
             }
         ]
     },
