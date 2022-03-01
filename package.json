@@ -374,6 +374,21 @@
                     "reverbs"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "s_skin",
+                "aliases": [
+                    "S_SKIN",
+                    "s_skin"
+                ],
+                "extensions": [
+                    ".s_skin"
+                ],
+                "filenames": [
+                    "S_SKIN",
+                    "s_skin"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -496,6 +511,11 @@
                 "language": "reverbs",
                 "scopeName": "source.reverbs",
                 "path": "./syntaxes/reverbs.tmLanguage.json"
+            },
+            {
+                "language": "s_skin",
+                "scopeName": "source.s_skin",
+                "path": "./syntaxes/s_skin.tmLanguage.json"
             }
         ]
     },
