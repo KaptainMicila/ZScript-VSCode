@@ -1,0 +1,16 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "MUSINFO",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "keyword.musinfo",
+            "match": "^\\s*?\\w+?\\b"
+        },
+        {
+            "name": "variable.parameter.musinfo",
+            "match": "\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.musinfo"
+}

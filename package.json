@@ -329,6 +329,21 @@
                     "modeldef"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "musinfo",
+                "aliases": [
+                    "MUSINFO",
+                    "musinfo"
+                ],
+                "extensions": [
+                    ".musinfo"
+                ],
+                "filenames": [
+                    "MUSINFO",
+                    "musinfo"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -436,6 +451,11 @@
                 "language": "modeldef",
                 "scopeName": "source.modeldef",
                 "path": "./syntaxes/modeldef.tmLanguage.json"
+            },
+            {
+                "language": "musinfo",
+                "scopeName": "source.musinfo",
+                "path": "./syntaxes/musinfo.tmLanguage.json"
             }
         ]
     },
