@@ -1,0 +1,12 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "REVERBS",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "variable.parameter.reverbs",
+            "match": "\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.reverbs"
+}

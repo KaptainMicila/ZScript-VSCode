@@ -359,6 +359,21 @@
                     "palvers"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "reverbs",
+                "aliases": [
+                    "REVERBS",
+                    "reverbs"
+                ],
+                "extensions": [
+                    ".reverbs"
+                ],
+                "filenames": [
+                    "REVERBS",
+                    "reverbs"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -476,6 +491,11 @@
                 "language": "palvers",
                 "scopeName": "source.palvers",
                 "path": "./syntaxes/palvers.tmLanguage.json"
+            },
+            {
+                "language": "reverbs",
+                "scopeName": "source.reverbs",
+                "path": "./syntaxes/reverbs.tmLanguage.json"
             }
         ]
     },
