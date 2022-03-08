@@ -479,6 +479,21 @@
                     "teaminfo"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "terrain",
+                "aliases": [
+                    "TERRAIN",
+                    "terrain"
+                ],
+                "extensions": [
+                    ".terrain"
+                ],
+                "filenames": [
+                    "TERRAIN",
+                    "terrain"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -636,6 +651,11 @@
                 "language": "teaminfo",
                 "scopeName": "source.teaminfo",
                 "path": "./syntaxes/teaminfo.tmLanguage.json"
+            },
+            {
+                "language": "terrain",
+                "scopeName": "source.terrain",
+                "path": "./syntaxes/terrain.tmLanguage.json"
             }
         ]
     },
