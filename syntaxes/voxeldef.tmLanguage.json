@@ -1,0 +1,20 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "VOXELDEF",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "punctuation.separator.voxeldef",
+            "match": ","
+        },
+        {
+            "name": "keyword.operator.voxeldef",
+            "match": "="
+        },
+        {
+            "name": "variable.trnslate",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.voxeldef"
+}

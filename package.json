@@ -434,6 +434,21 @@
                     "trnslate"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "voxeldef",
+                "aliases": [
+                    "VOXELDEF",
+                    "voxeldef"
+                ],
+                "extensions": [
+                    ".voxeldef"
+                ],
+                "filenames": [
+                    "VOXELDEF",
+                    "voxeldef"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -576,6 +591,11 @@
                 "language": "trnslate",
                 "scopeName": "source.trnslate",
                 "path": "./syntaxes/trnslate.tmLanguage.json"
+            },
+            {
+                "language": "voxeldef",
+                "scopeName": "source.voxeldef",
+                "path": "./syntaxes/voxeldef.tmLanguage.json"
             }
         ]
     },
