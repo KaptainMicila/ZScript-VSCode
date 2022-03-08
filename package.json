@@ -419,6 +419,21 @@
                     "x11r6rgb"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "trnslate",
+                "aliases": [
+                    "TRNSLATE",
+                    "trnslate"
+                ],
+                "extensions": [
+                    ".trnslate"
+                ],
+                "filenames": [
+                    "TRNSLATE",
+                    "trnslate"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -556,6 +571,11 @@
                 "language": "x11r6rgb",
                 "scopeName": "source.x11r6rgb",
                 "path": "./syntaxes/x11r6rgb.tmLanguage.json"
+            },
+            {
+                "language": "trnslate",
+                "scopeName": "source.trnslate",
+                "path": "./syntaxes/trnslate.tmLanguage.json"
             }
         ]
     },
