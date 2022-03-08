@@ -404,6 +404,21 @@
                     "xhairs"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "x11r6rgb",
+                "aliases": [
+                    "X11R6RGB",
+                    "x11r6rgb"
+                ],
+                "extensions": [
+                    ".x11r6rgb"
+                ],
+                "filenames": [
+                    "X11R6RGB",
+                    "x11r6rgb"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -536,6 +551,11 @@
                 "language": "xhairs",
                 "scopeName": "source.xhairs",
                 "path": "./syntaxes/xhairs.tmLanguage.json"
+            },
+            {
+                "language": "x11r6rgb",
+                "scopeName": "source.x11r6rgb",
+                "path": "./syntaxes/x11r6rgb.tmLanguage.json"
             }
         ]
     },
