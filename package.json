@@ -554,6 +554,21 @@
                     "textures"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "sndseq",
+                "aliases": [
+                    "SNDSEQ",
+                    "sndseq"
+                ],
+                "extensions": [
+                    ".sndseq"
+                ],
+                "filenames": [
+                    "SNDSEQ",
+                    "sndseq"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -736,6 +751,11 @@
                 "language": "textures",
                 "scopeName": "source.textures",
                 "path": "./syntaxes/textures.tmLanguage.json"
+            },
+            {
+                "language": "sndseq",
+                "scopeName": "source.sndseq",
+                "path": "./syntaxes/sndseq.tmLanguage.json"
             }
         ]
     },
