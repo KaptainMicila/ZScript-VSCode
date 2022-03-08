@@ -1,0 +1,82 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "SBARINFO",
+    "patterns": [
+        { "include": "#globalPatterns" },
+        { "include": "#outherContextPatterns" }
+    ],
+    "repository": {
+        "globalPatterns": {
+            "patterns": [
+                { "include": "source.mapinfolike#basicPatterns" },
+                {
+                    "name": "punctuation.separator.sbarinfo",
+                    "match": ","
+                },
+                {
+                    "begin": "\\{",
+                    "end": "\\}",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.bracket.open" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.bracket.close" }
+                    },
+                    "name": "expression.group",
+                    "patterns": [{ "include": "#innerContextPatterns" }]
+                }
+            ]
+        },
+        "outherContextPatterns": {
+            "patterns": [
+                { "include": "#globalPatterns" },
+                {
+                    "name": "source.sbarinfo",
+                    "match": ";"
+                },
+                {
+                    "name": "storage.type.sbarinfo",
+                    "match": "\\b(?i:Base|CompleteBorder|Height|InterpolateArmor|InterpolateHealth|LowerHealthCap|MonospaceFonts|Resolution|StatusBar|mugshot)\\b"
+                },
+                {
+                    "name": "keyword.sbarinfo",
+                    "match": "\\b(?i:CreatePopup)\\b"
+                },
+                {
+                    "name": "entity.name.class.sbarinfo",
+                    "match": "(?<=(?i:base|statusbar|mugshot)\\s+?)\\w+?\\b"
+                },
+                {
+                    "name": "storage.modifier.sbarinfo",
+                    "match": "(?<=(?i:statusbar|mugshot)\\s+?.+?\\s*?,\\s*?)\\w+?\\b"
+                },
+                {
+                    "name": "variable.parameter.sbarinfo",
+                    "match": "\\b\\w+?\\b"
+                }
+            ]
+        },
+        "innerContextPatterns": {
+            "patterns": [
+                {
+                    "name": "punctuation.terminator.statement.sbarinfo",
+                    "match": ";"
+                },
+                { "include": "#globalPatterns" },
+                {
+                    "name": "entity.name.function.sbarinfo",
+                    "match": "\\b(?i:DrawBar|DrawGem|DrawImage|DrawInventoryBar|DrawKeyBar|DrawMugShot|DrawNumber|DrawSelectedInventory|DrawShader|DrawString|DrawSwitchableImage)\\b"
+                },
+                {
+                    "name": "keyword.control.sbarinfo",
+                    "match": "(?i:not|\\&\\&|\\|\\|)"
+                },
+                {
+                    "name": "variable.parameter.sbarinfo",
+                    "match": "\\b\\w+?\\b"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.sbarinfo"
+}

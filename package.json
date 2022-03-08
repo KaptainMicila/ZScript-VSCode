@@ -509,6 +509,21 @@
                     "secrets"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "sbarinfo",
+                "aliases": [
+                    "SBARINFO",
+                    "sbarinfo"
+                ],
+                "extensions": [
+                    ".sbarinfo"
+                ],
+                "filenames": [
+                    "SBARINFO",
+                    "sbarinfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -676,6 +691,11 @@
                 "language": "secrets",
                 "scopeName": "source.secrets",
                 "path": "./syntaxes/secrets.tmLanguage.json"
+            },
+            {
+                "language": "sbarinfo",
+                "scopeName": "source.sbarinfo",
+                "path": "./syntaxes/sbarinfo.tmLanguage.json"
             }
         ]
     },
