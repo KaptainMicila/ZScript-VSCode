@@ -494,6 +494,21 @@
                     "terrain"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "secrets",
+                "aliases": [
+                    "SECRETS",
+                    "secrets"
+                ],
+                "extensions": [
+                    ".secrets"
+                ],
+                "filenames": [
+                    "SECRETS",
+                    "secrets"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -656,6 +671,11 @@
                 "language": "terrain",
                 "scopeName": "source.terrain",
                 "path": "./syntaxes/terrain.tmLanguage.json"
+            },
+            {
+                "language": "secrets",
+                "scopeName": "source.secrets",
+                "path": "./syntaxes/secrets.tmLanguage.json"
             }
         ]
     },
