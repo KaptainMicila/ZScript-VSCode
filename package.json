@@ -464,6 +464,21 @@
                     "textcolo"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "teaminfo",
+                "aliases": [
+                    "TEAMINFO",
+                    "teaminfo"
+                ],
+                "extensions": [
+                    ".teaminfo"
+                ],
+                "filenames": [
+                    "TEAMINFO",
+                    "teaminfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -616,6 +631,11 @@
                 "language": "textcolo",
                 "scopeName": "source.textcolo",
                 "path": "./syntaxes/textcolo.tmLanguage.json"
+            },
+            {
+                "language": "teaminfo",
+                "scopeName": "source.teaminfo",
+                "path": "./syntaxes/teaminfo.tmLanguage.json"
             }
         ]
     },
