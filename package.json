@@ -539,6 +539,21 @@
                     "sndinfo"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "textures",
+                "aliases": [
+                    "TEXTURES",
+                    "textures"
+                ],
+                "extensions": [
+                    ".textures"
+                ],
+                "filenames": [
+                    "TEXTURES",
+                    "textures"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -716,6 +731,11 @@
                 "language": "sndinfo",
                 "scopeName": "source.sndinfo",
                 "path": "./syntaxes/sndinfo.tmLanguage.json"
+            },
+            {
+                "language": "textures",
+                "scopeName": "source.textures",
+                "path": "./syntaxes/textures.tmLanguage.json"
             }
         ]
     },

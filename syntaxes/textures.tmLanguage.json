@@ -1,0 +1,32 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "TEXTURES",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "storage.type.textures",
+            "match": "\\b(?i:texture|sprite|graphic|walltexture|flat|Patch|Graphic|Sprite|Style)\\b"
+        },
+        {
+            "name": "punctuation.separator.textures",
+            "match": ","
+        },
+        {
+            "name": "invalid.deprecated.textures",
+            "match": "\\b(?i:remap|define)\\b"
+        },
+        {
+            "name": "keyword.control.textures",
+            "match": "\\b(?i:optional)\\b"
+        },
+        {
+            "name": "entity.name.class.textures",
+            "match": "(?<=\\w+?\\s+?)\\w+?\\b"
+        },
+        {
+            "name": "variable.parameter.textures",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.textures"
+}
