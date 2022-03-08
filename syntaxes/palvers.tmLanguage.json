@@ -1,0 +1,11 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "PALVERS",
+    "patterns": [
+        {
+            "name": "variable.parameter.palvers",
+            "match": "\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.palvers"
+}

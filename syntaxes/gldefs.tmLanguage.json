@@ -1,0 +1,73 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "GLDEFS",
+    "patterns": [
+        { "include": "#gldefsOutherContextPatterns" },
+        { "include": "source.mapinfolike" }
+    ],
+    "repository": {
+        "gldefsOutherContextPatterns": {
+            "patterns": [
+                { "include": "source.mapinfolike#basicPatterns" },
+                { "include": "#directives" },
+                {
+                    "name": "variable.gldefs",
+                    "match": "\\blightsizefactor\\b"
+                },
+                {
+                    "name": "entity.name.class.gldefs",
+                    "match": "(?<=\\w+?\\b\\s+?)\\w+?\\b"
+                },
+                {
+                    "name": "storage.type.gldefs",
+                    "match": "(?<=^\\s*?)\\b\\w+?\\b"
+                },
+                { "include": "#gldefsInnerContextes" }
+            ]
+        },
+        "directives": {
+            "patterns": [
+                {
+                    "name": "keyword.control.directive.gldefs",
+                    "match": "\\#include"
+                },
+                {
+                    "name": "entity.name.class.directive.gldefs",
+                    "match": "(?<=\\#include.+?)[^/\\\\]+?\\b"
+                }
+            ]
+        },
+        "gldefsInnerContextes": {
+            "patterns": [
+                {
+                    "begin": "\\{",
+                    "end": "\\}",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.bracket.open" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.bracket.close" }
+                    },
+                    "name": "expression.group",
+                    "patterns": [{ "include": "#gldefsInnerContextPatterns" }]
+                }
+            ]
+        },
+        "gldefsInnerContextPatterns": {
+            "patterns": [
+                { "include": "#gldefsInnerContextes" },
+                {
+                    "name": "entity.name.class.gldefs",
+                    "match": "(?<=(?:frame|light)\\b\\s+?)\\w+?\\b"
+                },
+                {
+                    "name": "storage.type.gldefs",
+                    "match": "\\b(?:frame|light)\\b"
+                },
+                { "include": "source.mapinfolike#basicPatterns" },
+                { "include": "source.mapinfolike#innerContextPatterns" }
+            ]
+        }
+    },
+    "scopeName": "source.gldefs"
+}

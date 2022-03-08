@@ -1,0 +1,24 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "IWADINFO",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "punctuation.separator.iwadinfo",
+            "match": ","
+        },
+        {
+            "name": "keyword.operator.iwadinfo",
+            "match": "="
+        },
+        {
+            "name": "variable.iwadinfo",
+            "match": "\\b\\w+?\\b(?=\\s*?=)"
+        },
+        {
+            "name": "keyword.iwadinfo",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.iwadinfo"
+}

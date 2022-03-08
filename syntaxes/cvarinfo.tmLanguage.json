@@ -1,0 +1,32 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "CVARINFO",
+    "patterns": [
+        {
+            "name": "punctuation.terminator.statement.cvarinfo",
+            "match": ";"
+        },
+        {
+            "name": "keyword.operator.cvarinfo",
+            "match": "\\="
+        },
+        {
+            "name": "keyword.cvarinfo",
+            "match": "\\b(?i:server|user|nosave)\\b"
+        },
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "variable.cvarinfo",
+            "match": "\\w+?(?=(?:\\s*?=\\s*?.+?)??\\s*?;)"
+        },
+        {
+            "name": "storage.type.cvarinfo",
+            "match": "\\w+?(?=\\s+?\\w+?(?=(?:\\s*?=\\s*?.+?)??\\s*?;))"
+        },
+        {
+            "name": "entity.name.function.cvarinfo",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.cvarinfo"
+}

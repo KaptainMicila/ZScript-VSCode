@@ -1,0 +1,25 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "defbinds",
+    "patterns": [
+        {
+            "name": "keyword.bind.defbinds",
+            "match": "(?<=^\\s*?)\\w+?\\b"
+        },
+        {
+            "name": "constant.control.defbinds",
+            "match": "(?<=^\\s*?\\w+?\\s+?)\\w+?\\b"
+        },
+        {
+            "include": "source.mapinfolike#strings"
+        },
+        {
+            "include": "source.mapinfolike#numbers"
+        },
+        {
+            "name": "variable.parameter.defbinds",
+            "match": "(?<=\\s+?).+?(?=\\s*?$)"
+        }
+    ],
+    "scopeName": "source.defbinds"
+}

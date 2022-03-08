@@ -1,0 +1,52 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "LOCKDEFS",
+    "patterns": [
+        { "include": "#lockdefsOutherContextPatterns" },
+        { "include": "source.mapinfolike" }
+    ],
+    "repository": {
+        "lockdefsOutherContextPatterns": {
+            "patterns": [
+                { "include": "#headers" },
+                { "include": "#lockdefsInnerContextes" }
+            ]
+        },
+        "headers": {
+            "patterns": [
+                {
+                    "name": "storage.type.lockdefs",
+                    "match": "(?<=^\\s*?)\\b(?i:lock)\\b(?=(?:\\s*?|.*?)$)"
+                },
+                {
+                    "name": "entity.name.class.lockdefs",
+                    "match": "(?<=^\\s*?\\b(?i:lock)\\b\\s+?.+?\\s+?)\\w+?\\b(?=(?:\\s*?|.*?)$)"
+                }
+            ]
+        },
+        "lockdefsInnerContextes": {
+            "patterns": [
+                {
+                    "begin": "\\{",
+                    "end": "\\}",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.bracket.open" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.bracket.close" }
+                    },
+                    "name": "expression.group",
+                    "patterns": [{ "include": "#lockdefsInnerContextPatterns" }]
+                }
+            ]
+        },
+        "lockdefsInnerContextPatterns": {
+            "patterns": [
+                { "include": "#lockdefsInnerContextes" },
+                { "include": "source.mapinfolike#basicPatterns" },
+                { "include": "source.mapinfolike#innerContextPatterns" }
+            ]
+        }
+    },
+    "scopeName": "source.lockdefs"
+}

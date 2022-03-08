@@ -1,0 +1,20 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "KEYCONF",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "keyword.keyconf",
+            "match": "\\b(?i:alias|bind|defaultbind|addkeysection|addmenukey|addslotdefault|weaponsection)\\b"
+        },
+        {
+            "name": "invalid.deprecated.keyconf",
+            "match": "\\b(?i:setslot|clearplayerclasses|addplayerclass)\\b"
+        },
+        {
+            "name": "variable.keyconf",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.keyconf"
+}

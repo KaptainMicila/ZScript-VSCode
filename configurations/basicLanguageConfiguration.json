@@ -1,0 +1,28 @@
+{
+    "comments": {
+        "lineComment": [";", "//"],
+        "blockComment": ["/*", "*/"]
+    },
+    "autoClosingPairs": [
+        {
+            "open": "\"",
+            "close": "\"",
+            "notIn": ["comment", "string"]
+        },
+        {
+            "open": "'",
+            "close": "'",
+            "notIn": ["comment", "string"]
+        }
+    ],
+    "surroundingPairs": [
+        {
+            "open": "\"",
+            "close": "\""
+        },
+        {
+            "open": "'",
+            "close": "'"
+        }
+    ]
+}

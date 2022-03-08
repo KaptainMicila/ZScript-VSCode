@@ -1,0 +1,21 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "defcvars",
+    "patterns": [
+        {
+            "name": "keyword.bind.defcvars",
+            "match": "\\b(?i:set|version)\\b"
+        },
+        {
+            "include": "source.mapinfolike#strings"
+        },
+        {
+            "include": "source.mapinfolike#numbers"
+        },
+        {
+            "name": "variable.defcvars",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.defcvars"
+}

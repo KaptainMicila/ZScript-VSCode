@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.9.0] The "back to the roots" update
+- Deleted any trace of javascript, again.
+- Added syntax highlighting support for most [Special Lumps](https://zdoom.org/wiki/Special_lumps)
+
 ## [1.8.3] The "Bundler" update
 - Extension weights almost 13 MB less.
 

@@ -1,0 +1,55 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "DECALDEF",
+    "patterns": [
+        { "include": "#decaldefOutherContextPatterns" },
+        { "include": "source.mapinfolike" }
+    ],
+    "repository": {
+        "decaldefOutherContextPatterns": {
+            "patterns": [
+                { "include": "#headers" },
+                { "include": "#decaldefInnerContextes" }
+            ]
+        },
+        "headers": {
+            "patterns": [
+                {
+                    "name": "storage.type.decaldef",
+                    "match": "(?<=^\\s*?)\\b(?i:decal|decalgroup|generator)\\b(?=(?:\\s*?|.*?)$)"
+                },
+                {
+                    "name": "entity.name.class.decaldef",
+                    "match": "(?<=\\w+?\\s+?)\\w+?\\b"
+                }
+            ]
+        },
+        "decaldefInnerContextes": {
+            "patterns": [
+                {
+                    "begin": "\\{",
+                    "end": "\\}",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.bracket.open" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.bracket.close" }
+                    },
+                    "name": "expression.group",
+                    "patterns": [{ "include": "#decaldefInnerContextPatterns" }]
+                }
+            ]
+        },
+        "decaldefInnerContextPatterns": {
+            "patterns": [
+                { "include": "source.mapinfolike#basicPatterns" },
+                {
+                    "name": "constant.name.decaldef",
+                    "match": "(?<=\\w+?\\s+?)\\w+?\\b"
+                },
+                { "include": "source.mapinfolike#innerContextPatterns" }
+            ]
+        }
+    },
+    "scopeName": "source.decaldef"
+}

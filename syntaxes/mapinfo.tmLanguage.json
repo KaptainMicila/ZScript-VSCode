@@ -1,0 +1,34 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "MAPINFO",
+    "patterns": [
+        { "include": "#mapinfoOutherContextPatterns" },
+        { "include": "source.mapinfolike" }
+    ],
+    "repository": {
+        "mapinfoOutherContextPatterns": {
+            "patterns": [{ "include": "#headers" }]
+        },
+        "headers": {
+            "patterns": [
+                {
+                    "name": "storage.type.mapinfo",
+                    "match": "(?<=^\\s*?)\\b(?i:episode|cluster|skill|gameinfo|cast|automap|doomednums|spawnnums|conversationids|damagetype|map)\\b(?=(?:\\s*?|.*?)$)"
+                },
+                {
+                    "name": "entity.name.function.mapinfo",
+                    "match": "(?<=^\\s*?)\\b\\w+?\\b(?=\\s*?$)"
+                },
+                {
+                    "name": "entity.name.class.mapinfo",
+                    "match": "(?<=^\\s*?(?i:map|episode|cluster|skill|damagetype)\\s+?)\\b\\w+?\\b(?=(?:\\s*?|.*?)$)"
+                },
+                {
+                    "name": "entity.name.tag.mapinfo",
+                    "match": "(?<=^\\s*?map\\s+?\\w+?\\s+?)\\w+?\\b(?=(?:\\s*?|.*?)$)"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.mapinfo"
+}

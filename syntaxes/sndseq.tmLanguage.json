@@ -1,0 +1,28 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "SNDSEQ",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "keyword.control.opening.sndseq",
+            "match": "[:\\[]\\w+?\\b"
+        },
+        {
+            "name": "keyword.control.closing.sndseq",
+            "match": "\\b(?i:end)\\b|\\]"
+        },
+        {
+            "name": "entity.name.function.sndseq",
+            "match": "\\b(?i:play|playuntildone|playtime|playrepeat|playloop|delay|delayonce|delayrand|stopsound)\\b"
+        },
+        {
+            "name": "keyword.sndseq",
+            "match": "\\b(?i:nostopcutoff|randomsequence|restart)\\b"
+        },
+        {
+            "name": "variable.parameter.sndseq",
+            "match": "(?<=^.+?)\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.sndseq"
+}

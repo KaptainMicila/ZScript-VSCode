@@ -1,0 +1,126 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "MAPINFOLIKE",
+    "patterns": [{ "include": "#outherContextPatterns" }],
+    "repository": {
+        "basicPatterns": {
+            "patterns": [
+                { "include": "#comments" },
+                { "include": "#strings" },
+                { "include": "#numbers" },
+                { "include": "#booleans" },
+                { "include": "#symbols" }
+            ]
+        },
+        "outherContextPatterns": {
+            "patterns": [
+                { "include": "#basicPatterns" },
+                { "include": "#innerContextes" }
+            ]
+        },
+        "innerContextPatterns": {
+            "patterns": [
+                { "include": "#basicPatterns" },
+                { "include": "#operators" },
+                { "include": "#parameters" }
+            ]
+        },
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash.mapinfolike",
+                    "begin": "//",
+                    "end": "$",
+                    "contentName": "comment.line.double-slash.text.mapinfolike"
+                },
+                {
+                    "name": "comment.line.semicolon.mapinfolike",
+                    "begin": ";",
+                    "end": "$",
+                    "contentName": "comment.line.semicolon.text.mapinfolike"
+                },
+                {
+                    "name": "comment.block.mapinfolike",
+                    "begin": "\\/\\*",
+                    "end": "\\*\\/",
+                    "contentName": "comment.block.text.mapinfolike"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.acs",
+                    "begin": "(?<!\\\\)\"",
+                    "end": "(?<!\\\\)\""
+                },
+                {
+                    "name": "string.quoted.single.acs",
+                    "begin": "(?<!\\\\)'",
+                    "end": "(?<!\\\\)'"
+                }
+            ]
+        },
+        "symbols": {
+            "patterns": [
+                {
+                    "name": "keyword.operator.mapinfolike",
+                    "match": "\\="
+                }
+            ]
+        },
+        "innerContextes": {
+            "patterns": [
+                {
+                    "begin": "\\{",
+                    "end": "\\}",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.bracket.open" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.bracket.close" }
+                    },
+                    "name": "expression.group",
+                    "patterns": [{ "include": "#innerContextPatterns" }]
+                }
+            ]
+        },
+        "numbers": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.mapinfolike",
+                    "match": "\\b\\d+?\\b"
+                },
+                {
+                    "name": "constant.numeric.decimal.point.zscript",
+                    "match": "(?<=[\\d]?)\\.(?=[\\d])"
+                }
+            ]
+        },
+        "booleans": {
+            "patterns": [
+                {
+                    "name": "constant.language.boolean.mapinfo",
+                    "match": "\\b(?i:true|false)\\b"
+                }
+            ]
+        },
+        "parameters": {
+            "patterns": [
+                {
+                    "name": "variable.parameter.mapinfolike",
+                    "match": "\\b\\w+?\\b"
+                }
+            ]
+        },
+        "operators": {
+            "patterns": [
+                {
+                    "name": "keyword.operator.mapinfolike",
+                    "match": "\\="
+                }
+            ]
+        }
+    },
+    "scopeName": "source.mapinfolike"
+}

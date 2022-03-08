@@ -1,0 +1,28 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "TERRAIN",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "storage.type.terrain",
+            "match": "\\b(?i:splash|terrain|defaultterrain|floor)\\b"
+        },
+        {
+            "name": "storage.modifier.terrain",
+            "match": "\\b(?i:optional)\\b"
+        },
+        {
+            "name": "entity.name.class.terrain",
+            "match": "(?<=\\w+?\\s+?)\\w+?\\b"
+        },
+        {
+            "name": "keyword.terrain",
+            "match": "\\b\\w+?\\s*?$"
+        },
+        {
+            "name": "variable.parameter.terrain",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.terrain"
+}

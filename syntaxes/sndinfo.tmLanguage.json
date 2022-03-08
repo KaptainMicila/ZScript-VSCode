@@ -1,0 +1,20 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "SNDINFO",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "keyword.control.sndinfo",
+            "match": "\\$\\w+?\\b"
+        },
+        {
+            "name": "entity.name.class.sndinfo",
+            "match": "\\w+?(?=\\s*?\\/)"
+        },
+        {
+            "name": "variable.sndinfo",
+            "match": "(?:\\*)??\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.sndinfo"
+}

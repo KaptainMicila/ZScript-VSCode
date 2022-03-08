@@ -1,0 +1,18 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "X11R6RGB",
+    "patterns": [
+        {
+            "name": "comment.line.x11r6rgb",
+            "begin": "!",
+            "end": "$",
+            "contentName": "comment.line.text.x11r6rgb"
+        },
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "variable.parameter.x11r6rgb",
+            "match": "\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.x11r6rgb"
+}

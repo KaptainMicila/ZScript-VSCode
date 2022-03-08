@@ -1,0 +1,24 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "FONTDEFS",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "keyword.fontdefs",
+            "match": "\\b\\w+?\\b(?=\\s+?\\d+?\\b)"
+        },
+        {
+            "name": "variable.parameter.fontdefs",
+            "match": "(?<=.+?\\s+?)\\b\\w+?\\b"
+        },
+        {
+            "name": "constant.numeric.fontdefs",
+            "match": "%|/|-"
+        },
+        {
+            "name": "entity.name.class.fontdefs",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.fontdefs"
+}

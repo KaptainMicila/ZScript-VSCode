@@ -1,0 +1,16 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "S_SKIN",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "keyword.operator.s_skin",
+            "match": "="
+        },
+        {
+            "name": "variable.parameter.s_skin",
+            "match": "(\\*)??\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.s_skin"
+}

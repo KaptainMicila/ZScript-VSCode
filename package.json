@@ -4,7 +4,7 @@
     "description": "GZDoom's multiple scripting languages support (with a focus on ZScript) for VSCode (and compatible editors)",
     "publisher": "kaptainmicila",
     "icon": "icons/GZDoom.png",
-    "version": "1.8.4",
+    "version": "1.9.0"
     "repository": {
         "type": "git",
         "url": "https://github.com/KaptainMicila/ZScript-VSCode.git"
@@ -49,6 +49,8 @@
                 "aliases": [
                     "DECORATE",
                     "decorate",
+                    "acs",
+                    "ACS",
                     "zdoomDecorate",
                     "gzdoomDecorate"
                 ],
@@ -60,6 +62,513 @@
                     "decorate"
                 ],
                 "configuration": "./configurations/DecorateConfiguration.json"
+            },
+            {
+                "id": "mapinfolike",
+                "aliases": [
+                    "MAPINFOLIKE",
+                    "mapinfolike"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "mapinfo",
+                "aliases": [
+                    "MAPINFO",
+                    "mapinfo",
+                    "ZMAPINFO",
+                    "zmapinfo"
+                ],
+                "extensions": [
+                    ".mapinfo"
+                ],
+                "filenames": [
+                    "MAPINFO",
+                    "mapinfo",
+                    "ZMAPINFO",
+                    "zmapinfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "lockdefs",
+                "aliases": [
+                    "LOCKDEFS",
+                    "lockdefs"
+                ],
+                "extensions": [
+                    ".lockdefs"
+                ],
+                "filenames": [
+                    "LOCKDEFS",
+                    "lockdefs"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "decaldef",
+                "aliases": [
+                    "DECALDEF",
+                    "decaldef"
+                ],
+                "extensions": [
+                    ".decaldef"
+                ],
+                "filenames": [
+                    "DECALDEF",
+                    "decaldef"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "menudef",
+                "aliases": [
+                    "MENUDEF",
+                    "menudef"
+                ],
+                "extensions": [
+                    ".menudef"
+                ],
+                "filenames": [
+                    "MENUDEF",
+                    "menudef"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "althud",
+                "aliases": [
+                    "ALTHUD",
+                    "althud"
+                ],
+                "extensions": [
+                    ".althud"
+                ],
+                "filenames": [
+                    "ALTHUD",
+                    "althud"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "defbinds",
+                "aliases": [
+                    "DEFBINDS",
+                    "defbinds"
+                ],
+                "extensions": [
+                    ".defbinds"
+                ],
+                "filenames": [
+                    "DEFBINDS",
+                    "defbinds"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "animdefs",
+                "aliases": [
+                    "ANIMDEFS",
+                    "animdefs"
+                ],
+                "extensions": [
+                    ".animdefs"
+                ],
+                "filenames": [
+                    "ANIMDEFS",
+                    "animdefs"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "cvarinfo",
+                "aliases": [
+                    "CVARINFO",
+                    "cvarinfo"
+                ],
+                "extensions": [
+                    ".cvarinfo"
+                ],
+                "filenames": [
+                    "CVARINFO",
+                    "cvarinfo"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "defcvars",
+                "aliases": [
+                    "DEFCVARS",
+                    "defcvars"
+                ],
+                "extensions": [
+                    ".defcvars"
+                ],
+                "filenames": [
+                    "DEFCVARS",
+                    "defcvars"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "dmxgus",
+                "aliases": [
+                    "DMXGUS",
+                    "dmxgus"
+                ],
+                "extensions": [
+                    ".dmxgus"
+                ],
+                "filenames": [
+                    "DMXGUS",
+                    "dmxgus"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "fontdefs",
+                "aliases": [
+                    "FONTDEFS",
+                    "fontdefs"
+                ],
+                "extensions": [
+                    ".fontdefs"
+                ],
+                "filenames": [
+                    "FONTDEFS",
+                    "fontdefs"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "gameinfo",
+                "aliases": [
+                    "GAMEINFO",
+                    "gameinfo"
+                ],
+                "extensions": [
+                    ".gameinfo"
+                ],
+                "filenames": [
+                    "GAMEINFO",
+                    "gameinfo"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "gldefs",
+                "aliases": [
+                    "GLDEFS",
+                    "gldefs"
+                ],
+                "extensions": [
+                    ".gldefs"
+                ],
+                "filenames": [
+                    "GLDEFS",
+                    "gldefs"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "iwadinfo",
+                "aliases": [
+                    "IWADINFO",
+                    "iwadinfo"
+                ],
+                "extensions": [
+                    ".iwadinfo"
+                ],
+                "filenames": [
+                    "IWADINFO",
+                    "iwadinfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "keyconf",
+                "aliases": [
+                    "KEYCONF",
+                    "keyconf"
+                ],
+                "extensions": [
+                    ".keyconf"
+                ],
+                "filenames": [
+                    "KEYCONF",
+                    "keyconf"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "language",
+                "aliases": [
+                    "LANGUAGE",
+                    "language"
+                ],
+                "extensions": [
+                    ".language"
+                ],
+                "filenames": [
+                    "LANGUAGE",
+                    "language"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "modeldef",
+                "aliases": [
+                    "MODELDEF",
+                    "modeldef"
+                ],
+                "extensions": [
+                    ".modeldef"
+                ],
+                "filenames": [
+                    "MODELDEF",
+                    "modeldef"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "musinfo",
+                "aliases": [
+                    "MUSINFO",
+                    "musinfo"
+                ],
+                "extensions": [
+                    ".musinfo"
+                ],
+                "filenames": [
+                    "MUSINFO",
+                    "musinfo"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "palvers",
+                "aliases": [
+                    "PALVERS",
+                    "palvers"
+                ],
+                "extensions": [
+                    ".palvers"
+                ],
+                "filenames": [
+                    "PALVERS",
+                    "palvers"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "reverbs",
+                "aliases": [
+                    "REVERBS",
+                    "reverbs"
+                ],
+                "extensions": [
+                    ".reverbs"
+                ],
+                "filenames": [
+                    "REVERBS",
+                    "reverbs"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "s_skin",
+                "aliases": [
+                    "S_SKIN",
+                    "s_skin"
+                ],
+                "extensions": [
+                    ".s_skin"
+                ],
+                "filenames": [
+                    "S_SKIN",
+                    "s_skin"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "xhairs",
+                "aliases": [
+                    "XHAIRS",
+                    "xhairs"
+                ],
+                "extensions": [
+                    ".xhairs"
+                ],
+                "filenames": [
+                    "XHAIRS",
+                    "xhairs"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "x11r6rgb",
+                "aliases": [
+                    "X11R6RGB",
+                    "x11r6rgb"
+                ],
+                "extensions": [
+                    ".x11r6rgb"
+                ],
+                "filenames": [
+                    "X11R6RGB",
+                    "x11r6rgb"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "trnslate",
+                "aliases": [
+                    "TRNSLATE",
+                    "trnslate"
+                ],
+                "extensions": [
+                    ".trnslate"
+                ],
+                "filenames": [
+                    "TRNSLATE",
+                    "trnslate"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "voxeldef",
+                "aliases": [
+                    "VOXELDEF",
+                    "voxeldef"
+                ],
+                "extensions": [
+                    ".voxeldef"
+                ],
+                "filenames": [
+                    "VOXELDEF",
+                    "voxeldef"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "textcolo",
+                "aliases": [
+                    "TEXTCOLO",
+                    "textcolo"
+                ],
+                "extensions": [
+                    ".textcolo"
+                ],
+                "filenames": [
+                    "TEXTCOLO",
+                    "textcolo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "teaminfo",
+                "aliases": [
+                    "TEAMINFO",
+                    "teaminfo"
+                ],
+                "extensions": [
+                    ".teaminfo"
+                ],
+                "filenames": [
+                    "TEAMINFO",
+                    "teaminfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "terrain",
+                "aliases": [
+                    "TERRAIN",
+                    "terrain"
+                ],
+                "extensions": [
+                    ".terrain"
+                ],
+                "filenames": [
+                    "TERRAIN",
+                    "terrain"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "secrets",
+                "aliases": [
+                    "SECRETS",
+                    "secrets"
+                ],
+                "extensions": [
+                    ".secrets"
+                ],
+                "filenames": [
+                    "SECRETS",
+                    "secrets"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "sbarinfo",
+                "aliases": [
+                    "SBARINFO",
+                    "sbarinfo"
+                ],
+                "extensions": [
+                    ".sbarinfo"
+                ],
+                "filenames": [
+                    "SBARINFO",
+                    "sbarinfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "sndinfo",
+                "aliases": [
+                    "SNDINFO",
+                    "sndinfo"
+                ],
+                "extensions": [
+                    ".sndinfo"
+                ],
+                "filenames": [
+                    "SNDINFO",
+                    "sndinfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "textures",
+                "aliases": [
+                    "TEXTURES",
+                    "textures"
+                ],
+                "extensions": [
+                    ".textures"
+                ],
+                "filenames": [
+                    "TEXTURES",
+                    "textures"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "sndseq",
+                "aliases": [
+                    "SNDSEQ",
+                    "sndseq"
+                ],
+                "extensions": [
+                    ".sndseq"
+                ],
+                "filenames": [
+                    "SNDSEQ",
+                    "sndseq"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -77,6 +586,176 @@
                 "language": "decorate",
                 "scopeName": "source.decorate",
                 "path": "./syntaxes/decorate.tmLanguage.json"
+            },
+            {
+                "language": "mapinfolike",
+                "scopeName": "source.mapinfolike",
+                "path": "./syntaxes/mapinfolike.tmLanguage.json"
+            },
+            {
+                "language": "mapinfo",
+                "scopeName": "source.mapinfo",
+                "path": "./syntaxes/mapinfo.tmLanguage.json"
+            },
+            {
+                "language": "lockdefs",
+                "scopeName": "source.lockdefs",
+                "path": "./syntaxes/lockdefs.tmLanguage.json"
+            },
+            {
+                "language": "decaldef",
+                "scopeName": "source.decaldef",
+                "path": "./syntaxes/decaldef.tmLanguage.json"
+            },
+            {
+                "language": "menudef",
+                "scopeName": "source.menudef",
+                "path": "./syntaxes/menudef.tmLanguage.json"
+            },
+            {
+                "language": "althud",
+                "scopeName": "source.althud",
+                "path": "./syntaxes/althud.tmLanguage.json"
+            },
+            {
+                "language": "defbinds",
+                "scopeName": "source.defbinds",
+                "path": "./syntaxes/defbinds.tmLanguage.json"
+            },
+            {
+                "language": "animdefs",
+                "scopeName": "source.animdefs",
+                "path": "./syntaxes/animdefs.tmLanguage.json"
+            },
+            {
+                "language": "cvarinfo",
+                "scopeName": "source.cvarinfo",
+                "path": "./syntaxes/cvarinfo.tmLanguage.json"
+            },
+            {
+                "language": "defcvars",
+                "scopeName": "source.defcvars",
+                "path": "./syntaxes/defcvars.tmLanguage.json"
+            },
+            {
+                "language": "dmxgus",
+                "scopeName": "source.dmxgus",
+                "path": "./syntaxes/dmxgus.tmLanguage.json"
+            },
+            {
+                "language": "fontdefs",
+                "scopeName": "source.fontdefs",
+                "path": "./syntaxes/fontdefs.tmLanguage.json"
+            },
+            {
+                "language": "gameinfo",
+                "scopeName": "source.gameinfo",
+                "path": "./syntaxes/gameinfo.tmLanguage.json"
+            },
+            {
+                "language": "gldefs",
+                "scopeName": "source.gldefs",
+                "path": "./syntaxes/gldefs.tmLanguage.json"
+            },
+            {
+                "language": "iwadinfo",
+                "scopeName": "source.iwadinfo",
+                "path": "./syntaxes/iwadinfo.tmLanguage.json"
+            },
+            {
+                "language": "keyconf",
+                "scopeName": "source.keyconf",
+                "path": "./syntaxes/keyconf.tmLanguage.json"
+            },
+            {
+                "language": "language",
+                "scopeName": "source.language",
+                "path": "./syntaxes/language.tmLanguage.json"
+            },
+            {
+                "language": "modeldef",
+                "scopeName": "source.modeldef",
+                "path": "./syntaxes/modeldef.tmLanguage.json"
+            },
+            {
+                "language": "musinfo",
+                "scopeName": "source.musinfo",
+                "path": "./syntaxes/musinfo.tmLanguage.json"
+            },
+            {
+                "language": "palvers",
+                "scopeName": "source.palvers",
+                "path": "./syntaxes/palvers.tmLanguage.json"
+            },
+            {
+                "language": "reverbs",
+                "scopeName": "source.reverbs",
+                "path": "./syntaxes/reverbs.tmLanguage.json"
+            },
+            {
+                "language": "s_skin",
+                "scopeName": "source.s_skin",
+                "path": "./syntaxes/s_skin.tmLanguage.json"
+            },
+            {
+                "language": "xhairs",
+                "scopeName": "source.xhairs",
+                "path": "./syntaxes/xhairs.tmLanguage.json"
+            },
+            {
+                "language": "x11r6rgb",
+                "scopeName": "source.x11r6rgb",
+                "path": "./syntaxes/x11r6rgb.tmLanguage.json"
+            },
+            {
+                "language": "trnslate",
+                "scopeName": "source.trnslate",
+                "path": "./syntaxes/trnslate.tmLanguage.json"
+            },
+            {
+                "language": "voxeldef",
+                "scopeName": "source.voxeldef",
+                "path": "./syntaxes/voxeldef.tmLanguage.json"
+            },
+            {
+                "language": "textcolo",
+                "scopeName": "source.textcolo",
+                "path": "./syntaxes/textcolo.tmLanguage.json"
+            },
+            {
+                "language": "teaminfo",
+                "scopeName": "source.teaminfo",
+                "path": "./syntaxes/teaminfo.tmLanguage.json"
+            },
+            {
+                "language": "terrain",
+                "scopeName": "source.terrain",
+                "path": "./syntaxes/terrain.tmLanguage.json"
+            },
+            {
+                "language": "secrets",
+                "scopeName": "source.secrets",
+                "path": "./syntaxes/secrets.tmLanguage.json"
+            },
+            {
+                "language": "sbarinfo",
+                "scopeName": "source.sbarinfo",
+                "path": "./syntaxes/sbarinfo.tmLanguage.json"
+            },
+            {
+                "language": "sndinfo",
+                "scopeName": "source.sndinfo",
+                "path": "./syntaxes/sndinfo.tmLanguage.json"
+            },
+            {
+                "language": "textures",
+                "scopeName": "source.textures",
+                "path": "./syntaxes/textures.tmLanguage.json"
+            },
+            {
+                "language": "sndseq",
+                "scopeName": "source.sndseq",
+                "path": "./syntaxes/sndseq.tmLanguage.json"
             }
         ]
     },
@@ -96,43 +775,5 @@
         "acs",
         "zdoom",
         "gzdoom"
-    ],
-    "activationEvents": [
-        "onLanguage:zscript",
-        "onLanguage:acs",
-        "onLanguage:decorate"
-    ],
-    "main": "./out/extension.js",
-    "browser": "./out/web/extension.js",
-    "scripts": {
-        "vscode:prepublish": "npm run esbuild-base -- --minify",
-        "watch": "tsc -watch -p ./",
-        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
-        "lint": "eslint src --ext ts",
-        "esbuild": "npm run esbuild-base -- --sourcemap",
-        "compile-web": "webpack",
-        "watch-web": "webpack --watch",
-        "package-web": "webpack --mode production --devtool hidden-source-map",
-        "open-in-browser": "vscode-test-web --extensionDevelopmentPath=. ."
-    },
-    "devDependencies": {
-        "@types/glob": "^7.1.3",
-        "@types/mocha": "^8.0.0",
-        "@types/node": "^12.11.7",
-        "@types/vscode": "^1.52.0",
-        "@typescript-eslint/eslint-plugin": "^4.1.1",
-        "@typescript-eslint/parser": "^4.1.1",
-        "@vscode/test-web": "^0.0.15",
-        "esbuild": "^0.13.12",
-        "eslint": "^7.9.0",
-        "glob": "^7.1.6",
-        "mocha": "^8.1.3",
-        "typescript": "^4.0.2",
-        "vscode-test": "^1.4.0",
-        "webpack-cli": "^4.9.1"
-    },
-    "dependencies": {
-        "ts-loader": "^9.2.6",
-        "webpack": "^5.62.1"
-    }
+    ]
 }

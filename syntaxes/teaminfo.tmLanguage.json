@@ -1,0 +1,20 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "TEAMINFO",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "storage.type.teaminfo",
+            "match": "(?i:\\bteam\\b)"
+        },
+        {
+            "name": "keyword.teaminfo",
+            "match": "(?i:\\bClearTeams\\b)"
+        },
+        {
+            "name": "variable.parameter.teaminfo",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.teaminfo"
+}

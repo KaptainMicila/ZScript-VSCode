@@ -1,0 +1,56 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "MENUDEF",
+    "patterns": [
+        { "include": "#menudefOutherContextPatterns" },
+        { "include": "source.mapinfolike" }
+    ],
+    "repository": {
+        "menudefOutherContextPatterns": {
+            "patterns": [
+                { "include": "#headers" },
+                { "include": "#menudefInnerContextes" }
+            ]
+        },
+        "headers": {
+            "patterns": [
+                {
+                    "name": "storage.type.menudef",
+                    "match": "(?<=^\\s*?)\\b\\w+?\\b(?=(?:\\s*?|.*?)$)"
+                },
+                {
+                    "name": "entity.name.class.menudef",
+                    "match": "(?<=^\\s*?\\w+?\\s+?)\\w+?\\b"
+                }
+            ]
+        },
+        "menudefInnerContextes": {
+            "patterns": [
+                {
+                    "begin": "\\{",
+                    "end": "\\}",
+                    "beginCaptures": {
+                        "0": { "name": "punctuation.bracket.open" }
+                    },
+                    "endCaptures": {
+                        "0": { "name": "punctuation.bracket.close" }
+                    },
+                    "name": "expression.group",
+                    "patterns": [{ "include": "#menudefInnerContextPatterns" }]
+                }
+            ]
+        },
+        "menudefInnerContextPatterns": {
+            "patterns": [
+                {
+                    "name": "keyword.condition.menudef",
+                    "match": "(?i:if)\\w+?(?=\\s*?\\()"
+                },
+                { "include": "#menudefInnerContextes" },
+                { "include": "source.mapinfolike#basicPatterns" },
+                { "include": "source.mapinfolike#innerContextPatterns" }
+            ]
+        }
+    },
+    "scopeName": "source.menudef"
+}

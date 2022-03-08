@@ -1,0 +1,24 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "GAMEINFO",
+    "patterns": [
+        { "include": "source.mapinfolike#basicPatterns" },
+        {
+            "name": "punctuation.separator.gameinfo",
+            "match": ","
+        },
+        {
+            "name": "keyword.operator.gameinfo",
+            "match": "="
+        },
+        {
+            "name": "variable.gameinfo",
+            "match": "\\b\\w+?\\b(?=\\s*?=)"
+        },
+        {
+            "name": "keyword.gameinfo",
+            "match": "\\b\\w+?\\b"
+        }
+    ],
+    "scopeName": "source.gameinfo"
+}
