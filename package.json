@@ -389,6 +389,21 @@
                     "s_skin"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "xhairs",
+                "aliases": [
+                    "XHAIRS",
+                    "xhairs"
+                ],
+                "extensions": [
+                    ".xhairs"
+                ],
+                "filenames": [
+                    "XHAIRS",
+                    "xhairs"
+                ],
+                "configuration": "./configurations/basicLanguageConfiguration.json"
             }
         ],
         "grammars": [
@@ -516,6 +531,11 @@
                 "language": "s_skin",
                 "scopeName": "source.s_skin",
                 "path": "./syntaxes/s_skin.tmLanguage.json"
+            },
+            {
+                "language": "xhairs",
+                "scopeName": "source.xhairs",
+                "path": "./syntaxes/xhairs.tmLanguage.json"
             }
         ]
     },
