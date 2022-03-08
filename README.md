@@ -16,18 +16,7 @@ Made with the help from: [marrub--'s ZScript documentation](https://github.com/m
 
 ## FEATURES
 
--   Version 0.9.0:
-    -   Syntax Highlighting
--   Version 1.3.0
-    -   ACS Syntax Highlighting
--   Version 1.6.0
-    -   ZScript Programmatic Language Features
--   Version 1.7.0
-    -   DECORATE Syntax Highlighting
--   Version 1.8.2
-    -   Extension now runs on web versions of vscode
-
-_More to come, soon™._
+-   Syntax highlighting for many languages needed for GZDoom modding
 
 ---
 
