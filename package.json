@@ -524,6 +524,21 @@
                     "sbarinfo"
                 ],
                 "configuration": "./configurations/MAPINFOLikeConfiguration.json"
+            },
+            {
+                "id": "sndinfo",
+                "aliases": [
+                    "SNDINFO",
+                    "sndinfo"
+                ],
+                "extensions": [
+                    ".sndinfo"
+                ],
+                "filenames": [
+                    "SNDINFO",
+                    "sndinfo"
+                ],
+                "configuration": "./configurations/MAPINFOLikeConfiguration.json"
             }
         ],
         "grammars": [
@@ -696,6 +711,11 @@
                 "language": "sbarinfo",
                 "scopeName": "source.sbarinfo",
                 "path": "./syntaxes/sbarinfo.tmLanguage.json"
+            },
+            {
+                "language": "sndinfo",
+                "scopeName": "source.sndinfo",
+                "path": "./syntaxes/sndinfo.tmLanguage.json"
             }
         ]
     },
