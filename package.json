@@ -4,26 +4,44 @@
     "description": "GZDoom ZScript, ACS, DECORATE and other related files syntax highlighting and autocompletion.",
     "publisher": "PROPHESSOR",
     "contributors": [
-        "kaptainmicila",
+        {
+            "name": "Micila \"Kaptain\" Micillotto",
+            "email": "micillotto+support@gmail.com",
+            "url": "https://kaptainmicila.itch.io/"
+        },
         {
             "email": "alek.sandar0@yandex.com",
             "name": "Aleksandar Urošević",
             "url": "https://mekadrage.com"
         }
     ],
+    "main": "./dist/extension.js",
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "tslint -p ./",
+        "watch": "tsc -watch -p ./"
+    },
     "version": "0.0.1",
     "icon": "icons/GZDoom.png",
     "repository": {
         "type": "git",
-        "url": "https://github.com/KaptainMicila/ZScript-VSCode.git"
+        "url": "https://github.com/PROPHESSOR/GZDoom-Extension-VSCode.git"
     },
     "engines": {
         "vscode": "^1.52.0"
     },
     "categories": [
-        "Programming Languages"
+        "Programming Languages",
+        "Snippets"
     ],
     "contributes": {
+        "snippets": [
+            {
+                "language": "zscript",
+                "path": "snippets/zscript.json"
+            }
+        ],
         "languages": [
             {
                 "id": "zscript",
@@ -768,19 +786,25 @@
         ]
     },
     "author": {
-        "name": "Micila \"Kaptain\" Micillotto",
-        "email": "micillotto+support@gmail.com",
-        "url": "https://kaptainmicila.itch.io/"
+        "name": "PROPHESSOR",
+        "email": "xenteze@gmail.com",
+        "url": "https://discord.gg/sCwwCDQ"
     },
     "bugs": {
-        "url": "https://github.com/KaptainMicila/ZScript-VSCode/issues",
-        "email": "micillotto+support@gmail.com"
+        "url": "https://github.com/PROPHESSOR/GZDoom-Extension-VSCode/issues"
     },
-    "homepage": "https://github.com/KaptainMicila/ZScript-VSCode",
+    "homepage": "https://github.com/PROPHESSOR/GZDoom-Extension-VSCode",
     "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^10.12.18",
+        "tslint": "^5.16.0",
+        "typescript": "^3.5.1",
+        "@types/vscode": "^1.32.0"
+    },
     "keywords": [
         "zscript",
         "acs",
+        "decorate",
         "zdoom",
         "gzdoom"
     ]

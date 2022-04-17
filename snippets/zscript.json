@@ -1,0 +1,37 @@
+{
+    "CreateActor":
+    {
+        "body": "class ${1:...}: Actor\n{\n\tdefault\n\t{\n\t}\n\tstates\n\t{\n\tspawn:\n\t\tTNT1 A -1 NODELAY;\n\t\tstop;\n\t}\n}",
+        "description": "Define a class.",
+        "prefix": "CreateActor",
+        "scope": "source.zs"
+    },
+    "DefineColor":
+    {
+        "body": "Color(${1:a}, ${2:r}, ${3:g}, ${4:b})",
+        "description": "Define a color.",
+        "prefix": "DefineColor",
+        "scope": "source.zs"
+    },
+    "atan":
+    {
+        "body": "VectorAngle(1.0, ${1:x})",
+        "description": "Arctangent.",
+        "prefix": "atan",
+        "scope": "source.zs"
+    },
+    "arctg":
+    {
+        "body": "VectorAngle(1.0, ${1:x})",
+        "description": "Arctangent.",
+        "prefix": "arctg",
+        "scope": "source.zs"
+    },
+    "tg":
+    {
+        "body": "Tan(${1:x})",
+        "description": "Arctangent.",
+        "prefix": "tg",
+        "scope": "source.zs"
+    }
+}
