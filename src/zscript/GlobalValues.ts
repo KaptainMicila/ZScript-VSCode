@@ -6,13 +6,13 @@
 import { CompletionItemKind } from "vscode";
 import { ACTOR_FLAGS } from "../common/ActorFlags";
 import { ACTOR_METHODS } from "../common/ActorMethods";
-import { explodeString, IGlobalValue, mapperFactory } from "../utils";
+import { explodeString, ICompletionTree, mapperFactory } from "../utils";
 import { actorproperties } from "./actorproperties";
 import { KEYWORDS } from "./Keywords";
 
 const type = CompletionItemKind;
 
-const globalValues: IGlobalValue[] = [
+const globalValues: ICompletionTree[] = [
   // Built-in classes
   ...explodeString(type.Class, "PlayerPawn|Actor|Thinker|Object|super|target|CustomInventory|Inventory|Weapon|master|target|tracer"),
 

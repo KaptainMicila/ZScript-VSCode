@@ -1,6 +1,6 @@
-import { IGlobalValueDef } from "../utils";
+import { ICompletionTreeDef } from "../utils";
 
-export const ACTOR_METHODS: (string | IGlobalValueDef)[] = [
+export const ACTOR_METHODS: (string | ICompletionTreeDef)[] = [
   "A_CentaurDefend",
   "A_CheckForResurrection",
   "A_ClearLastHeard",

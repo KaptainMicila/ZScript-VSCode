@@ -6,9 +6,9 @@
  */
 
 import { CompletionItemKind } from "vscode";
-import { explodeString, IGlobalValue } from "../utils";
+import { explodeString, ICompletionTree } from "../utils";
 
-export const KEYWORDS: IGlobalValue[] = [
+export const KEYWORDS: ICompletionTree[] = [
   ...explodeString(CompletionItemKind.Keyword, "switch|case|break|if|else|while|for|return|class|struct|states|default|let|is|replaces"),
   { name: "loop", docs: "Jumps to the most recently defined state label. This is used for a looping animation. Do not put a loop on a state with a duration of -1, this is unnecessary and can cause problems.", type: CompletionItemKind.Keyword },
   { name: "stop", docs: "Stops animating this actor. Normally this is used at the end of the death sequences. If the last state has a duration > -1 the actor will be removed. Note that if a state contains only the stop instruction, the actor will behave as if it doesn't have that state. This can be useful, for example, to remove a state that an actor has inherited from its parent.", type: CompletionItemKind.Keyword },
