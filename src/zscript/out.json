@@ -1,6 +1,4 @@
-import { ICompletionTreeDef } from "../utils";
-
-export const actorfunctions: ICompletionTreeDef[] = [
+[
   {
     "name": "VelFromAngle",
     "description": "void VelFromAngle(double speed = 0, double angle = 0)"
@@ -677,4 +675,4 @@ export const actorfunctions: ICompletionTreeDef[] = [
     "name": "GiveAmmo",
     "description": "bool GiveAmmo(Class<Ammo> type, int amount)"
   }
-];
+]

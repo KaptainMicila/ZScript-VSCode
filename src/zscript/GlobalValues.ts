@@ -7,6 +7,7 @@ import { CompletionItemKind } from "vscode";
 import { ACTOR_FLAGS } from "../common/ActorFlags";
 import { ACTOR_METHODS } from "../common/ActorMethods";
 import { explodeString, ICompletionTree, mapperFactory } from "../utils";
+import { actorfunctions } from "./actorfunctions";
 import { actorproperties } from "./actorproperties";
 import { KEYWORDS } from "./Keywords";
 
@@ -19,6 +20,10 @@ const globalValues: ICompletionTree[] = [
   // FIXME:
   // Actor flags
   ...ACTOR_FLAGS.map(mapperFactory(type.Value)),
+
+  // FIXME:
+  // Actor functions
+  ...actorfunctions.map(mapperFactory(type.Function)),
 
   // Actor pointers
   { name: "AAPTR_DEFAULT", description: "The calling actor itself.", type: type.Property },
