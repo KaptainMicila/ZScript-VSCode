@@ -6,67 +6,65 @@
  */
 
 import * as vscode from 'vscode';
-import { CompletionItem, CompletionList, CompletionItemKind } from 'vscode';
-import { ACTOR_FLAGS } from '../common/ActorFlags';
-import { ACTOR_METHODS } from '../common/ActorMethods';
-import { actorfunctions, actorfunctions_details } from './actorfunctions';
-import { actorproperties } from './actorproperties';
+import { CompletionItem, CompletionList } from 'vscode';
+import { IGlobalValue } from '../utils';
 import GlobalValues from './GlobalValues';
 
+function getItemByPath(pathTokens: string[], values: IGlobalValue[]) {
+  console.log('getItemByPath', pathTokens, GlobalValues);
+  let token: string;
+  let currentItem: IGlobalValue | undefined = { name: '', children: values, type: vscode.CompletionItemKind.Constant };
+  
+  while (token = pathTokens.shift() as string) {
+    console.log('iteration', token, currentItem);
+    if (!currentItem?.children?.length) return console.log('Not found');
+
+    currentItem = currentItem.children.find(item => item.name.toLowerCase() === token.toLowerCase());
+  }
+
+  console.log('Found', currentItem);
+
+  return currentItem;
+}
+
 export function getProviders() {
-  // First-level completion
-  const firstLevel = vscode.languages.registerCompletionItemProvider('zscript', {
-    provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+  const completion = vscode.languages.registerCompletionItemProvider('zscript', {
+    provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
       const completionlist: CompletionList = new CompletionList();
 
-      for (const value of GlobalValues) {
-        const item: CompletionItem = new CompletionItem(value.name, value.type);
+      const itemsWithSecondLevel = GlobalValues.filter(value => value.children && value.children.length);
 
-        if (value.description) item.detail = value.description;
-        if (value.docs) item.documentation = value.docs;
+      // get all text until the `position` and check if it reads `console.`
+      // and if so then complete if `log`, `warn`, and `error`
+      const linePrefix = document.lineAt(position).text.substr(0, position.character);
+      const currentConstruct = linePrefix.split(/\s+/).pop();
+
+      if (!currentConstruct) return;
+
+      const tokens = currentConstruct.replace(/[{}\[\](),/\\]/g, '').split('.');
+
+      tokens.pop(); // Remove last empty ("something.") token
+
+      const currentItem = getItemByPath(tokens, GlobalValues);
+
+      if (!currentItem || !currentItem.children?.length) return;
+
+      for (const child of currentItem.children) {
+        const item = new CompletionItem(child.name, child.type);
+
+        if (child.description) item.detail = child.description;
+        if (child.docs) item.documentation = child.docs;
 
         completionlist.items.push(item);
       }
 
       return completionlist;
     }
-  });
-
-  // Second-level completion
-  const secondLevel = vscode.languages.registerCompletionItemProvider('zscript', {
-      provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-        const completionlist: CompletionList = new CompletionList();
-
-        const itemsWithSecondLevel = GlobalValues.filter(value => value.children && value.children.length);
-
-        for (const itemWithSecondLevel of itemsWithSecondLevel) {
-          // get all text until the `position` and check if it reads `console.`
-          // and if so then complete if `log`, `warn`, and `error`
-          const linePrefix = document.lineAt(position).text.substr(0, position.character);
-
-          if (!linePrefix.toLowerCase().endsWith(itemWithSecondLevel.name.toLowerCase() + '.')) {
-            continue;
-          }
-
-          if (!itemWithSecondLevel.children) throw new Error('This will never been shown');
-
-          for (const secondLevelItem of itemWithSecondLevel.children) {
-            const item = new CompletionItem(secondLevelItem.name, secondLevelItem.type);
-
-            if (secondLevelItem.description) item.detail = secondLevelItem.description;
-            if (secondLevelItem.docs) item.documentation = secondLevelItem.docs;
-
-            completionlist.items.push(item);
-          }
-        }
-        
-        return completionlist;
-      }
-    },
+  },
     '.' // triggered whenever a '.' is being typed
   );
 
-  return [firstLevel, secondLevel];
+  return [completion];
 }
 
 export default getProviders();

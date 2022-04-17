@@ -194,6 +194,29 @@ const globalValues: IGlobalValue[] = [
     children: [
       ...explodeString(type.Variable, 'a|r|g|b')
     ]
+  },
+
+  {
+    name: "Test",
+    type: type.Class,
+    children: [
+      {
+        name: "Level2",
+        type: type.Class,
+        children: [
+          {
+            name: "Level3",
+            type: type.Class,
+            children: [
+              {
+                name: "Level4",
+                type: type.Method,
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ];
 
