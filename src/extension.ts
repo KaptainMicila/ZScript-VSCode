@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import { actorflags } from "./actorflags";
-import { actionfunctions } from "./actionfunctions";
-import { actorfunctions, actorfunctions_details } from "./actorfunctions";
-import { actorproperties } from "./actorproperties";
+import { actorflags } from "./zscript/actorflags";
+import { actionfunctions } from "./zscript/actionfunctions";
+import { actorfunctions, actorfunctions_details } from "./zscript/actorfunctions";
+import { actorproperties } from "./zscript/actorproperties";
 
 export function activate(context: vscode.ExtensionContext) {
 	let provider = vscode.languages.registerCompletionItemProvider('zscript', {
