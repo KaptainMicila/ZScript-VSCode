@@ -1,10 +1,18 @@
 {
-    "name": "gzdoom-zscript",
-    "displayName": "GZDoom ZScript",
-    "description": "GZDoom's multiple scripting languages support (with a focus on ZScript) for VSCode (and compatible editors)",
-    "publisher": "kaptainmicila",
+    "name": "gzdoom-extension",
+    "displayName": "GZDoom Extension",
+    "description": "GZDoom ZScript, ACS, DECORATE and other related files syntax highlighting and autocompletion.",
+    "publisher": "PROPHESSOR",
+    "contributors": [
+        "kaptainmicila",
+        {
+            "email": "alek.sandar0@yandex.com",
+            "name": "Aleksandar Urošević",
+            "url": "https://mekadrage.com"
+        }
+    ],
+    "version": "0.0.1",
     "icon": "icons/GZDoom.png",
-    "version": "1.9.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/KaptainMicila/ZScript-VSCode.git"
