@@ -1,6 +1,6 @@
 <p align="center"><img width="100" height="100" src="./icons/GZDoom.png"></p>
 <h1 align="center">GZDoom-Extension-VSCode</h1>
-<center><small>by PROPHESSOR</small></center>
+<center><small align="center">by PROPHESSOR</small></center>
 
 <p align="center">
 <a href="https://github.com/PROPHESSOR/GZDoom-Extension-VSCode"><img src="https://img.shields.io/github/stars/PROPHESSOR/GZDoom-Extension-VSCode?style=for-the-badge"></a>
@@ -24,15 +24,15 @@ Based on: [KaptainMicila/ZScript-VSCode](https://github.com/KaptainMicila/ZScrip
 
 ---
 
-## HOW DO I USE IT?
+## How do i use it?
 
 ### Prerequisites
 
--   [Visual Studio Code](https://code.visualstudio.com/Download)
+- [Visual Studio Code](https://code.visualstudio.com/Download)
 
 ### Installation
 
-Get it from [Visual Studio's Marketplace](https://marketplace.visualstudio.com/items?itemName=kaptainmicila.gzdoom-zscript)
+Get it from [Visual Studio's Marketplace](https://marketplace.visualstudio.com/items?itemName=PROPHESSOR.gzdoom-extension)
 
 ## If you have issues/feature requests
 
