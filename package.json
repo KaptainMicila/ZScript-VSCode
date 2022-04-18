@@ -43,6 +43,10 @@
             {
                 "language": "zscript",
                 "path": "snippets/zscript.json"
+            },
+            {
+                "language": "acs",
+                "path": "snippets/acs.json"
             }
         ],
         "languages": [

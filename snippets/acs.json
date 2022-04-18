@@ -1,0 +1,20 @@
+{
+    "CreateScript": {
+        "body": "Script $1 ($2) {\n\t$3\n}\n",
+        "description": "Create a script.",
+        "prefix": "script",
+        "scope": "source.acs"
+    },
+    "CreateFunction": {
+        "body": "function $1 $2 ($3) {\n\t$4\n}\n",
+        "description": "Create a function.",
+        "prefix": "func",
+        "scope": "source.acs"
+    },
+    "InitializeAcs": {
+        "body": "#include \"zcommon.acs\"\n\n",
+        "description": "Initialize an ACS file.",
+        "prefix": "acs",
+        "scope": "source.acs"
+    }
+}
