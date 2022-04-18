@@ -8,4 +8,4 @@
 import { generateProviderByCompletionTree } from '../utils';
 import GlobalValues from './GlobalValues';
 
-export default generateProviderByCompletionTree('zscript', GlobalValues, false);
+export default generateProviderByCompletionTree('acs', GlobalValues, false);

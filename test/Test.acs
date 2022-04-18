@@ -11,3 +11,26 @@ Script -1 RETURN {
 Script "Test" (void) {
   ACS_NamedExecuteAlways("Test", 0);
 }
+
+/*
+ This crutch fixes the GZDoom Encoding bug in russian translation
+ https://trello.com/c/Yjn7YM8b
+*/
+function str fixEncodingBug(str text) {
+    str output;
+    int TextLen = strlen(text);
+    for (int i = 0; i < TextLen; i++) {
+        if (text[i] == 0x20) /* space */
+            output = StrParam(s:output, s:" ");
+        else
+            output = StrParam(s:output, c:text[i]);
+    }
+
+    return output;
+}
+
+const bool DEBUG_STRINGWRAP = false;
+
+function str copyString(str text) {
+    return StrLeft(text, StrLen(text));
+}

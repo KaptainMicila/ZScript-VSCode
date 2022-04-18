@@ -23,7 +23,11 @@ export const mapperFactory = (type: CompletionItemKind) => (str: string | ICompl
 
 export const explodeString = (type: CompletionItemKind, constants: string) => constants.split('|').map(x => ({ name: x, type }));
 
-export function getItemByPath(pathTokens: string[], values: ICompletionTree[]) {
+export function toLowerIfNeeded(str: string, caseSensitive = false) {
+  return caseSensitive ? str : str.toLowerCase();
+}
+
+export function getItemByPath(pathTokens: string[], values: ICompletionTree[], caseSensitive = false) {
   console.log('getItemByPath', pathTokens, values);
   let token: string;
   let currentItem: ICompletionTree | undefined = { name: '', children: values, type: vscode.CompletionItemKind.Constant };
@@ -32,7 +36,7 @@ export function getItemByPath(pathTokens: string[], values: ICompletionTree[]) {
     console.log('iteration', token, currentItem);
     if (!currentItem?.children?.length) return console.log('Not found');
 
-    currentItem = currentItem.children.find(item => item.name.toLowerCase() === token.toLowerCase());
+    currentItem = currentItem.children.find(item => toLowerIfNeeded(item.name, caseSensitive) === toLowerIfNeeded(token, caseSensitive));
   }
 
   console.log('Found', currentItem);
@@ -40,37 +44,39 @@ export function getItemByPath(pathTokens: string[], values: ICompletionTree[]) {
   return currentItem;
 }
 
-export function generateProviderByCompletionTree(tree: ICompletionTree[]) {
-  return vscode.languages.registerCompletionItemProvider('zscript', {
-    provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-      const completionlist: CompletionList = new CompletionList();
+export function generateProviderByCompletionTree(selector: vscode.DocumentSelector, tree: ICompletionTree[], caseSensitive = false) {
+  return vscode.languages.registerCompletionItemProvider(
+    selector,
+    {
+      provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+        const completionlist: CompletionList = new CompletionList();
 
-      // get all text until the `position` and check if it reads `console.`
-      const linePrefix = document.lineAt(position).text.substr(0, position.character);
-      const currentConstruct = linePrefix.split(/\s+/).pop();
+        // get all text until the `position` and check if it reads `console.`
+        const linePrefix = document.lineAt(position).text.substr(0, position.character);
+        const currentConstruct = linePrefix.split(/\s+/).pop();
 
-      if (!currentConstruct) return;
+        if (!currentConstruct) return;
 
-      const tokens = currentConstruct.replace(/[{}\[\](),/\\]/g, '').split('.');
+        const tokens = currentConstruct.replace(/[{}\[\](),/\\]/g, '').split('.');
 
-      tokens.pop(); // Remove last empty ("something.") token
+        tokens.pop(); // Remove last empty ("something.") token
 
-      const currentItem = getItemByPath(tokens, tree);
+        const currentItem = getItemByPath(tokens, tree, caseSensitive);
 
-      if (!currentItem || !currentItem.children?.length) return;
+        if (!currentItem || !currentItem.children?.length) return;
 
-      for (const child of currentItem.children) {
-        const item = new CompletionItem(child.name, child.type);
+        for (const child of currentItem.children) {
+          const item = new CompletionItem(child.name, child.type);
 
-        if (child.description) item.detail = child.description;
-        if (child.docs) item.documentation = child.docs;
+          if (child.description) item.detail = child.description;
+          if (child.docs) item.documentation = child.docs;
 
-        completionlist.items.push(item);
+          completionlist.items.push(item);
+        }
+
+        return completionlist;
       }
-
-      return completionlist;
-    }
-  },
-    '.' // triggered whenever a '.' is being typed
-  )
+    },
+    '.', // also triggered whenever a '.' is being typed
+  );
 }
