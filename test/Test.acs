@@ -6,6 +6,8 @@ Script 1 OPEN {
 
 Script -1 RETURN {
   Terminate;
+  suspend;
+  Restart;
 }
 
 Script "Test" (void) {
