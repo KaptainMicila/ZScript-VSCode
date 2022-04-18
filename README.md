@@ -34,6 +34,10 @@ Based on: [KaptainMicila/ZScript-VSCode](https://github.com/KaptainMicila/ZScrip
 
 Get it from [Visual Studio's Marketplace](https://marketplace.visualstudio.com/items?itemName=kaptainmicila.gzdoom-zscript)
 
+## If you have issues/feature requests
+
+- [Please open an Issue](https://github.com/PROPHESSOR/GZDoom-Extension-VSCode/issues)
+
 ## Screenshots
 
 archvile.zs (from gzdoom.pk3)
