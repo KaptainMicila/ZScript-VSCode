@@ -86,7 +86,7 @@
             "patterns": [
                 {
                     "name": "keyword.scripttypes.acs",
-                    "match": "(?i)\\b(open|enter|respawn|death|lightning|unloading|disconnect|kill|return)(?=\\b[\\s*\\n]*\\{)"
+                    "match": "(?i)\\b(open|enter|respawn|death|lightning|unloading|disconnect|kill|return)(\\s*net)?(?=\\b[\\s*\\n]*\\{)"
                 },
                 {
                     "name": "keyword.processtypes.acs",
