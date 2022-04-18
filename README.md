@@ -1,65 +1,43 @@
 <p align="center"><img width="100" height="100" src="./icons/GZDoom.png"></p>
-<h1 align="center">ZScript-VSCode</h1>
+<h1 align="center">GZDoom-Extension-VSCode</h1>
+<center><small>by PROPHESSOR</small></center>
 
 <p align="center">
-<img src="https://img.shields.io/github/stars/KaptainMicila/ZScript-VSCode?style=for-the-badge">
-<img src="https://img.shields.io/badge/%20%F0%9F%8D%95%20DONATE%20PIZZA-4%20%E2%82%AC-important?style=for-the-badge&link=https://www.buymeacoffee.com/KaptainMicila">
+<a href="https://github.com/PROPHESSOR/GZDoom-Extension-VSCode"><img src="https://img.shields.io/github/stars/PROPHESSOR/GZDoom-Extension-VSCode?style=for-the-badge"></a>
 </p>
 
 ---
 
-## [GZDoom's](https://zdoom.org/index) [ZScript](https://zdoom.org/wiki/ZScript) language support for [VSCode](https://code.visualstudio.com/) (and compatible editors).
+## [ZScript](https://zdoom.org/wiki/ZScript), [ACS](https://zdoom.org/wiki/ACS), [DECORATE](https://zdoom.org/wiki/DECORATE) and other [GZDoom](https://zdoom.org/index) languages support for [VSCode](https://code.visualstudio.com/) (and compatible editors)
 
-Made with the help from: [marrub--'s ZScript documentation](https://github.com/marrub--/zdoom-doc).
+Based on: [KaptainMicila/ZScript-VSCode](https://github.com/KaptainMicila/ZScript-VSCode) and [drage0/ZScript-vscode](https://github.com/drage0/ZScript-vscode).
 
 ---
 
 ## FEATURES
 
--   Syntax highlighting for many languages needed for GZDoom modding
+- Syntax highlighting for many languages needed for GZDoom modding
 
----
+- ZScript, ACS and others basic autocompletion (without language server)
 
-## IMAGES
-
-archvile.zs (from gzdoom.pk3)
-
-![archvile.zs](https://raw.githubusercontent.com/KaptainMicila/ZScript-VSCode/master/icons/CodeScreenshot.png)
+- Useful code snippets for GZDoom languages
 
 ---
 
 ## HOW DO I USE IT?
 
-### PREREQUISITES
+### Prerequisites
 
 -   [Visual Studio Code](https://code.visualstudio.com/Download)
 
-### FOR VERSIONS >= 0.9.0
-
--   Get the .vsix from the ["Releases" page](https://github.com/KaptainMicila/ZScript-VSCode/releases)
--   Open VSCode
--   Press "Ctrl + Shift + p"
--   Type "Extension: install from VSIX"
-
-### FOR VERSIONS >=1.0.0
-
-Just do the same thing for earlier versions
-
-OR:
+### Installation
 
 Get it from [Visual Studio's Marketplace](https://marketplace.visualstudio.com/items?itemName=kaptainmicila.gzdoom-zscript)
 
-OR:
+## Screenshots
 
-Get it from [Open VSX Registry](https://open-vsx.org/extension/kaptainmicila/gzdoom-zscript)
+archvile.zs (from gzdoom.pk3)
 
----
-
-## SPECIAL THANKS
-
--   [Nash Muhandes](https://github.com/nashmuhandes) for giving me the will to make this syntax highlighter;
--   [marrub--](https://github.com/marrub--) for the ZScript documentation;
--   [Microsoft](www.microsoft.com) for making VSCode;
--   [The ZDoom comunity](https://zdoom.org/index) for creating the source port;
+![archvile.zs](https://raw.githubusercontent.com/KaptainMicila/ZScript-VSCode/master/icons/CodeScreenshot.png)
 
 ---
