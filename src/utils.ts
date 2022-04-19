@@ -46,7 +46,7 @@ export function getItemByPath(pathTokens: string[], values: ICompletionTree[], c
 }
 
 export function generateProviderByCompletionTree(selector: vscode.DocumentSelector, tree: ICompletionTree[], caseSensitive = false) {
-  return vscode.languages.registerCompletionItemProvider(
+  return [vscode.languages.registerCompletionItemProvider(
     selector,
     {
       provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
@@ -80,5 +80,18 @@ export function generateProviderByCompletionTree(selector: vscode.DocumentSelect
       }
     },
     '.', // also triggered whenever a '.' is being typed
-  );
+  ),
+  vscode.languages.registerHoverProvider(selector, {
+    provideHover(document, position) {
+      const wordRange = document.getWordRangeAtPosition(position);
+      const word = document.getText(wordRange);
+
+      const item = tree.find(x => x.name === word);
+
+      if (!item) return;
+
+      return new vscode.Hover('`' + (item.description || item.docs || item.name) + '`');
+    }
+  })
+  ];
 }
