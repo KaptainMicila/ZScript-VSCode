@@ -12,6 +12,7 @@ export interface ICompletionTreeDef {
   name: string;
   description?: string;
   docs?: string;
+  insertText?: string;
 }
 
 export interface ICompletionTree extends ICompletionTreeDef {
@@ -70,6 +71,7 @@ export function generateProviderByCompletionTree(selector: vscode.DocumentSelect
 
           if (child.description) item.detail = child.description;
           if (child.docs) item.documentation = child.docs;
+          if (child.insertText) item.insertText = new vscode.SnippetString(child.insertText);
 
           completionlist.items.push(item);
         }

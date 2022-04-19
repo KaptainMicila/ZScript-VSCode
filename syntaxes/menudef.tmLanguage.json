@@ -48,7 +48,11 @@
                 },
                 { "include": "#menudefInnerContextes" },
                 { "include": "source.mapinfolike#basicPatterns" },
-                { "include": "source.mapinfolike#innerContextPatterns" }
+                { "include": "source.mapinfolike#innerContextPatterns" },
+                {
+                    "name": "keyword.other.menudef",
+                    "match": "\\b(?i:)(Font|Linespacing|LabelOffset|PlayerDisplay|Position|Selector|StaticText|StaticTextSwitchable|ScrollTop|SafeCommand|ColorPicker|Class|ScreenResolution|StaticPatch|Control|Option|Slider|PatchItem|TextItem|Submenu|Command|NetgameMessage|StaticPatchCentered|StaticTextCentered|MouseWindow|CenterMenu|Title|PlayerNameBox|ValueText|MapControl|Else|TextField|NumberField|ScaleSlider|Size|AnimatedTransition|FlagOption|Before|After)\\b"
+                }
             ]
         }
     },

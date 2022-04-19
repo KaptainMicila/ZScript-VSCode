@@ -1,0 +1,29 @@
+// https://github.com/sirjuddington/SLADE/blob/master/dist/res/config/languages/zdoom.txt
+
+z_menudef {
+	name = "ZDoom Menu";
+	case_sensitive = false;
+	keyword_link = "http://zdoom.org/wiki/MENUDEF";
+	constant_link = "http://zdoom.org/wiki/MENUDEF";
+	function_link = "http://zdoom.org/wiki/MENUDEF";
+	blocks = "listmenu", "addlistmenu", "optionmenu", addoptionmenu, "optionvalue", "optionstring";
+	
+	keywords = { 
+		ListMenu, AddListMenu, OptionMenu, AddOptionMenu, OptionValue, OptionString, 
+		DefaultListMenu, DefaultOptionMenu, OptionMenuSettings, 
+		Font, Linespacing, LabelOffset, PlayerDisplay, Position, Selector, StaticText, 
+		StaticTextSwitchable, ScrollTop, SafeCommand, ColorPicker, Class, ScreenResolution, 
+		StaticPatch, Control, Option, Slider, PatchItem, TextItem, Submenu, Command,
+		NetgameMessage, StaticPatchCentered, StaticTextCentered, MouseWindow, CenterMenu,
+		Title, PlayerNameBox, ValueText, MapControl, Else, TextField, NumberField,
+		ScaleSlider, Size, AnimatedTransition, FlagOption, Before, After
+	}
+	
+	functions { ifgame = "game, [...]"; ifoption = "option, [...]"; }
+	
+	constants = { 
+		doom, heretic, hexen, strife, chex, readthis, swapmenu, windows, unix, mac,
+		openal, LoadMenu, SaveMenu, PlayerMenu, JoystickConfigMenu, 
+		GameplayMenu, CompatibilityMenu, VideoModeMenu,
+	}
+}
