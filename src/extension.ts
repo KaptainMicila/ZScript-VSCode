@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import ACS from './acs';
 import MENUDEF from './menudef';
+import WAD from './wad';
 import ZScript from './zscript';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -8,5 +9,6 @@ export function activate(context: vscode.ExtensionContext) {
 		...ZScript,
 		...ACS,
 		...MENUDEF,
+		...WAD,
 	);
 }

@@ -602,6 +602,16 @@
                     "sndseq"
                 ],
                 "configuration": "./configurations/basicLanguageConfiguration.json"
+            },
+            {
+                "id": "wad",
+                "aliases": [
+                    "WAD Archive",
+                    "WAD"
+                ],
+                "extensions": [
+                    ".wad"
+                ]
             }
         ],
         "grammars": [
@@ -790,7 +800,52 @@
                 "scopeName": "source.sndseq",
                 "path": "./syntaxes/sndseq.tmLanguage.json"
             }
-        ]
+        ],
+        "commands": [
+            {
+                "command": "wadfs.mountWadFile",
+                "title": "Mount WAD",
+                "category": "WAD"
+            },
+            {
+                "command": "wadfs.unmountWadFile",
+                "title": "Unmount WAD",
+                "category": "WAD"
+            },
+            {
+                "command": "wadfs.mountWadEditor",
+                "title": "Mount the current file as a workspace",
+                "category": "WAD"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "when": "resourceLangId == wad && !explorerResourceIsRoot",
+                    "command": "wadfs.mountWadFile",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == wad && explorerResourceIsRoot",
+                    "command": "wadfs.unmountWadFile",
+                    "group": "navigation"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "when": "false",
+                    "command": "wadfs.mountWadFile"
+                },
+                {
+                    "when": "false",
+                    "command": "wadfs.unmountWadFile"
+                },
+                {
+                    "when": "editorLangId == wad",
+                    "command": "wadfs.mountWadEditor"
+                }
+            ]
+        }
     },
     "author": {
         "name": "PROPHESSOR",
