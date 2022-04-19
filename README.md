@@ -40,6 +40,24 @@ Get it from [Visual Studio's Marketplace](https://marketplace.visualstudio.com/i
 
 ## Screenshots
 
+### Autocompletion & use snippets
+
+![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/7.png)
+
+![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/4.png)
+
+![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/5.png)
+
+![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/1.png)
+
+![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/2.png)
+
+![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/6.png)
+
+### Hover documentation
+
+![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/3.png)
+
 archvile.zs (from gzdoom.pk3)
 
 ![archvile.zs](https://raw.githubusercontent.com/KaptainMicila/ZScript-VSCode/master/icons/CodeScreenshot.png)
