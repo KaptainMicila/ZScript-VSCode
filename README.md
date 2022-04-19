@@ -54,11 +54,13 @@ Get it from [Visual Studio's Marketplace](https://marketplace.visualstudio.com/i
 
 ![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/6.png)
 
-### Hover documentation
+### On-hover documentation
 
 ![screenshot](https://raw.githubusercontent.com/PROPHESSOR/GZDoom-Extension-VSCode/master/icons/3.png)
 
-archvile.zs (from gzdoom.pk3)
+### Syntax highlighting
+
+> archvile.zs (from gzdoom.pk3)
 
 ![archvile.zs](https://raw.githubusercontent.com/KaptainMicila/ZScript-VSCode/master/icons/CodeScreenshot.png)
 
