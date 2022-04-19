@@ -13,7 +13,13 @@ const type = CompletionItemKind;
 function mapSladeDescription(name: string, description?: string) {
   if (!description) return;
 
-  const desc = description.replace(/\|/g, ', ').replace(/\[(.+?)\]/g, '$1?');
+  const desc = description
+    // Map hudmessage-like "type; CONSTANT"
+    .replace(/(.+?)\|;/g, '$1;')
+    // Map args
+    .replace(/\|(?!;)/g, ', ')
+    // Map optional args (add "?" to the end)
+    .replace(/\[(.+?)\]/g, '$1?');
 
   return `${name} (${desc})`;
 }
@@ -24,10 +30,10 @@ function mapSladeSnippet(name: string, description?: string) {
   let i = 1;
 
   const desc = description
-    // Map first args (before "|")
-    .replace(/(.+?)\|/g, (_, d) => `\${${i++}:${d}}, `)
+    // Map first args (before "|") [+some dirty hack for "|;" in hudmessage]
+    .replace(/(.+?)[|](;)?/g, (_, d, e) => `\${${i++}:${d}}${e ? '; ' : ', '}`)
     // Map last arg (after "|")
-    .replace(/\|(.+)/g, (_, d) => `, \${${i++}:${d}}`)
+    .replace(/, ([^,]+)$/g, (_, d) => `, \${${i++}:${d}}`)
     // Map optional args (add "?" to the end)
     .replace(/\[(.+?)\]/g, (_, d) => `\${${i++}:${d}?}`);
 
@@ -386,8 +392,8 @@ export default [
   ...genFunction("GetUserVariable", "int tid|str name", ""),
   ...genFunction("GiveActorInventory", "int tid|str inventory_item|int amount", ""),
   ...genFunction("GiveInventory", "str inventory_item|int amount", ""),
-  ...genFunction("HudMessage", ["text; int type|int id|int color|fixed x|fixed y|fixed holdTime|alpha", "text; HUDMSG_FADEOUT|int id|int color|fixed x|fixed y|fixed holdTime|fixed fadetime|alpha", "text; HUDMSG_TYPEON|int id|int color|fixed x|fixed y|fixed holdTime|fixed typetime|fixed fadetime|alpha", "text; HUDMSG_FADEINOUT|int id|int color|fixed x|fixed y|fixed holdTime|fixed inTime|fixed outTime|alpha"], ""),
-  ...genFunction("HudMessageBold", ["text; int type|int id|int color|fixed x|fixed y|fixed holdTime|alpha", "text; HUDMSG_FADEOUT|int id|int color|fixed x|fixed y|fixed holdTime|fixed fadetime|alpha", "text; HUDMSG_TYPEON|int id|int color|fixed x|fixed y|fixed holdTime|fixed typetime|fixed fadetime|alpha", "text; HUDMSG_FADEINOUT|int id|int color|fixed x|fixed y|fixed holdTime|fixed inTime|fixed outTime|alpha"], ""),
+  ...genFunction("HudMessage", ["type:expression...|; int type|int id|int color|fixed x|fixed y|fixed holdTime|fixed alpha", "type:expression...|; HUDMSG_FADEOUT|int id|int color|fixed x|fixed y|fixed holdTime|fixed fadetime|fixed alpha", "type:expression...|; HUDMSG_TYPEON|int id|int color|fixed x|fixed y|fixed holdTime|fixed typetime|fixed fadetime|fixed alpha", "type:expression...|; HUDMSG_FADEINOUT|int id|int color|fixed x|fixed y|fixed holdTime|fixed inTime|fixed outTime|fixed alpha"], ""),
+  ...genFunction("HudMessageBold", ["type:expression...|; int type|int id|int color|fixed x|fixed y|fixed holdTime|fixed alpha", "type:expression...|; HUDMSG_FADEOUT|int id|int color|fixed x|fixed y|fixed holdTime|fixed fadetime|fixed alpha", "type:expression...|; HUDMSG_TYPEON|int id|int color|fixed x|fixed y|fixed holdTime|fixed typetime|fixed fadetime|fixed alpha", "type:expression...|; HUDMSG_FADEINOUT|int id|int color|fixed x|fixed y|fixed holdTime|fixed inTime|fixed outTime|fixed alpha"], ""),
   ...genFunction("IsPointerEqual", "int ptr_select1|int ptr_select2|[int tid1]|[int tid2]", ""),
   ...genFunction("IsTIDUsed", "int tid", ""),
   ...genFunction("LineAttack", "int tid|fixed angle|fixed pitch|int damage|[str pufftype]|[str damagetype]|[fixed range]|[int flags]|[int pufftid]", ""),
