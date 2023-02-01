@@ -115,12 +115,12 @@
                     "match": "\\b0[xX][0-9a-fA-F]+?\\b"
                 },
                 {
-                    "name": "constant.zscript",
-                    "match": "\\b[A-Z_0-9]+?\\b"
-                },
-                {
                     "name": "storage.type.zscript",
                     "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)[a-z0-9]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))(?:\\w+?))|\\b[a-z0-9]\\w*?(?=\\s+?\\w+?\\()\\b"
+                },
+                {
+                    "name": "constant.zscript",
+                    "match": "\\b[A-Z_0-9]+?\\b"
                 },
                 {
                     "name": "constant.language.boolean.zscript",
@@ -200,14 +200,32 @@
                 {
                     "name": "entity.other.default.block.zscript",
                     "begin": "(?i)(?<=^\\s*?\\bdefault\\b)",
-                    "end": "(?<=^)\\s}",
+                    "end": "(?=})",
                     "patterns": [
                         {
                             "include": "#comments"
                         },
                         {
-                            "name": "entity.name.tag.attribute.zscript",
-                            "match": "(?<=\\+|-)\\w+?\\b|(?<=(?<=\\+|-)\\w+?\\.??)\\w+?\\b"
+                            "begin": "(?<=[\\+\\-])",
+                            "end": "(?=$|;)",
+                            "patterns": [
+                                {
+                                    "match": "\\b(\\w+?)\\b\\s*?(?=\\.)",
+                                    "captures": {
+                                        "1": {
+                                            "name": "entity.name.class.zscript"
+                                        }
+                                    }
+                                },
+                                {
+                                    "match": "\\b(\\w+?)\\b",
+                                    "captures": {
+                                        "1": {
+                                            "name": "entity.name.tag.attribute.zscript"
+                                        }
+                                    }
+                                }
+                            ]
                         },
                         {
                             "include": "#types"
@@ -222,19 +240,27 @@
                             "include": "#keywords"
                         },
                         {
-                            "name": "variable.property.zscript",
-                            "match": "(?<=\\w+?\\.)\\w+?\\b"
+                            "match": "\\b(\\w+?)\\b\\s*?(?=\\.)",
+                            "captures": {
+                                "1": {
+                                    "name": "entity.name.class.zscript"
+                                }
+                            }
                         },
                         {
-                            "name": "variable.name.zscript",
-                            "match": "\\b\\w+?\\b"
+                            "match": "\\b(\\w+?)\\b",
+                            "captures": {
+                                "1": {
+                                    "name": "variable.property.zscript"
+                                }
+                            }
                         }
                     ]
                 },
                 {
                     "name": "entity.other.states.block.zscript",
                     "begin": "(?i)(?<=^\\s*?\\bstates\\b)",
-                    "end": "(?<=^)}",
+                    "end": "(?=})",
                     "patterns": [
                         {
                             "include": "#comments"

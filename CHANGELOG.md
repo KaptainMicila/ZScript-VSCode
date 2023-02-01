@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.9.2] The "time goes on, but I'm still lazy" update
+- Fixed: `NULL` was seen as a constant instead of a keyword (like `null` does)
+- My thanks to [@DenisBelmondo](https://github.com/DenisBelmondo) for:
+  - Fixing a spacing-related issue in detecting `state` and `default` ([link](https://github.com/PROPHESSOR/GZDoom-Extension-VSCode/pull/6))
+  - Enhancing classes detection in `default` ([link](https://github.com/PROPHESSOR/GZDoom-Extension-VSCode/pull/7))
+
 ## [1.9.0] The "back to the roots" update
 - Deleted any trace of javascript, again.
 - Added syntax highlighting support for most [Special Lumps](https://zdoom.org/wiki/Special_lumps)
@@ -96,7 +102,7 @@ script "Whatever" ENTER //<-- this one
 - Added experimental ACS support
 - Fixed "folding" error caused by me deleting the zscript language configuration.
 
-## [1.2.0] The "I don't like TypeScript, but at least there's a entry point for you" update
+## [1.2.0] The "I don't like TypeScript, but at least there's an entry point for you" update
 
 - Created entry point for typescript. (So you can extend whatever this extension is.)
 
