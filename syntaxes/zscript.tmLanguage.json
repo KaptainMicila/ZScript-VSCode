@@ -115,12 +115,12 @@
                     "match": "\\b0[xX][0-9a-fA-F]+?\\b"
                 },
                 {
-                    "name": "constant.zscript",
-                    "match": "\\b[A-Z_0-9]+?\\b"
-                },
-                {
                     "name": "storage.type.zscript",
                     "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)[a-z0-9]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))(?:\\w+?))|\\b[a-z0-9]\\w*?(?=\\s+?\\w+?\\()\\b"
+                },
+                {
+                    "name": "constant.zscript",
+                    "match": "\\b[A-Z_0-9]+?\\b"
                 },
                 {
                     "name": "constant.language.boolean.zscript",
