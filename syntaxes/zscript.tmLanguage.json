@@ -97,15 +97,25 @@
                 {
                     "name": "punctuation.brackets.curly.zscript",
                     "match": "[{}]"
-                },
-                {
-                    "name": "constant.numeric.decimal.point.zscript",
-                    "match": "(?<=[\\d]?)\\.(?=[\\d])"
                 }
             ]
         },
         "types": {
             "patterns": [
+                {
+                    "match": "(\\d*?)(\\.)(\\d*?)",
+                    "captures": {
+                        "1": {
+                            "name": "constant.numeric.zscript"
+                        },
+                        "2": {
+                            "name": "constant.numeric.decimal.point.zscript"
+                        },
+                        "3": {
+                            "name": "constant.numeric.zscript"
+                        }
+                    }
+                },
                 {
                     "name": "constant.numeric.zscript",
                     "match": "\\b\\d+?\\b"
