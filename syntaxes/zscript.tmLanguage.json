@@ -158,7 +158,7 @@
             "patterns": [
                 {
                     "name": "entity.name.class.zscript",
-                    "match": "(?<=\\bclass\\s+?)\\w+?\\b|(?<=\\s*?:\\s*?)\\w+?\\b|(?<=\\bclass[<]\\s*?)\\w+?(?=\\s*?[>])"
+                    "match": "(?<=\\bclass\\s+?)\\w+?\\b|(?<=\\bclass[<]\\s*?)\\w+?(?=\\s*?[>])"
                 },
                 {
                     "name": "entity.name.class.property.zscript",
