@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.9.3] The "Ternary" update
+- Fixed: broken decimal point identification
+- Fixed: `:` character making everything after it a class (even if they weren't)
+- Added: `?` to the operators list
+
 ## [1.9.2] The "time goes on, but I'm still lazy" update
 - Fixed: `NULL` was seen as a constant instead of a keyword (like `null` does)
 - My thanks to [@DenisBelmondo](https://github.com/DenisBelmondo) for:
