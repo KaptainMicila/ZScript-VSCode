@@ -50,14 +50,14 @@
         "strings": {
             "patterns": [
                 {
-                    "name": "string.quoted.double.acs",
+                    "name": "string.quoted.double.mapinfolike",
                     "begin": "(?<!\\\\)\"",
                     "end": "(?<!\\\\)\""
                 },
                 {
-                    "name": "string.quoted.single.acs",
-                    "begin": "(?<!\\\\)'",
-                    "end": "(?<!\\\\)'"
+                    "name": "string.quoted.single.mapinfolike",
+                    "begin": "'",
+                    "end": "'"
                 }
             ]
         },
@@ -92,7 +92,7 @@
                     "match": "\\b\\d+?\\b"
                 },
                 {
-                    "name": "constant.numeric.decimal.point.zscript",
+                    "name": "constant.numeric.decimal.point.mapinfolike",
                     "match": "(?<=[\\d]?)\\.(?=[\\d])"
                 }
             ]

@@ -88,8 +88,8 @@
                 },
                 {
                     "name": "string.quoted.single.decorate",
-                    "begin": "(?<!\\\\)'",
-                    "end": "(?<!\\\\)'"
+                    "begin": "'",
+                    "end": "'"
                 }
             ]
         },

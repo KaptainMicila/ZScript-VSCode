@@ -53,8 +53,8 @@
                 },
                 {
                     "name": "string.quoted.single.acs",
-                    "begin": "(?<!\\\\)'",
-                    "end": "(?<!\\\\)'"
+                    "begin": "'",
+                    "end": "'"
                 }
             ]
         },
