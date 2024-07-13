@@ -42,6 +42,14 @@
             "match": "(?i)\\b(?:loop|stop|wait|fail|goto)\\b"
         },
         {
+            "name": "keyword.other.region.start.decorate",
+            "match": "\\#region.*$"
+        },
+        {
+            "name": "keyword.other.region.end.decorate",
+            "match": "\\#endregion.*$"
+        },
+        {
             "name": "entity.name.function.decorate",
             "match": "A_\\w+?\\b"
         },

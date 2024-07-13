@@ -11,6 +11,14 @@
                 {
                     "name": "constant.name.althud",
                     "match": "(?<=\\w+?\\s+?)\\w+?\\b"
+                },
+                {
+                    "name": "keyword.other.region.start.althud",
+                    "match": "\\#region.*$"
+                },
+                {
+                    "name": "keyword.other.region.end.althud",
+                    "match": "\\#endregion.*$"
                 }
             ]
         }

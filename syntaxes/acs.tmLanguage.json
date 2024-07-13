@@ -91,6 +91,14 @@
                 {
                     "name": "keyword.operator.acs",
                     "match": "(?:[*\\/%|=^~]=?|[+\\-<>&!]{1,2}=?|:)"
+                },
+                {
+                    "name": "keyword.other.region.start.acs",
+                    "match": "\\#region.*$"
+                },
+                {
+                    "name": "keyword.other.region.end.acs",
+                    "match": "\\#endregion.*$"
                 }
             ]
         },

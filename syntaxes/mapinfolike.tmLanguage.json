@@ -66,6 +66,14 @@
                 {
                     "name": "keyword.operator.mapinfolike",
                     "match": "\\="
+                },
+                {
+                    "name": "keyword.other.region.start.mapinfolike",
+                    "match": "\\#region.*$"
+                },
+                {
+                    "name": "keyword.other.region.end.mapinfolike",
+                    "match": "\\#endregion.*$"
                 }
             ]
         },

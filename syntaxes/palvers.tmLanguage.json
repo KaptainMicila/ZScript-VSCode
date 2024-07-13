@@ -3,6 +3,14 @@
     "name": "PALVERS",
     "patterns": [
         {
+            "name": "keyword.other.region.start.palvers",
+            "match": "\\#region.*$"
+        },
+        {
+            "name": "keyword.other.region.end.palvers",
+            "match": "\\#endregion.*$"
+        },
+        {
             "name": "variable.parameter.palvers",
             "match": "\\w+?\\b"
         }

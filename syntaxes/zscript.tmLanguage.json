@@ -147,6 +147,14 @@
                 {
                     "name": "keyword.control.directive.zscript",
                     "match": "\\b(?i:version|default|states)\\b"
+                },
+                {
+                    "name": "keyword.other.region.start.zscript",
+                    "match": "\\#region.*$"
+                },
+                {
+                    "name": "keyword.other.region.end.zscript",
+                    "match": "\\#endregion.*$"
                 }
             ]
         },
