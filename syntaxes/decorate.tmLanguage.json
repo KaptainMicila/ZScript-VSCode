@@ -91,39 +91,61 @@
             "patterns": [
                 {
                     "name": "string.quoted.double.decorate",
-                    "begin": "(?<!\\\\)\"",
-                    "end": "(?<!\\\\)\""
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.decorate"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.decorate"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#escapes"
+                        }
+                    ]
                 },
                 {
-                    "name": "string.quoted.single.decorate",
+                    "name": "string.quoted.single.char.decorate",
                     "begin": "'",
-                    "end": "'"
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.decorate"
+                        }
+                    },
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.decorate"
+                        }
+                    }
                 }
             ]
         },
-        "punctuation": {
-            "patterns": [
-                {
-                    "name": "punctuation.terminator.statement.decorate",
-                    "match": ";"
+        "escapes": {
+            "name": "constant.character.escape.decorate",
+            "match": "(\\\\)(?:(?:(x[0-7][\\da-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+            "captures": {
+                "1": {
+                    "name": "constant.character.escape.backslash.decorate"
                 },
-                {
-                    "name": "punctuation.brackets.round.decorate",
-                    "match": "[()]"
+                "2": {
+                    "name": "constant.character.escape.bit.decorate"
                 },
-                {
-                    "name": "punctuation.brackets.square.decorate",
-                    "match": "[\\[\\]]"
+                "3": {
+                    "name": "constant.character.escape.unicode.decorate"
                 },
-                {
-                    "name": "punctuation.brackets.curly.decorate",
-                    "match": "[{}]"
+                "4": {
+                    "name": "constant.character.escape.unicode.punctuation.decorate"
                 },
-                {
-                    "name": "constant.numeric.decimal.point.decorate",
-                    "match": "(?<=[\\d]?)\\.(?=[\\d])"
+                "5": {
+                    "name": "constant.character.escape.unicode.punctuation.decorate"
                 }
-            ]
+            }
         },
         "keywords": {
             "patterns": [
