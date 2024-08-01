@@ -1,9 +1,17 @@
 # Change Log
 
+## [1.9.4] The "I absolutely did NOT forget about this extension's existence" update
+- Added: support for "#region" blocks, due to GZDoom handling those
+- Added: support for "// region" and "// #region" comments blocks
+- Fixed: How the strings handled escaping sequences
+- Fixed: DECORATE aliased to ACS in the language selection menu, for some reason.
+- Fixed: char strings handled like normal strings
+- Fixed: "<" and ">" signs being threated as brackets even when used as operators
+
 ## [1.9.3] The "Ternary" update
 - Fixed: broken decimal point identification
 - Fixed: `:` character making everything after it a class (even if they weren't)
-- Added: `?` to the operators list
+- Added: `?` to the operators' list
 
 ## [1.9.2] The "time goes on, but I'm still lazy" update
 - Fixed: `NULL` was seen as a constant instead of a keyword (like `null` does)
@@ -12,7 +20,7 @@
   - Enhancing classes detection in `default` ([link](https://github.com/PROPHESSOR/GZDoom-Extension-VSCode/pull/7))
 
 ## [1.9.0] The "back to the roots" update
-- Deleted any trace of javascript, again.
+- Deleted any trace of JavaScript. Again.
 - Added syntax highlighting support for most [Special Lumps](https://zdoom.org/wiki/Special_lumps)
 
 ## [1.8.3] The "Bundler" update
@@ -20,13 +28,13 @@
 
 ## [1.8.2] The "ZScript on the GO" update
 
-- Restarted the project, again.
+- Restarted the project. Again.
 - Now the extension runs on the web version of vscode
 
 ## [1.8.0] The "Annother Rewrite" update
 
 - Rewrote the whole thing for not murdering "VSCode & Co." with huge files (LOC > 1000) and to look actually decent
-- Sneak peek for auto-complete (working this time, I swear: you can even try it if you know how compile this mess)
+- Sneak peek for auto-complete (working this time, I swear: you can even try it if you know how to compile this mess)
 - Some other fixes (and bugs) I forgot during the rewrite.
 
 ## [1.7.6] The "Classed4Nobody" update
@@ -72,15 +80,15 @@
 
 ## [1.6.1] The "Comments have value" update
 
-- Added comments support for file parsing (I'm gonna need it for context support)
+- Added comments support for file parsing (I'm going to need it for context support)
 - Added types for contextes (is it a class? An enum? A struct? ...)
 - Microfixes around the place
-- A little peek to what to do next (maybe)
+- A little peek at what to do next (maybe)
 
 ## [1.6.0] The "Kaptain can't program" update
 
 - Small fixes about folding in both ZScript and ACS
-- Really broken "open and closed curly brackets" checking, for your class/enum/structs making pleasure.
+- Really broken "open and closed curly brackets" checking for your class/enum/structs making pleasure.
 - Soon™ to come.
 
 ## [1.5.0] The "Script Types" update
@@ -139,10 +147,10 @@ script "Whatever" ENTER //<-- this one
     - Fixed "states" block ending, as they can have "anonymous functions inside"
 - Upgraded performance thanks to some regex magic!
 - Updated class highlighting (example 2)
-- Fixed the `default` and `states` blocks detection, again. (They won't be found in comments anymore)
+- Fixed the `default` and `states` blocks detection, again. (They won't be found in comments any more)
 - Fixed `default` blocks getting called `decorate` blocks in the token view
 - Removed a lot of hardcoded stuff
-- Changed highlighting type from `class` to `tag` for `Default` blocks' attributes
+- Changed the highlighting type from `class` to `tag` for `Default` blocks' attributes
 - Added enum support (example 3, but was it really required?)
 
 Examples:
