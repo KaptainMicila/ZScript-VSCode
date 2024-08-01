@@ -1,90 +1,57 @@
 {
     "comments": {
         "lineComment": "//",
-        "blockComment": [
-            "/*",
-            "*/"
-        ]
+        "blockComment": ["/*", "*/"]
     },
     "brackets": [
-        [
-            "{",
-            "}"
-        ],
-        [
-            "[",
-            "]"
-        ],
-        [
-            "(",
-            ")"
-        ]
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"]
     ],
     "autoClosingPairs": [
         {
             "open": "{",
             "close": "}",
-            "notIn": [
-                "comment",
-                "string"
-            ]
+            "notIn": ["comment", "string"]
         },
         {
             "open": "[",
             "close": "]",
-            "notIn": [
-                "comment",
-                "string"
-            ]
+            "notIn": ["comment", "string"]
         },
         {
             "open": "(",
             "close": ")",
-            "notIn": [
-                "comment",
-                "string"
-            ]
+            "notIn": ["comment", "string"]
         },
         {
             "open": "\"",
             "close": "\"",
-            "notIn": [
-                "comment",
-                "string"
-            ]
+            "notIn": ["comment", "string"]
         },
         {
             "open": "'",
             "close": "'",
-            "notIn": [
-                "comment",
-                "string"
-            ]
+            "notIn": ["comment", "string"]
         }
     ],
+    "autoCloseBefore": ";:.,=}])>` \n\t",
     "surroundingPairs": [
-        {
-            "open": "{",
-            "close": "}"
-        },
-        {
-            "open": "[",
-            "close": "]"
-        },
-        {
-            "open": "(",
-            "close": ")"
-        },
-        {
-            "open": "\"",
-            "close": "\""
-        },
-        {
-            "open": "'",
-            "close": "'"
-        }
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["'", "'"],
+        ["\"", "\""]
     ],
+    "folding": {
+        "markers": {
+            "start": "^\\s*(//\\s*)?(\\#)?region\\b",
+            "end": "^\\s*(//\\s*)?(\\#)?endregion\\b"
+        }
+    },
+    "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
     "indentationRules": {
-        "increaseIndentPattern": "[{}]"
+        "increaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$",
+        "decreaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*[\\)\\}\\]].*$"
     }
 }

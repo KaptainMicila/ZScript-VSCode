@@ -13,6 +13,14 @@
             "include": "source.mapinfolike#numbers"
         },
         {
+            "name": "keyword.other.region.start.defcvars",
+            "match": "\\#region.*$"
+        },
+        {
+            "name": "keyword.other.region.end.defcvars",
+            "match": "\\#endregion.*$"
+        },
+        {
             "name": "variable.defcvars",
             "match": "\\b\\w+?\\b"
         }

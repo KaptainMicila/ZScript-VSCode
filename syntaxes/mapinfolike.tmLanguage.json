@@ -50,22 +50,76 @@
         "strings": {
             "patterns": [
                 {
-                    "name": "string.quoted.double.acs",
-                    "begin": "(?<!\\\\)\"",
-                    "end": "(?<!\\\\)\""
+                    "name": "string.quoted.double.mapinfolike",
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.mapinfolike"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.mapinfolike"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#escapes"
+                        }
+                    ]
                 },
                 {
-                    "name": "string.quoted.single.acs",
-                    "begin": "(?<!\\\\)'",
-                    "end": "(?<!\\\\)'"
+                    "name": "string.quoted.single.char.mapinfolike",
+                    "begin": "'",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.mapinfolike"
+                        }
+                    },
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.mapinfolike"
+                        }
+                    }
                 }
             ]
+        },
+        "escapes": {
+            "name": "constant.character.escape.mapinfolike",
+            "match": "(\\\\)(?:(?:(x[0-7][\\da-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+            "captures": {
+                "1": {
+                    "name": "constant.character.escape.backslash.mapinfolike"
+                },
+                "2": {
+                    "name": "constant.character.escape.bit.mapinfolike"
+                },
+                "3": {
+                    "name": "constant.character.escape.unicode.mapinfolike"
+                },
+                "4": {
+                    "name": "constant.character.escape.unicode.punctuation.mapinfolike"
+                },
+                "5": {
+                    "name": "constant.character.escape.unicode.punctuation.mapinfolike"
+                }
+            }
         },
         "symbols": {
             "patterns": [
                 {
                     "name": "keyword.operator.mapinfolike",
                     "match": "\\="
+                },
+                {
+                    "name": "keyword.other.region.start.mapinfolike",
+                    "match": "\\#region.*$"
+                },
+                {
+                    "name": "keyword.other.region.end.mapinfolike",
+                    "match": "\\#endregion.*$"
                 }
             ]
         },
@@ -92,7 +146,7 @@
                     "match": "\\b\\d+?\\b"
                 },
                 {
-                    "name": "constant.numeric.decimal.point.zscript",
+                    "name": "constant.numeric.decimal.point.mapinfolike",
                     "match": "(?<=[\\d]?)\\.(?=[\\d])"
                 }
             ]

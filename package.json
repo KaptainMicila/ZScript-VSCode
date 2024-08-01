@@ -4,7 +4,7 @@
     "description": "GZDoom's multiple scripting languages support (with a focus on ZScript) for VSCode (and compatible editors)",
     "publisher": "kaptainmicila",
     "icon": "icons/GZDoom.png",
-    "version": "1.9.3",
+    "version": "1.9.4",
     "repository": {
         "type": "git",
         "url": "https://github.com/KaptainMicila/ZScript-VSCode.git"
@@ -49,8 +49,6 @@
                 "aliases": [
                     "DECORATE",
                     "decorate",
-                    "acs",
-                    "ACS",
                     "zdoomDecorate",
                     "gzdoomDecorate"
                 ],
@@ -761,12 +759,12 @@
     },
     "author": {
         "name": "Micila \"Kaptain\" Micillotto",
-        "email": "micillotto+support@gmail.com",
+        "email": "micillotto+zdoomsupport@gmail.com",
         "url": "https://kaptainmicila.itch.io/"
     },
     "bugs": {
         "url": "https://github.com/KaptainMicila/ZScript-VSCode/issues",
-        "email": "micillotto+support@gmail.com"
+        "email": "micillotto+zdoomsupport@gmail.com"
     },
     "homepage": "https://github.com/KaptainMicila/ZScript-VSCode",
     "license": "MIT",

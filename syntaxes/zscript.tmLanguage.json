@@ -70,15 +70,61 @@
             "patterns": [
                 {
                     "name": "string.quoted.double.zscript",
-                    "begin": "(?<!\\\\)\"",
-                    "end": "(?<!\\\\)\""
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.zscript"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.zscript"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#escapes"
+                        }
+                    ]
                 },
                 {
-                    "name": "string.quoted.single.zscript",
-                    "begin": "(?<!\\\\)'",
-                    "end": "(?<!\\\\)'"
+                    "name": "string.quoted.single.char.zscript",
+                    "begin": "'",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.zscript"
+                        }
+                    },
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.zscript"
+                        }
+                    }
                 }
             ]
+        },
+        "escapes": {
+            "name": "constant.character.escape.zscript",
+            "match": "(\\\\)(?:(?:(x[0-7][\\da-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+            "captures": {
+                "1": {
+                    "name": "constant.character.escape.backslash.zscript"
+                },
+                "2": {
+                    "name": "constant.character.escape.bit.zscript"
+                },
+                "3": {
+                    "name": "constant.character.escape.unicode.zscript"
+                },
+                "4": {
+                    "name": "constant.character.escape.unicode.punctuation.zscript"
+                },
+                "5": {
+                    "name": "constant.character.escape.unicode.punctuation.zscript"
+                }
+            }
         },
         "punctuation": {
             "patterns": [
@@ -147,6 +193,14 @@
                 {
                     "name": "keyword.control.directive.zscript",
                     "match": "\\b(?i:version|default|states)\\b"
+                },
+                {
+                    "name": "keyword.other.region.start.zscript",
+                    "match": "\\#region.*$"
+                },
+                {
+                    "name": "keyword.other.region.end.zscript",
+                    "match": "\\#endregion.*$"
                 }
             ]
         },

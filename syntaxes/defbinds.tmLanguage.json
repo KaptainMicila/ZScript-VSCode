@@ -17,6 +17,14 @@
             "include": "source.mapinfolike#numbers"
         },
         {
+            "name": "keyword.other.region.start.defbinds",
+            "match": "\\#region.*$"
+        },
+        {
+            "name": "keyword.other.region.end.defbinds",
+            "match": "\\#endregion.*$"
+        },
+        {
             "name": "variable.parameter.defbinds",
             "match": "(?<=\\s+?).+?(?=\\s*?$)"
         }

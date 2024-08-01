@@ -6,6 +6,14 @@
             "include": "source.mapinfolike#numbers"
         },
         {
+            "name": "keyword.other.region.start.dmxgus",
+            "match": "\\#region.*$"
+        },
+        {
+            "name": "keyword.other.region.end.dmxgus",
+            "match": "\\#endregion.*$"
+        },
+        {
             "name": "variable.parameter.dmxgus",
             "match": "\\b\\w+?\\b"
         }

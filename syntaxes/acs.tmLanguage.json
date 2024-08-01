@@ -48,39 +48,61 @@
             "patterns": [
                 {
                     "name": "string.quoted.double.acs",
-                    "begin": "(?<!\\\\)\"",
-                    "end": "(?<!\\\\)\""
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.acs"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.acs"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#escapes"
+                        }
+                    ]
                 },
                 {
-                    "name": "string.quoted.single.acs",
-                    "begin": "(?<!\\\\)'",
-                    "end": "(?<!\\\\)'"
+                    "name": "string.quoted.single.char.acs",
+                    "begin": "'",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.acs"
+                        }
+                    },
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.acs"
+                        }
+                    }
                 }
             ]
         },
-        "punctuation": {
-            "patterns": [
-                {
-                    "name": "punctuation.terminator.statement.acs",
-                    "match": ";"
+        "escapes": {
+            "name": "constant.character.escape.acs",
+            "match": "(\\\\)(?:(?:(x[0-7][\\da-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+            "captures": {
+                "1": {
+                    "name": "constant.character.escape.backslash.acs"
                 },
-                {
-                    "name": "punctuation.brackets.round.acs",
-                    "match": "[()]"
+                "2": {
+                    "name": "constant.character.escape.bit.acs"
                 },
-                {
-                    "name": "punctuation.brackets.square.acs",
-                    "match": "[\\[\\]]"
+                "3": {
+                    "name": "constant.character.escape.unicode.acs"
                 },
-                {
-                    "name": "punctuation.brackets.curly.acs",
-                    "match": "[{}]"
+                "4": {
+                    "name": "constant.character.escape.unicode.punctuation.acs"
                 },
-                {
-                    "name": "constant.numeric.decimal.point.acs",
-                    "match": "(?<=[\\d]?)\\.(?=[\\d])"
+                "5": {
+                    "name": "constant.character.escape.unicode.punctuation.acs"
                 }
-            ]
+            }
         },
         "keywords": {
             "patterns": [
@@ -91,6 +113,14 @@
                 {
                     "name": "keyword.operator.acs",
                     "match": "(?:[*\\/%|=^~]=?|[+\\-<>&!]{1,2}=?|:)"
+                },
+                {
+                    "name": "keyword.other.region.start.acs",
+                    "match": "\\#region.*$"
+                },
+                {
+                    "name": "keyword.other.region.end.acs",
+                    "match": "\\#endregion.*$"
                 }
             ]
         },
