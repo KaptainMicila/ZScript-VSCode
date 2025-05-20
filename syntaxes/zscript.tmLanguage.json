@@ -274,6 +274,9 @@
                             "end": "(?=$|;)",
                             "patterns": [
                                 {
+                                    "include": "#comments"
+                                },
+                                {
                                     "match": "\\b(\\w+?)\\b\\s*?(?=\\.)",
                                     "captures": {
                                         "1": {
