@@ -2,50 +2,21 @@
     "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
     "name": "ZScript",
     "patterns": [
-        {
-            "include": "#comments"
-        },
-        {
-            "include": "#keywords"
-        },
-        {
-            "include": "#blocks"
-        },
-        {
-            "include": "#strings"
-        },
-        {
-            "include": "#punctuation"
-        },
-        {
-            "include": "#directives"
-        },
-        {
-            "include": "#functions"
-        },
-        {
-            "include": "#types"
-        },
-        {
-            "include": "#variable"
-        },
-        {
-            "include": "#states"
-        }
+        { "include": "#default" }
     ],
     "repository": {
         "comments": {
             "patterns": [
                 {
                     "name": "comment.line.double-slash.zscript",
-                    "begin": "\\/\\/",
+                    "begin": "//",
                     "end": "$",
                     "contentName": "comment.line.double-slash.text.zscript"
                 },
                 {
                     "name": "comment.block.zscript",
-                    "begin": "\\/\\*",
-                    "end": "\\*\\/",
+                    "begin": "/\\*",
+                    "end": "\\*/",
                     "contentName": "comment.block.text.zscript"
                 }
             ]
@@ -58,7 +29,7 @@
                 },
                 {
                     "name": "keyword.operator.zscript",
-                    "match": "(?:-[-=]?|!=?|\\+[+=]?|~(?:==)?|\\*[*=]?|\\/=?|%=?|<(?:<|>?=)?|>(?:>(?:>|=)?|=)?|\\.\\.?|==?|&[&=]?|\\?|\\|[|=]?|\\^=?|::?)|\\b(?:alignof|sizeof|cross|dot|is)\\b"
+                    "match": "(?:-[-=]?|!=?|\\+[+=]?|~(?:==)?|\\*[*=]?|/=?|%=?|<(?:<|>?=)?|>(?:>[>=]?|=)?|\\.\\.?|==?|&[\\&=]?|\\?|\\|[|=]?|\\^=?|::?)|\\b(?:alignof|sizeof|cross|dot|is)\\b"
                 },
                 {
                     "name": "keyword.other.zscript",
@@ -71,59 +42,29 @@
                 {
                     "name": "string.quoted.double.zscript",
                     "begin": "\"",
-                    "beginCaptures": {
-                        "0": {
-                            "name": "punctuation.definition.string.zscript"
-                        }
-                    },
+                    "beginCaptures": { "0": { "name": "punctuation.definition.string.zscript" } },
                     "end": "\"",
-                    "endCaptures": {
-                        "0": {
-                            "name": "punctuation.definition.string.zscript"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#escapes"
-                        }
-                    ]
+                    "endCaptures": { "0": { "name": "punctuation.definition.string.zscript" } },
+                    "patterns": [ { "include": "#escapes" } ]
                 },
                 {
                     "name": "string.quoted.single.char.zscript",
                     "begin": "'",
-                    "beginCaptures": {
-                        "0": {
-                            "name": "punctuation.definition.char.zscript"
-                        }
-                    },
+                    "beginCaptures": { "0": { "name": "punctuation.definition.char.zscript" } },
                     "end": "'",
-                    "endCaptures": {
-                        "0": {
-                            "name": "punctuation.definition.char.zscript"
-                        }
-                    }
+                    "endCaptures": { "0": { "name": "punctuation.definition.char.zscript" } }
                 }
             ]
         },
         "escapes": {
             "name": "constant.character.escape.zscript",
-            "match": "(\\\\)(?:(?:(x[0-7][\\da-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+            "match": "(\\\\)(?:(x[0-7][\\da-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(}))|.)",
             "captures": {
-                "1": {
-                    "name": "constant.character.escape.backslash.zscript"
-                },
-                "2": {
-                    "name": "constant.character.escape.bit.zscript"
-                },
-                "3": {
-                    "name": "constant.character.escape.unicode.zscript"
-                },
-                "4": {
-                    "name": "constant.character.escape.unicode.punctuation.zscript"
-                },
-                "5": {
-                    "name": "constant.character.escape.unicode.punctuation.zscript"
-                }
+                "1": { "name": "constant.character.escape.backslash.zscript" },
+                "2": { "name": "constant.character.escape.bit.zscript" },
+                "3": { "name": "constant.character.escape.unicode.zscript" },
+                "4": { "name": "constant.character.escape.unicode.punctuation.zscript" },
+                "5": { "name": "constant.character.escape.unicode.punctuation.zscript" }
             }
         },
         "punctuation": {
@@ -151,15 +92,9 @@
                 {
                     "match": "(\\d*?)(\\.)(\\d*?)",
                     "captures": {
-                        "1": {
-                            "name": "constant.numeric.zscript"
-                        },
-                        "2": {
-                            "name": "constant.numeric.decimal.point.zscript"
-                        },
-                        "3": {
-                            "name": "constant.numeric.zscript"
-                        }
+                        "1": { "name": "constant.numeric.zscript" },
+                        "2": { "name": "constant.numeric.decimal.point.zscript" },
+                        "3": { "name": "constant.numeric.zscript" }
                     }
                 },
                 {
@@ -168,11 +103,11 @@
                 },
                 {
                     "name": "constant.hexadecimal.zscript",
-                    "match": "\\b0[xX][0-9a-fA-F]+?\\b"
+                    "match": "\\b0[xX]\\h+?\\b"
                 },
                 {
                     "name": "storage.type.zscript",
-                    "match": "\\b(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|\\b(?<!\\.)[a-z0-9]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))(?:\\w+?))|\\b[a-z0-9]\\w*?(?=\\s+?\\w+?\\()\\b"
+                    "match": "\\b(?:(?i:null|void|class|array|bool|const|enum|struct|mixin)\\b|(?<!\\.)[a-z0-9]+?(?=\\s(?!(?:alignof|sizeof|cross|dot|is|true|false))\\w+?)|[a-z0-9]\\w*?(?=\\s+?\\w+?\\()\\b)"
                 },
                 {
                     "name": "constant.zscript",
@@ -188,7 +123,7 @@
             "patterns": [
                 {
                     "name": "keyword.control.include.zscript",
-                    "match": "^\\#include\\b"
+                    "match": "^#include\\b"
                 },
                 {
                     "name": "keyword.control.directive.zscript",
@@ -196,11 +131,11 @@
                 },
                 {
                     "name": "keyword.other.region.start.zscript",
-                    "match": "\\#region.*$"
+                    "match": "#region.*$"
                 },
                 {
                     "name": "keyword.other.region.end.zscript",
-                    "match": "\\#endregion.*$"
+                    "match": "#endregion.*$"
                 }
             ]
         },
@@ -212,7 +147,7 @@
             "patterns": [
                 {
                     "name": "entity.name.class.zscript",
-                    "match": "(?<=\\bclass\\s+?)\\w+?\\b|(?<=\\bclass[<]\\s*?)\\w+?(?=\\s*?[>])"
+                    "match": "(?<=\\bclass\\s+?)\\w+?\\b|(?<=\\bclass<\\s*?)\\w+?(?=\\s*?>)"
                 },
                 {
                     "name": "entity.name.class.property.zscript",
@@ -229,7 +164,7 @@
                 {
                     "name": "entity.name.class.dynamic.array.zscript",
                     "begin": "(?i)(?<=array<)",
-                    "end": "(?=(?<![^<]\\W+?)[>])",
+                    "end": "(?=(?<![^<]\\W+?)>)",
                     "patterns": [
                         {
                             "name": "storage.type.class.zscript",
@@ -255,7 +190,7 @@
                 },
                 {
                     "name": "variable.other.readwrite.zscript",
-                    "match": "\\b[a-z0-9]\\w*?(?:\\[.*?\\])??\\b"
+                    "match": "\\b[a-z0-9]\\w*?(?:\\[.*?])??\\b"
                 }
             ]
         },
@@ -266,61 +201,33 @@
                     "begin": "(?i)(?<=^\\s*?\\bdefault\\b)",
                     "end": "(?=})",
                     "patterns": [
+                        { "include": "#comments" },
                         {
-                            "include": "#comments"
-                        },
-                        {
-                            "begin": "(?<=[\\+\\-])",
+                            "begin": "(?<=[+-])",
                             "end": "(?=$|;)",
                             "patterns": [
-                                {
-                                    "include": "#comments"
-                                },
+                                { "include": "#comments" },
                                 {
                                     "match": "\\b(\\w+?)\\b\\s*?(?=\\.)",
-                                    "captures": {
-                                        "1": {
-                                            "name": "entity.name.class.zscript"
-                                        }
-                                    }
+                                    "captures": { "1": { "name": "entity.name.class.zscript" } }
                                 },
                                 {
                                     "match": "\\b(\\w+?)\\b",
-                                    "captures": {
-                                        "1": {
-                                            "name": "entity.name.tag.attribute.zscript"
-                                        }
-                                    }
+                                    "captures": { "1": { "name": "entity.name.tag.attribute.zscript" } }
                                 }
                             ]
                         },
-                        {
-                            "include": "#types"
-                        },
-                        {
-                            "include": "#strings"
-                        },
-                        {
-                            "include": "#punctuation"
-                        },
-                        {
-                            "include": "#keywords"
-                        },
+                        { "include": "#types" },
+                        { "include": "#strings" },
+                        { "include": "#punctuation" },
+                        { "include": "#keywords" },
                         {
                             "match": "\\b(\\w+?)\\b\\s*?(?=\\.)",
-                            "captures": {
-                                "1": {
-                                    "name": "entity.name.class.zscript"
-                                }
-                            }
+                            "captures": { "1": { "name": "entity.name.class.zscript" } }
                         },
                         {
                             "match": "\\b(\\w+?)\\b",
-                            "captures": {
-                                "1": {
-                                    "name": "variable.property.zscript"
-                                }
-                            }
+                            "captures": { "1": { "name": "variable.property.zscript" } }
                         }
                     ]
                 },
@@ -329,21 +236,11 @@
                     "begin": "(?i)(?<=^\\s*?\\bstates\\b)",
                     "end": "(?=})",
                     "patterns": [
-                        {
-                            "include": "#comments"
-                        },
-                        {
-                            "include": "#punctuation"
-                        },
-                        {
-                            "include": "#strings"
-                        },
-                        {
-                            "include": "#keywords"
-                        },
-                        {
-                            "include": "#functions"
-                        },
+                        { "include": "#comments" },
+                        { "include": "#punctuation" },
+                        { "include": "#strings" },
+                        { "include": "#keywords" },
+                        { "include": "#functions" },
                         {
                             "name": "entity.name.class.state.zscript",
                             "match": "\\b\\w+?(?=:$)"
@@ -364,9 +261,7 @@
                             "name": "entity.name.function.zscript",
                             "match": "A_\\w+?\\b"
                         },
-                        {
-                            "include": "#types"
-                        },
+                        { "include": "#types" },
                         {
                             "name": "variable.other.zscript",
                             "match": "\\b\\w+?\\b"
@@ -382,23 +277,27 @@
                             "name": "constant.enum.value.zscript",
                             "match": "\\b\\w+?\\b"
                         },
-                        {
-                            "include": "#punctuation"
-                        },
-                        {
-                            "include": "#comments"
-                        },
-                        {
-                            "include": "#keywords"
-                        },
-                        {
-                            "include": "#strings"
-                        },
-                        {
-                            "include": "#types"
-                        }
+                        { "include": "#punctuation" },
+                        { "include": "#comments" },
+                        { "include": "#keywords" },
+                        { "include": "#strings" },
+                        { "include": "#types" }
                     ]
                 }
+            ]
+        },
+        "default": {
+            "patterns": [
+                { "include": "#comments" },
+                { "include": "#keywords" },
+                { "include": "#blocks" },
+                { "include": "#strings" },
+                { "include": "#punctuation" },
+                { "include": "#directives" },
+                { "include": "#functions" },
+                { "include": "#types" },
+                { "include": "#variable" },
+                { "include": "#states" }
             ]
         }
     },
