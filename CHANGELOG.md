@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.9.5] The "yearly microscopic tweaks" update
+- Fixed: broken comments detection
+- Tweak: optimized regex rules
+- Added: extension recommendation for a vscode extension I found useful
+
 ## [1.9.4] The "I absolutely did NOT forget about this extension's existence" update
 - Added: support for "#region" blocks, due to GZDoom handling those
 - Added: support for "// region" and "// #region" comments blocks
