@@ -8,6 +8,14 @@
 
 ---
 
+# ARCHIVED
+
+I simply moved on.
+
+If you want something with more features and better maintained, use the [Visual Studio Code extension for UZDoom](https://github.com/UZDoom/UZDoom-VSCode).
+
+---
+
 ## [GZDoom's](https://zdoom.org/index) [ZScript](https://zdoom.org/wiki/ZScript) language support for [VSCode](https://code.visualstudio.com/) (and compatible editors).
 
 Made with the help from:
