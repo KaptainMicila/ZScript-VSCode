@@ -3,7 +3,6 @@
 
 <p align="center">
 <img src="https://img.shields.io/github/stars/KaptainMicila/ZScript-VSCode?style=for-the-badge">
-<img src="https://img.shields.io/badge/%20%F0%9F%8D%95%20DONATE%20PIZZA-4%20%E2%82%AC-important?style=for-the-badge&link=https://www.buymeacoffee.com/KaptainMicila">
 </p>
 
 ---
